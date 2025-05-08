@@ -7,6 +7,7 @@ public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
 	private InputFileProcessor InputFileProcessor = new InputFileProcessor();
+	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
 	public Menu() {
 
@@ -71,6 +72,7 @@ public class Menu {
 	
 	
 	private void mapFile() {
+		EncodingFileProcessor.parseEncoding("./encodings-10000.csv");
 		System.out.println("map");
 	}
 	private void textFile() {

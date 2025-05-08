@@ -9,17 +9,13 @@ public class InputFileProcessor {
 	
 	
 	public void readFile() {
-
-
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 	
 			while((line = br.readLine()) != null) {
 				
-					System.out.println(line);
-				
-				
+					System.out.println(line);	
 			}
 			
 			br.close();

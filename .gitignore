@@ -7,6 +7,9 @@
 #Txt Files
 *.txt
 
+#CSV Files
+*.csv
+
 # BlueJ files
 *.ctxt
 
