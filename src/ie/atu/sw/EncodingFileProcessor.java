@@ -14,8 +14,10 @@ public class EncodingFileProcessor {
 	}
 
 	public void parseEncoding(String fileName) {
+		
 		String line = null;
 		int index = 0;
+		
 		try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File (fileName)))))
 		{
 			while((line = br.readLine()) != null) {
@@ -35,7 +37,7 @@ public class EncodingFileProcessor {
 			System.out.println(e.getStackTrace());
 		}
 		
-		// For in loop or for each loop. Doesn't have indexing 
+		// Nested for loop to test that the file was being parsed correctly
 		for(int rows = 0; rows < encodings.length; rows++) {
 			for (int cols = 0; cols < 2; cols++) {
 				System.out.println(encodings[rows][cols]);
