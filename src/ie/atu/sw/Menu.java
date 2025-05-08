@@ -75,10 +75,11 @@ public class Menu {
 		EncodingFileProcessor.parseEncoding("./encodings-10000.csv");
 		System.out.println("map");
 	}
+	
+	
 	private void textFile() {
 		InputFileProcessor.readFile();
 		System.out.println("Import Text File");	
-		
 	}
 		
 	private void outputFile() {
