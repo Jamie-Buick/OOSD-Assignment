@@ -11,7 +11,7 @@ public class Menu {
 		s = new Scanner(System.in);
 	}
 
-	public void start() throws Exception {
+	public void start() {
 		while (keepRunning) {
 			showOptions();
 
@@ -32,8 +32,7 @@ public class Menu {
 		}
 	}
 
-	private void showOptions() throws Exception {
-		// You should put the following code into a menu or Menu class
+	private void showOptions()  {
 		System.out.println(ConsoleColour.WHITE);
 		System.out.println("************************************************************");
 		System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
@@ -56,7 +55,7 @@ public class Menu {
 		System.out.println();
 
 		
-		/*
+		/* Probably add this into encoding / decoding sections where something is actually done
 		// You may want to include a progress meter in you assignment!
 		System.out.print(ConsoleColour.YELLOW); // Change the colour of the console text
 		int size = 100; // The size of the meter. 100 equates to 100%
