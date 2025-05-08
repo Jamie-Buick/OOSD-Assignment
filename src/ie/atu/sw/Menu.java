@@ -6,8 +6,10 @@ import static java.lang.System.out;
 public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
+	private InputFileProcessor InputFileProcessor = new InputFileProcessor();
 
 	public Menu() {
+
 		s = new Scanner(System.in);
 	}
 
@@ -72,7 +74,9 @@ public class Menu {
 		System.out.println("map");
 	}
 	private void textFile() {
-		System.out.println("text");	
+		InputFileProcessor.readFile();
+		System.out.println("Import Text File");	
+		
 	}
 		
 	private void outputFile() {
