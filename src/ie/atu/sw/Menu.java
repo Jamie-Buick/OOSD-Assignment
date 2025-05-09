@@ -1,11 +1,13 @@
 package ie.atu.sw;
 
 import java.util.Scanner;
+import java.io.File;
 import static java.lang.System.out;
 
 public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
+	private int userInput;
 	private InputFileProcessor InputFileProcessor = new InputFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
@@ -69,16 +71,44 @@ public class Menu {
 		*/
 	}
 	
+	private String changeFilePath() {
+
+			String filePath = s.nextLine(); 
+			
+			while(validateFilePath(filePath) != true) 
+			{
+				System.out.println("Enter a valid the file path>");
+				filePath = s.nextLine(); 
+			
+			}
+	
+			
+		return filePath;
+	}
+	
+	
+	
+	private boolean validateFilePath(String s) {
+		File fp = new File(s);
+		
+		if (fp.exists()) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 	private void mapFile() {
-		EncodingFileProcessor.parseEncoding("./encodings-10000.csv");
-		System.out.println("map");
+		String filePath = changeFilePath();
+		EncodingFileProcessor.parseEncoding(filePath);
+		System.out.println(filePath);
 	}
 	
 	
 	private void textFile() {
-		InputFileProcessor.readFile();
+		String filePath = changeFilePath();
+		InputFileProcessor.readFile(filePath);
 		System.out.println("Import Text File");	
 	}
 		

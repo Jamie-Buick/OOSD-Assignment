@@ -4,14 +4,13 @@ import java.io.*;
 
 // Processing of input files
 public class InputFileProcessor {
-	String file = "./PictureOfDorianGrayWilde.txt";
 	String line = null;
 	
 	
-	public void readFile() {
+	public void readFile(String filePath) {
 		try 
 		{
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 	
 			while((line = br.readLine()) != null) {
 				
@@ -20,7 +19,6 @@ public class InputFileProcessor {
 			
 			br.close();
 	
-			
 		}
 		catch(Exception e)
 		{
@@ -29,7 +27,6 @@ public class InputFileProcessor {
 		
 		
 
-	}
-	
+	}	
 	
 }
