@@ -71,32 +71,33 @@ public class Menu {
 		*/
 	}
 	
+	
+	// Allows the user to enter a file path for options 1-2, it is then checked that it exists using the validateFilePath method
 	private String changeFilePath() {
 
 			String filePath = s.nextLine(); 
 			
-			while(validateFilePath(filePath) != true) 
+			while(validateFilePath(filePath) != true ) 
 			{
 				System.out.println("Enter a valid the file path>");
 				filePath = s.nextLine(); 
 			
 			}
 	
-			
 		return filePath;
 	}
 	
 	
-	
+	// Checks that the file path actually exists 
 	private boolean validateFilePath(String s) {
 		File fp = new File(s);
 		
 		if (fp.exists()) {
 			return true;
 		}
-		
 		return false;
 	}
+	
 	
 	
 	private void mapFile() {
