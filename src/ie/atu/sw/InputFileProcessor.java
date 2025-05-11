@@ -8,13 +8,19 @@ public class InputFileProcessor {
 	
 	
 	public void readFile(String filePath) {
+		filePath = "./HappyPrinceWilde.txt";
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 	
 			while((line = br.readLine()) != null) {
+					
+				String[] words = line.split(" ");
 				
-					System.out.println(line);	
+					for (String word : words) {
+						word = word.strip().replaceAll("[^a-zA-Z ]", "");
+						System.out.println(word);
+					}
 			}
 			
 			br.close();

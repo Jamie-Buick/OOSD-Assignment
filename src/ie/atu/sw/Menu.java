@@ -11,6 +11,10 @@ public class Menu {
 	private InputFileProcessor InputFileProcessor = new InputFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
+	String filePathMap;
+	String filePathText;
+	
+	
 	public Menu() {
 
 		s = new Scanner(System.in);
@@ -101,16 +105,16 @@ public class Menu {
 	
 	
 	private void mapFile() {
-		String filePath = changeFilePath();
-		EncodingFileProcessor.parseEncoding(filePath);
-		System.out.println(filePath);
+		filePathMap = changeFilePath();
+		EncodingFileProcessor.parseEncoding(filePathMap);
+		System.out.println(filePathMap);
 	}
 	
 	
 	private void textFile() {
-		String filePath = changeFilePath();
-		InputFileProcessor.readFile(filePath);
-		System.out.println("Import Text File");	
+		filePathText = changeFilePath();
+		//InputFileProcessor.readFile(filePathText);
+		System.out.println(filePathText);	
 	}
 		
 	private void outputFile() {
@@ -122,6 +126,7 @@ public class Menu {
 	}
 	
 	private void encode() {
+		InputFileProcessor.readFile(filePathText);
 		System.out.println("encode");
 	}
 	
