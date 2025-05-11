@@ -5,14 +5,12 @@ import java.io.*;
 // Processing of input files
 public class InputFileProcessor {
 	
-	private EncoderDecoder EncoderDecoder = new EncoderDecoder();
+	//private EncoderDecoder EncoderDecoder;
 	String line = null;
 	
-	
-	
+
 	
 	public void readFile(String filePath) {
-		filePath = "./HappyPrinceWilde.txt";
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
