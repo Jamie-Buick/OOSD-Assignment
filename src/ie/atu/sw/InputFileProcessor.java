@@ -4,7 +4,11 @@ import java.io.*;
 
 // Processing of input files
 public class InputFileProcessor {
+	
+	private EncoderDecoder EncoderDecoder = new EncoderDecoder();
 	String line = null;
+	
+	
 	
 	
 	public void readFile(String filePath) {
@@ -19,7 +23,9 @@ public class InputFileProcessor {
 				
 					for (String word : words) {
 						word = word.strip().replaceAll("[^a-zA-Z ]", "");
-						System.out.println(word);
+						EncoderDecoder.encode(word);
+						// I can now call the encodingdecoding class here because I have individual words
+						//System.out.println(word);
 					}
 			}
 			

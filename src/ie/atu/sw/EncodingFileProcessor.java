@@ -8,13 +8,10 @@ import java.io.InputStreamReader;
 public class EncodingFileProcessor {
 	
 	private String[][] encodings = new String[10000][2];
-
-	public EncodingFileProcessor() {
-		
-	}
-
+	
+	
 	public void parseEncoding(String fileName) {
-		
+		fileName = "./encodings-10000.csv";
 		String line = null;
 		int index = 0;
 		
@@ -45,6 +42,11 @@ public class EncodingFileProcessor {
 			System.out.println("");
 		}
 	}
+	
+
+	   public String[][] getEncodings() {
+	        return encodings;
+	    }
 	
 	
 	
