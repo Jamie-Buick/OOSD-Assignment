@@ -3,7 +3,7 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 	
-	public static String[] encodedWords = new String[10];
+	public static String[] encodedWords = new String[15];
 	
 	public static void encode(String s) {
 		int counter = 0;
@@ -25,7 +25,7 @@ public class EncoderDecoder {
 		
 		
 		
-		for (int i = 0; i < encodedWords.length; i++)
+		for (int i = 0; i < counter; i++)
 		{
 			System.out.println(encodedWords[i]);
 		}
