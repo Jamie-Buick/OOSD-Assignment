@@ -8,80 +8,97 @@ public class EncoderDecoder {
 	public static void encode(String s) {
 		int counter = 0;
 
-		String nextMatch = null;
-		String matchedEncoding = null;
+		String fullMatch = null;
+		String fullMatchEncoding = null;
+		
+		String nextPrefixMatch = null;
+		String matchedPrefixEncoding = null;
+		
+		String nextSuffixMatch = null;
+		String matchedSuffixEncoding = null;
+
 
 		for(int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 			
 			String match = EncodingFileProcessor.getEncodings()[rows][0];
 			String encoded = EncodingFileProcessor.getEncodings()[rows][1];
 
+		
 			if(EncodingFileProcessor.getEncodings()[rows][0].equals(s)) 
 			{
-				encodedWords[counter] = encoded;
+				fullMatch = match;
+				fullMatchEncoding = encoded;
+				//System.out.println(match + "" + encoded);
 				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
-				counter++;
-
-				break;
+			
+			
 			}
-
+			
+				
 			if (s.startsWith(EncodingFileProcessor.getEncodings()[rows][0]))
 			{
-				if(nextMatch == null || match.length() > nextMatch.length())
+				if(nextPrefixMatch == null || match.length() > nextPrefixMatch.length())
 				{
-					nextMatch = match;
-					matchedEncoding = encoded;
-
+					nextPrefixMatch = match;
+					matchedPrefixEncoding = encoded;
+	
 				}
-
-
+			}
+		
+				
+				
+			if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
+			{
+				String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
+				
+				if (s.endsWith(prefixStrip))
+				{
+				
+					if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
+					{
+						nextSuffixMatch = match;
+						matchedSuffixEncoding = encoded;
+					}
+				}
+			}
+			
+		
+		}
+		
+		if (fullMatch != null) 
+		{
+			encodedWords[counter] = fullMatchEncoding;
+			counter++;
+		}
+		else
+		{
+			if(nextPrefixMatch != null)
+			{
+				//System.out.println(nextPrefixMatch + "" + matchedPrefixEncoding);
+				encodedWords[counter] = matchedPrefixEncoding;
+				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
+				counter++;
+			}
+			
+			if(nextSuffixMatch != null)
+			{
+				//System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
+				encodedWords[counter] = matchedSuffixEncoding;
+				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
+				counter++;
 			}
 		}
 
-		if(nextMatch != null)
-		{
-			encodedWords[counter] = matchedEncoding;
-			//System.out.println(EncodingFileProcessor.encodings[rows][1]);
-			counter++;
-		}
+		
 
 
-		/*
-
-				if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
-				{
-					String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
-
-					if (s.endsWith(prefixStrip))
-					{
-						encodedWords[counter] = EncodingFileProcessor.getEncodings()[rows][1];
-						//System.out.println(EncodingFileProcessor.encodings[rows][1]);
-						counter++;
-
-					}	
-
-				}
-		 */
-
-
-
-
+	
 
 		for (int i = 0; i < counter; i++)
 		{
 			System.out.println(encodedWords[i]);
 		}
-
-		/*
-		for (int cols = 0; cols < 2; cols++) {
-
-			System.out.print(EncodingFileProcessor.encodings[rows][cols] + "		" );
-		}
-		System.out.println("");
-
-		 */		
-		//return "hello";
-
+		
 	}
 
 
