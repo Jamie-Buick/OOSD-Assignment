@@ -5,7 +5,7 @@ public class EncoderDecoder {
 
 	private static String[] encodedWords = new String[15];
 
-	public static void encode(String s) {
+	public static void encode(String word) {
 		int counter = 0;
 
 		String fullMatch = null;
@@ -17,14 +17,14 @@ public class EncoderDecoder {
 		String nextSuffixMatch = null;
 		String matchedSuffixEncoding = null;
 
-
+		// Get full match where word is an exact match
 		for(int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 			
 			String match = EncodingFileProcessor.getEncodings()[rows][0];
 			String encoded = EncodingFileProcessor.getEncodings()[rows][1];
 
 		
-			if(EncodingFileProcessor.getEncodings()[rows][0].equals(s)) 
+			if(EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
 			{
 				fullMatch = match;
 				fullMatchEncoding = encoded;
@@ -37,7 +37,7 @@ public class EncoderDecoder {
 			
 				
 			
-			if (s.startsWith(EncodingFileProcessor.getEncodings()[rows][0]))
+			if (word.startsWith(EncodingFileProcessor.getEncodings()[rows][0]))
 			{
 				if(nextPrefixMatch == null || match.length() > nextPrefixMatch.length())
 				{
@@ -53,7 +53,7 @@ public class EncoderDecoder {
 			{
 				String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
 				
-				if (s.endsWith(prefixStrip))
+				if (word.endsWith(prefixStrip))
 				{
 				
 					if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
