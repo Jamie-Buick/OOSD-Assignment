@@ -3,18 +3,18 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 	
-	public static String[] encodedWords = new String[15];
+	private static String[] encodedWords = new String[15];
 	
 	public static void encode(String s) {
 		int counter = 0;
 		
 	   
-		for(int rows = 0; rows < EncodingFileProcessor.encodings.length; rows++) {
+		for(int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 			
-			if(EncodingFileProcessor.encodings[rows][0].equals(s)) 
+			if(EncodingFileProcessor.getEncodings()[rows][0].equals(s)) 
 			{
 				
-				encodedWords[counter] = EncodingFileProcessor.encodings[rows][1];
+				encodedWords[counter] = EncodingFileProcessor.getEncodings()[rows][1];
 				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}

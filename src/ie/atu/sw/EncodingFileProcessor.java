@@ -7,8 +7,11 @@ import java.io.InputStreamReader;
 
 public class EncodingFileProcessor {
 	
-	public static String[][] encodings = new String[10000][2];
+	private static String[][] encodings = new String[10000][2];
 	
+	public static String[][] getEncodings() {
+		return encodings;
+	}
 	
 	public void parseEncoding(String fileName) {
 		String line = null;
