@@ -30,11 +30,13 @@ public class EncoderDecoder {
 				fullMatchEncoding = encoded;
 				//System.out.println(match + "" + encoded);
 				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
-			
+				
 			
 			}
 			
+			
 				
+			
 			if (s.startsWith(EncodingFileProcessor.getEncodings()[rows][0]))
 			{
 				if(nextPrefixMatch == null || match.length() > nextPrefixMatch.length())
@@ -43,10 +45,10 @@ public class EncoderDecoder {
 					matchedPrefixEncoding = encoded;
 	
 				}
+				
 			}
 		
-				
-				
+	
 			if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
 			{
 				String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
@@ -63,7 +65,7 @@ public class EncoderDecoder {
 			}
 			
 		
-		}
+		}  
 		
 		if (fullMatch != null) 
 		{
