@@ -18,8 +18,32 @@ public class EncoderDecoder {
 				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
-			
-		
+			else
+			{
+				
+				if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
+				{
+					String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
+
+					if (s.endsWith(prefixStrip)) 
+					{
+						encodedWords[counter] = EncodingFileProcessor.getEncodings()[rows][1];
+						//System.out.println(EncodingFileProcessor.encodings[rows][1]);
+						counter++;
+					
+					}	
+					
+				}
+				
+			/*
+				if((EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@")) && (s.endsWith(EncodingFileProcessor.getEncodings()[rows][0]))) //&& EncodingFileProcessor.getEncodings()[rows][0].endsWith("@@" + s)) 
+				{
+					encodedWords[counter] = EncodingFileProcessor.getEncodings()[rows][1];
+					//System.out.println(EncodingFileProcessor.encodings[rows][1]);
+					counter++;
+				}
+			*/
+			}
 		}
 		
 		
@@ -40,6 +64,10 @@ public class EncoderDecoder {
 		 */		
 		//return "hello";
 	
+	}
+	
+	private static boolean isStringLengthEqual(String s, String t) {
+		return s.length() == t.length();
 	}
 	
 	
