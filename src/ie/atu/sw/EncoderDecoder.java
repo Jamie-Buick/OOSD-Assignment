@@ -58,9 +58,10 @@ public class EncoderDecoder {
 						String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
 						
 			
-						if (word.endsWith(prefixStrip) && concatFullWord.equals(word))
+						if (word.endsWith(prefixStrip) && concatFullWord.equals(word.trim()))
 						{
-							//System.out.println(concatFullWord);
+							
+							System.out.println("here!");
 							if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
 							{
 								nextSuffixMatch = match;
@@ -70,9 +71,7 @@ public class EncoderDecoder {
 					}
 				}
 				
-				
-				
-				
+		
 			}
 			
 			
