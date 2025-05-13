@@ -7,7 +7,8 @@ public class EncoderDecoder {
 
 	public static void encode(String word) {
 		int counter = 0;
-
+		
+		
 		String fullMatch = null;
 		String fullMatchEncoding = null;
 		
@@ -31,9 +32,9 @@ public class EncoderDecoder {
 				//System.out.println(match + "" + encoded);
 				//System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				
-			
+				break;
 			}
-			
+		
 			
 				
 			
@@ -43,19 +44,54 @@ public class EncoderDecoder {
 				{
 					nextPrefixMatch = match;
 					matchedPrefixEncoding = encoded;
+					//System.out.println(nextPrefixMatch);
 	
 				}
 				
+				
+				for(int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) {
+					
+					if(EncodingFileProcessor.getEncodings()[i][0].startsWith("@@"))
+					{
+						String prefixStrip = EncodingFileProcessor.getEncodings()[i][0].replace("@@", "").trim();
+						
+						String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
+						
+			
+						if (word.endsWith(prefixStrip) && concatFullWord.equals(word))
+						{
+							//System.out.println(concatFullWord);
+							if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
+							{
+								nextSuffixMatch = match;
+								matchedSuffixEncoding = encoded;
+							}
+						}
+					}
+				}
+				
+				
+				
+				
 			}
+			
+			
+			
+			
+			
 		
-	
+	/*
 			if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
 			{
-				String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "");
+				String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "").trim();
+				//System.out.println(prefixStrip);
+				String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
 				
-				if (word.endsWith(prefixStrip))
+				
+				
+				if (word.endsWith(prefixStrip) && concatFullWord.equals(word))
 				{
-				
+					System.out.println(concatFullWord);
 					if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
 					{
 						nextSuffixMatch = match;
@@ -63,9 +99,10 @@ public class EncoderDecoder {
 					}
 				}
 			}
+	*/
 			
+		}
 		
-		}  
 		
 		if (fullMatch != null) 
 		{
