@@ -3,7 +3,7 @@ package ie.atu.sw;
 import java.io.*;
 
 // Processing of input files
-public class InputFileProcessor {
+public class InputTextFileProcessor {
 	
 	//private EncoderDecoder EncoderDecoder;
 	String line = null;
@@ -20,7 +20,7 @@ public class InputFileProcessor {
 				String[] words = line.split(" ");
 				
 					for (String word : words) {
-						word = word.strip().replaceAll("[^a-zA-Z ]", "");
+						word = word.strip().replaceAll("[^a-zA-Z0-9 ]", "");
 						EncoderDecoder.encode(word);
 						// I can now call the encodingdecoding class here because I have individual words
 						//System.out.println(word);

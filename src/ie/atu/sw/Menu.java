@@ -8,7 +8,7 @@ public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
 	private int userInput;
-	private InputFileProcessor InputFileProcessor = new InputFileProcessor();
+	private InputTextFileProcessor InputFileProcessor = new InputTextFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
 	String filePathMap;
