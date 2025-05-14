@@ -126,11 +126,14 @@ public class Menu {
 	}
 	
 	private void encode() {
+		// I will pass this a bool true / false
 		InputFileProcessor.readFile(filePathText);
 		System.out.println("encode");
 	}
 	
 	private void decode() {
+		// I will pass this a bool true / false
+		InputFileProcessor.readFile(filePathText);
 		System.out.println("decode");
 	}
 	

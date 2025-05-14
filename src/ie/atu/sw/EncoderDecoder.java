@@ -4,6 +4,7 @@ package ie.atu.sw;
 public class EncoderDecoder {
 
 	private static String[] encodedWords = new String[15];
+	private static String[] decodedWords = new String[15];
 
 	public static void encode(String word) {
 		int counter = 0;
@@ -101,8 +102,6 @@ public class EncoderDecoder {
 		}
 
 
-	
-
 		for (int i = 0; i < counter; i++)
 		{
 			System.out.println(encodedWords[i]);
@@ -113,8 +112,47 @@ public class EncoderDecoder {
 
 
 
-	public String decode(String s) {
-		return null;
+	public static void decode(String encodedWord) {
+		
+		int counter =0;;
+		
+		String match = null;
+		String encoded = null;
+		
+		String fullMatch = null;
+		String fullMatchEncoding = null;
+		
+		// Get full match where word is an exact match
+		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+
+			match = EncodingFileProcessor.getEncodings()[rows][0];
+			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+
+			if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
+			{
+				fullMatch = match;
+				fullMatchEncoding = encoded;
+				
+				break;
+			}
+			
+			
+		}	
+		
+		if (fullMatch != null) {
+			decodedWords[counter] = fullMatch;
+			counter++;
+		}
+		
+
+		for (int i = 0; i < counter; i++)
+		{
+			System.out.println(decodedWords[i]);
+		}
+		
+		
+		
+	
 
 	}
 

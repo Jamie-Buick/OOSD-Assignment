@@ -21,7 +21,7 @@ public class InputTextFileProcessor {
 				
 					for (String word : words) {
 						word = word.strip().replaceAll("[^a-zA-Z0-9 ]", "");
-						EncoderDecoder.encode(word);
+						EncoderDecoder.decode(word);
 						// I can now call the encodingdecoding class here because I have individual words
 						//System.out.println(word);
 					}
