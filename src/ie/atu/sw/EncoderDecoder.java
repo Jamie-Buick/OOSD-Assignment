@@ -27,11 +27,11 @@ public class EncoderDecoder {
 			{
 				fullMatch = match;
 				fullMatchEncoding = encoded;
-				// System.out.println(match + "" + encoded);
-				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
-
+				
 				break;
 			}
+			
+			
 
 			if (word.startsWith(EncodingFileProcessor.getEncodings()[rows][0])) 
 			{
@@ -40,7 +40,7 @@ public class EncoderDecoder {
 					nextPrefixMatch = match;
 					matchedPrefixEncoding = encoded;
 					
-
+			
 				}
 
 				for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) {
@@ -60,10 +60,17 @@ public class EncoderDecoder {
 							{
 								nextSuffixMatch = match;
 								matchedSuffixEncoding = encoded;
+								
+								
 
 							}
+							
+							break;
+							
 						}
+						
 					}
+					
 				}
 
 			}
