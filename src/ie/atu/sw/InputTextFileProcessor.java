@@ -10,7 +10,7 @@ public class InputTextFileProcessor {
 	
 
 	
-	public void readFile(String filePath) {
+	public void readFile(String filePath, Boolean encode) {
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -20,8 +20,17 @@ public class InputTextFileProcessor {
 				String[] words = line.split(" ");
 				
 					for (String word : words) {
-						word = word.strip().replaceAll("[^a-zA-Z0-9 ]", "");
-						EncoderDecoder.decode(word);
+						if (encode)
+						{
+							word = word.strip().replaceAll("[^a-zA-Z ]", "");
+							EncoderDecoder.encode(word);
+						}
+						else
+						{
+							word = word.strip().replaceAll("[^0-9 ]", "");
+							EncoderDecoder.decode(word);
+						}
+					
 						// I can now call the encodingdecoding class here because I have individual words
 						//System.out.println(word);
 					}

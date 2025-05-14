@@ -7,6 +7,7 @@ import static java.lang.System.out;
 public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
+	private boolean encode;
 	private int userInput;
 	private InputTextFileProcessor InputFileProcessor = new InputTextFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
@@ -126,14 +127,16 @@ public class Menu {
 	}
 	
 	private void encode() {
+		encode = true;
 		// I will pass this a bool true / false
-		InputFileProcessor.readFile(filePathText);
+		InputFileProcessor.readFile(filePathText, encode);
 		System.out.println("encode");
 	}
 	
 	private void decode() {
+		encode = false;
 		// I will pass this a bool true / false
-		InputFileProcessor.readFile(filePathText);
+		InputFileProcessor.readFile(filePathText, encode);
 		System.out.println("decode");
 	}
 	

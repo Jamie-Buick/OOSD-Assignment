@@ -113,6 +113,7 @@ public class EncoderDecoder {
 
 
 	public static void decode(String encodedWord) {
+	
 		
 		int counter =0;;
 		
