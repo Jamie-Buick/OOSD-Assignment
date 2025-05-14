@@ -16,12 +16,15 @@ public class EncoderDecoder {
 
 		String nextSuffixMatch = null;
 		String matchedSuffixEncoding = null;
+		
+		String match = null;
+		String encoded = null;
 
 		// Get full match where word is an exact match
 		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 
-			String match = EncodingFileProcessor.getEncodings()[rows][0];
-			String encoded = EncodingFileProcessor.getEncodings()[rows][1];
+			match = EncodingFileProcessor.getEncodings()[rows][0];
+			encoded = EncodingFileProcessor.getEncodings()[rows][1];
 
 			if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
 			{
@@ -31,51 +34,52 @@ public class EncoderDecoder {
 				break;
 			}
 			
-			
-
-			if (word.startsWith(EncodingFileProcessor.getEncodings()[rows][0])) 
+		}	
+		
+		// Get best match for first part of word
+		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
+		{
+			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0])) 
 			{
+				match = EncodingFileProcessor.getEncodings()[i][0];
+				encoded = EncodingFileProcessor.getEncodings()[i][1];
+				
 				if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) 
 				{
 					nextPrefixMatch = match;
 					matchedPrefixEncoding = encoded;
-					
-			
 				}
+			}
+		}
+			
+		for (int j = 0; j < EncodingFileProcessor.getEncodings().length; j++) {
 
-				for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) {
+			match = EncodingFileProcessor.getEncodings()[j][0];
+			encoded = EncodingFileProcessor.getEncodings()[j][1];
 
-					match = EncodingFileProcessor.getEncodings()[i][0];
-					encoded = EncodingFileProcessor.getEncodings()[i][1];
+			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
+			{
+				String prefixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
+				String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
 
-					if (EncodingFileProcessor.getEncodings()[i][0].startsWith("@@")) 
+				if (word.endsWith(prefixStrip) && concatFullWord.equals(word.trim())) 
+				{
+
+					if (nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
 					{
-						String prefixStrip = EncodingFileProcessor.getEncodings()[i][0].replace("@@", "").trim();
-						String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
-
-						if (word.endsWith(prefixStrip) && concatFullWord.equals(word.trim())) 
-						{
-
-							if (nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
-							{
-								nextSuffixMatch = match;
-								matchedSuffixEncoding = encoded;
-								
-								
-
-							}
-							
-							break;
-							
-						}
-						
+						nextSuffixMatch = match;
+						matchedSuffixEncoding = encoded;
 					}
 					
+					break;
+					
 				}
-
+				
 			}
-
+			
 		}
+			
+	
 		
 		if (fullMatch != null) {
 			encodedWords[counter] = fullMatchEncoding;
