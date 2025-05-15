@@ -8,12 +8,13 @@ public class TextFileProcessor {
 	//private EncoderDecoder EncoderDecoder;
 	
 	
-
+	String[] finalResults = new String[1000]; // Choose a size big enough for your use case
 	
-	public void readFile(String filePath, Boolean encode) {
+	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
+		Boolean readFinished = false;
 		String [] encoderDecoderReturn;
-		String[] finalResults = new String[1000]; // Choose a size big enough for your use case
+		
 		int counter = 0;
 		
 		try 
@@ -38,45 +39,46 @@ public class TextFileProcessor {
 							encoderDecoderReturn = EncoderDecoder.decode(word);
 						}
 						
-						
-						
-						  // Copy results into the main array
+						 // Copy results into the main array
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
-				                finalResults[counter] = encoderDecoderReturn[i];
+				                finalResults[i] = encoderDecoderReturn[i];
+				                System.out.println(finalResults[i]);
 				            }
 				        }
 				        counter++;
-					}
-				
-					
+					}	
 			}
 			
-			
-			 // Copy results into the main array
+			 /* Print results
 	        for (int i = 0; i < finalResults.length; i++) {
 	          
 	                finalResults[counter] = finalResults[i];
 	                System.out.println(finalResults[i]);
-	       
+	      
 	        }
-			
-			
-			
+			  */
 			br.close();
-	
+			readFinished = true;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-		
+		return readFinished;
 
 	}	
 	
-	public void writeFile(String filePath, Boolean encode) {
+	public boolean writeFile(String filePath) {
+		// I can do all over the processing for writing the files here, where the finalResults array just needs made into a file.
+		Boolean writeFinished = false;
+		 // Print results
 		
+      
+		
+		
+		return writeFinished;
 	}
 	
 }

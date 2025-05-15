@@ -103,7 +103,7 @@ public class EncoderDecoder {
 			System.out.println(encodedWords[i]);
 		}
 		*/
-		return encodedWords;
+		return encodedWords; // its fine here
 		
 	}
 

@@ -8,12 +8,17 @@ public class Menu {
 	private Scanner s;
 	private boolean keepRunning = true;
 	private boolean encode;
+	private boolean readFinished;
+	private boolean writeFinished;
+	
+	
 	private int userInput;
 	private TextFileProcessor InputFileProcessor = new TextFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
 	String filePathMap;
-	String filePathText;
+	String filePathInput;
+	String filePathOutput;
 	
 	
 	public Menu() {
@@ -113,13 +118,14 @@ public class Menu {
 	
 	
 	private void textFile() {
-		filePathText = changeFilePath();
+		filePathInput = changeFilePath();
 		//InputFileProcessor.readFile(filePathText);
-		System.out.println(filePathText);	
+		System.out.println(filePathInput);	
 	}
 		
 	private void outputFile() {
-		System.out.println("out");
+		filePathOutput = changeFilePath();
+		System.out.println(filePathOutput);
 	}
 	
 	private void configureOptions() {
@@ -129,16 +135,30 @@ public class Menu {
 	private void encode() {
 		encode = true;
 		// I will pass this a bool true / false
-		InputFileProcessor.readFile(filePathText, encode);
+		readFinished = InputFileProcessor.readFile(filePathInput, encode);
+		
+		if(readFinished)
+		{
+			InputFileProcessor.writeFile(filePathOutput);
+		}
+		
 		System.out.println("encode");
 	}
+	
+	
 	
 	private void decode() {
 		encode = false;
 		// I will pass this a bool true / false
-		InputFileProcessor.readFile(filePathText, encode);
-		System.out.println("decode");
+		InputFileProcessor.readFile(filePathInput, encode);
+		
+		if(readFinished)
+		{
+			InputFileProcessor.writeFile(filePathOutput);
+		}
 	}
+	
+	
 	
 	private void extras() {
 		System.out.println("extra");
