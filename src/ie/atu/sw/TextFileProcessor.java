@@ -74,6 +74,26 @@ public class TextFileProcessor {
 		Boolean writeFinished = false;
 		 // Print results
 		
+		try 
+		{
+			FileWriter output = new FileWriter(new File(filePath));
+			
+			for (int i = 0; i < finalResults.length; i++)
+			{
+				if(finalResults[i] != null) {
+					output.write(finalResults[i] + "\n");
+				}
+				
+			}
+			
+			output.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+		
       
 		
 		

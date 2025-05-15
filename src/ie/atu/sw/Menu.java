@@ -97,7 +97,6 @@ public class Menu {
 		return filePath;
 	}
 	
-	
 	// Checks that the file path actually exists 
 	private boolean validateFilePath(String s) {
 		File fp = new File(s);
@@ -124,8 +123,12 @@ public class Menu {
 	}
 		
 	private void outputFile() {
-		filePathOutput = changeFilePath();
-		System.out.println(filePathOutput);
+
+	    s.nextLine(); // Clear leftover newline from menu selection
+	    System.out.println("Enter a valid the file path>");
+	    filePathOutput = s.nextLine(); // Now it will wait for actual input
+		
+		
 	}
 	
 	private void configureOptions() {
