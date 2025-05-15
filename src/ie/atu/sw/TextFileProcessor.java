@@ -43,18 +43,18 @@ public class TextFileProcessor {
 						 // Copy results into the main array
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
-				                finalResults[i] = encoderDecoderReturn[i];
+				                finalResults[counter] = encoderDecoderReturn[i];
 				                //System.out.println(finalResults[i]);
+				                counter++;
 				            }
 				        }
 				  
-				     
 					}	
 			}
 			
 			 // Print results
 	        for (int j = 0; j < finalResults.length; j++) {
-	              System.out.println("Other:" + finalResults[j]);
+	              System.out.println("Final:" + finalResults[j]);
 	        }
 			  
 			br.close();
