@@ -9,7 +9,7 @@ public class Menu {
 	private boolean keepRunning = true;
 	private boolean encode;
 	private int userInput;
-	private InputTextFileProcessor InputFileProcessor = new InputTextFileProcessor();
+	private TextFileProcessor InputFileProcessor = new TextFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
 	String filePathMap;

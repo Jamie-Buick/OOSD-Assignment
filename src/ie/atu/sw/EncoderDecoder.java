@@ -3,10 +3,10 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 
-	private static String[] encodedWords = new String[15];
-	private static String[] decodedWords = new String[15];
 
-	public static void encode(String word) {
+
+	public static String[] encode(String word) {
+		String[] encodedWords = new String[2];
 		int counter = 0;
 
 		String fullMatch = null;
@@ -73,15 +73,11 @@ public class EncoderDecoder {
 					}
 					
 					break;
-					
 				}
-				
 			}
-			
 		}
 			
 	
-		
 		if (fullMatch != null) {
 			encodedWords[counter] = fullMatchEncoding;
 			counter++;
@@ -101,29 +97,28 @@ public class EncoderDecoder {
 			}
 		}
 
-
+		/*
 		for (int i = 0; i < counter; i++)
 		{
 			System.out.println(encodedWords[i]);
 		}
+		*/
+		return encodedWords;
 		
 	}
 
 
 
 
-	public static void decode(String encodedWord) {
+	public static String[] decode(String encodedWord) {
+		
+		String[] decodedWords = new String[1];
 	
-		
-		int counter =0;;
-		
 		String match = null;
 		String encoded = null;
-		
 		String fullMatch = null;
-		String fullMatchEncoding = null;
 		
-		// Get full match where word is an exact match
+		// Find a match for 
 		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 
 			match = EncodingFileProcessor.getEncodings()[rows][0];
@@ -132,57 +127,23 @@ public class EncoderDecoder {
 			if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
 			{
 				fullMatch = match;
-				fullMatchEncoding = encoded;
-				
 				break;
 			}
-			
-			
 		}	
 		
 		if (fullMatch != null) {
-			decodedWords[counter] = fullMatch;
-			counter++;
+			decodedWords[0] = fullMatch;
 		}
 		
 
-		for (int i = 0; i < counter; i++)
+		/*
+		for (int i = 0; i < 1; i++)
 		{
 			System.out.println(decodedWords[i]);
 		}
+		*/
+		return decodedWords;
 		
-		
-		
-	
-
 	}
-
-	
-	
-	
-	
-	
-	/* Original encoding section
-	if (EncodingFileProcessor.getEncodings()[rows][0].startsWith("@@"))    // && isStringLengthEqual(EncodingFileProcessor.getEncodings()[rows][0], s) ))
-	{
-		String prefixStrip = EncodingFileProcessor.getEncodings()[rows][0].replace("@@", "").trim();
-		//System.out.println(prefixStrip);
-		String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
-		
-		
-		
-		if (word.endsWith(prefixStrip) && concatFullWord.equals(word))
-		{
-			System.out.println(concatFullWord);
-			if(nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
-			{
-				nextSuffixMatch = match;
-				matchedSuffixEncoding = encoded;
-			}
-		}
-	}
-*/
-	
-	
 
 }
