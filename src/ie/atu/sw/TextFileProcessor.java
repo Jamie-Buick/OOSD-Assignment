@@ -8,12 +8,13 @@ public class TextFileProcessor {
 	//private EncoderDecoder EncoderDecoder;
 	
 	
-	String[] finalResults = new String[1000]; // Choose a size big enough for your use case
+	String[] finalResults = new String[25]; // Choose a size big enough for your use case
 	
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
 		String [] encoderDecoderReturn;
+		int counter = 0;
 		
 		try 
 		{
@@ -37,25 +38,25 @@ public class TextFileProcessor {
 							encoderDecoderReturn = EncoderDecoder.decode(word);
 						}
 						
+						//not working or correct!
+						
 						 // Copy results into the main array
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
 				                finalResults[i] = encoderDecoderReturn[i];
-				                System.out.println(finalResults[i]);
+				                //System.out.println(finalResults[i]);
 				            }
 				        }
+				  
 				     
 					}	
 			}
 			
-			 /* Print results
-	        for (int i = 0; i < finalResults.length; i++) {
-	          
-	                finalResults[counter] = finalResults[i];
-	                System.out.println(finalResults[i]);
-	      
+			 // Print results
+	        for (int j = 0; j < finalResults.length; j++) {
+	              System.out.println("Other:" + finalResults[j]);
 	        }
-			  */
+			  
 			br.close();
 			readFinished = true;
 		}
