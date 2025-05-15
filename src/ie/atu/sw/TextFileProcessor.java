@@ -44,12 +44,24 @@ public class TextFileProcessor {
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
 				                finalResults[counter] = encoderDecoderReturn[i];
-				                System.out.println(finalResults[counter]);
 				            }
 				        }
 				        counter++;
 					}
+				
+					
 			}
+			
+			
+			 // Copy results into the main array
+	        for (int i = 0; i < finalResults.length; i++) {
+	          
+	                finalResults[counter] = finalResults[i];
+	                System.out.println(finalResults[i]);
+	       
+	        }
+			
+			
 			
 			br.close();
 	
