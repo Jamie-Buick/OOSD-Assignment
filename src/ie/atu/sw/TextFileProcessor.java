@@ -15,8 +15,6 @@ public class TextFileProcessor {
 		Boolean readFinished = false;
 		String [] encoderDecoderReturn;
 		
-		int counter = 0;
-		
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -46,7 +44,7 @@ public class TextFileProcessor {
 				                System.out.println(finalResults[i]);
 				            }
 				        }
-				        counter++;
+				     
 					}	
 			}
 			
