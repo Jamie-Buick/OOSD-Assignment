@@ -44,7 +44,7 @@ public class TextFileProcessor {
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
 				                finalResults[counter] = encoderDecoderReturn[i];
-				                //System.out.println(finalResults[i]);
+				               // System.out.println(finalResults[i]);
 				                counter++;
 				            }
 				        }
@@ -52,11 +52,12 @@ public class TextFileProcessor {
 					}	
 			}
 			
-			 // Print results
+			/*
+			// Print results
 	        for (int j = 0; j < finalResults.length; j++) {
 	              System.out.println("Final:" + finalResults[j]);
 	        }
-			  
+			  */
 			br.close();
 			readFinished = true;
 		}
@@ -69,21 +70,48 @@ public class TextFileProcessor {
 
 	}	
 	
-	public boolean writeFile(String filePath) {
+	public boolean writeFile(String filePath, Boolean encode) {
 		// I can do all over the processing for writing the files here, where the finalResults array just needs made into a file.
 		Boolean writeFinished = false;
 		 // Print results
 		
 		try 
 		{
-			FileWriter output = new FileWriter(new File(filePath));
-			
-			for (int i = 0; i < finalResults.length; i++)
-			{
-				if(finalResults[i] != null) {
-					output.write(finalResults[i] + "\n");
-				}
+			BufferedWriter output = new BufferedWriter(new FileWriter(filePath));
+			for (int i = 0; i < finalResults.length; i++) {
 				
+			    if (finalResults[i] != null) {
+			    	System.out.println(finalResults[i]);
+			    	
+			    	if(encode) 
+			    	{
+			    		output.write(finalResults[i] + " ");
+			    	}
+			    	else
+			    	{
+			    		if(finalResults[i].startsWith("@@"))
+			    		{
+			    			String suffix = finalResults[i].replace("@@", "").trim();
+			    			output.write(suffix + " ");
+			    		}
+			    		else
+			    		{
+			    			if (finalResults[i+1].startsWith("@@")) 
+			    			{
+			    				output.write(finalResults[i]);
+			    			}
+			    			else
+			    			{
+			    				output.write(finalResults[i] + " ");
+			    			}
+			    			
+			    		}
+			    	}
+			    	
+			    	
+			    	//output.write(finalResults[i] + " ");
+			   
+			    }
 			}
 			
 			output.close();
@@ -94,9 +122,7 @@ public class TextFileProcessor {
 		}
 	
 		
-      
-		
-		
+
 		return writeFinished;
 	}
 	

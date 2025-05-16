@@ -13,7 +13,7 @@ public class Menu {
 	
 	
 	private int userInput;
-	private TextFileProcessor InputFileProcessor = new TextFileProcessor();
+	private TextFileProcessor TextFileProcessor = new TextFileProcessor();
 	private EncodingFileProcessor EncodingFileProcessor = new EncodingFileProcessor();
 
 	String filePathMap;
@@ -108,7 +108,7 @@ public class Menu {
 	}
 	
 	
-	
+	// Menu functions
 	private void mapFile() {
 		filePathMap = changeFilePath();
 		EncodingFileProcessor.parseEncoding(filePathMap);
@@ -138,11 +138,11 @@ public class Menu {
 	private void encode() {
 		encode = true;
 		// I will pass this a bool true / false
-		readFinished = InputFileProcessor.readFile(filePathInput, encode);
+		readFinished = TextFileProcessor.readFile(filePathInput, encode);
 		
 		if(readFinished)
 		{
-			InputFileProcessor.writeFile(filePathOutput);
+			TextFileProcessor.writeFile(filePathOutput,encode);
 		}
 		
 		System.out.println("encode");
@@ -153,12 +153,14 @@ public class Menu {
 	private void decode() {
 		encode = false;
 		// I will pass this a bool true / false
-		InputFileProcessor.readFile(filePathInput, encode);
+		readFinished = TextFileProcessor.readFile(filePathInput, encode);
 		
 		if(readFinished)
 		{
-			InputFileProcessor.writeFile(filePathOutput);
+			TextFileProcessor.writeFile(filePathOutput, encode);
+			System.out.println("decodeoutput");
 		}
+		System.out.println("decode");
 	}
 	
 	
