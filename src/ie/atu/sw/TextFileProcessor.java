@@ -28,7 +28,7 @@ public class TextFileProcessor {
 						
 						if (encode)
 						{
-							word = word.strip().replaceAll("[^a-zA-Z ]", "");
+							word = word.trim();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
 							
 						}
