@@ -30,21 +30,71 @@ public class EncoderDecoder {
 		String match = null;
 		String encoded = null;
 
-		// Get full match where word is an exact match
-		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+		
+		// Step 1: Check if word ends with punctuation
+		if (String.valueOf(lastChar).matches("\\p{Punct}")) {
 
-			match = EncodingFileProcessor.getEncodings()[rows][0];
-			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+		    baseWord = word.substring(0, word.length() - 1);
+		    punctuation = String.valueOf(lastChar);
 
-			if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
-			{
-				fullMatch = match;
-				fullMatchEncoding = encoded;
-				
-				break;
+			// Step 2: Loop once, match both base and punctuation
+			for (int k = 0; k < EncodingFileProcessor.getEncodings().length; k++) {
+			    match = EncodingFileProcessor.getEncodings()[k][0];
+			    encoded = EncodingFileProcessor.getEncodings()[k][1];
+		
+			    // Match base word
+			    if (match.equals(baseWord)) {
+			        if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) {
+			            nextPrefixMatch = match;
+			            matchedPrefixEncoding = encoded;
+			        }
+			    }
+		
+			    // Match punctuation (if applicable)
+			    if (!punctuation.isEmpty() && match.equals(punctuation)) {
+			        nextPuncMatch = match;
+			        matchedPuncEncoding = encoded;
+			    }
 			}
-			
-		}	
+		}
+		else
+		{
+			// Get full match where word is an exact match
+			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+
+				match = EncodingFileProcessor.getEncodings()[rows][0];
+				encoded = EncodingFileProcessor.getEncodings()[rows][1];
+
+				if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
+				{
+					fullMatch = match;
+					fullMatchEncoding = encoded;
+					
+					break;
+				}
+			}
+				
+		}
+		
+		
+	
+		
+
+		
+		
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		// Get best match for first part of word
 		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
@@ -61,18 +111,21 @@ public class EncoderDecoder {
 				}
 			}
 		}
-			
+		
+		// We will need to consider punct somewhere here
 		for (int j = 0; j < EncodingFileProcessor.getEncodings().length; j++) {
 
 			match = EncodingFileProcessor.getEncodings()[j][0];
 			encoded = EncodingFileProcessor.getEncodings()[j][1];
+			
 
 			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
 			{
-				String prefixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
-				String concatFullWord = nextPrefixMatch.concat(prefixStrip).trim();
+				String suffixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
+				String concatFullWord = nextPrefixMatch.concat(suffixStrip).trim();
+		
 
-				if (word.endsWith(prefixStrip) && concatFullWord.equals(word.trim())) 
+				if (word.endsWith(suffixStrip) && concatFullWord.equals(word.trim())) 
 				{
 
 					if (nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
@@ -89,67 +142,10 @@ public class EncoderDecoder {
 		
 	
 
-		// Step 1: Check if word ends with punctuation
-		if (String.valueOf(lastChar).matches("\\p{Punct}")) {
-		    baseWord = word.substring(0, word.length() - 1);
-		    punctuation = String.valueOf(lastChar);
-		}
-
-		// Step 2: Loop once, match both base and punctuation
-		for (int k = 0; k < EncodingFileProcessor.getEncodings().length; k++) {
-		    match = EncodingFileProcessor.getEncodings()[k][0];
-		    encoded = EncodingFileProcessor.getEncodings()[k][1];
-
-		    // Match base word
-		    if (match.startsWith(baseWord)) {
-		        if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) {
-		            nextPrefixMatch = match;
-		            matchedPrefixEncoding = encoded;
-		        }
-		    }
-
-		    // Match punctuation (if applicable)
-		    if (!punctuation.isEmpty() && match.equals(punctuation)) {
-		        nextPuncMatch = match;
-		        matchedPuncEncoding = encoded;
-		    }
-		}
 
 		
 		
 		
-		
-		
-		/*
-		// Word with punctuation  
-		for (int k = 0; k < EncodingFileProcessor.getEncodings().length; k++) {
-			match = EncodingFileProcessor.getEncodings()[k][0];
-			encoded = EncodingFileProcessor.getEncodings()[k][1];
-			
-			char lastChar = word.charAt(word.length() - 1);
-			
-			if (String.valueOf(lastChar).matches("\\p{Punct}")) {
-				
-			    String baseWord = word.substring(0, word.length() - 1);
-			    String punctuation = String.valueOf(lastChar);
-			    
-	
-			    
-			    // Now I need tofind matches within the encodings file
-			    if (EncodingFileProcessor.getEncodings()[k][0].startsWith(baseWord)) 
-			    {
-					if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) 
-					{
-						nextPrefixMatch = match;
-						matchedPrefixEncoding = encoded;
-					}
-			    }
-			   
-	
-			}
-		}
-		
-		*/
 		
 		
 			
