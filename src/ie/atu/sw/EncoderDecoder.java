@@ -4,6 +4,33 @@ package ie.atu.sw;
 public class EncoderDecoder {
 
 
+	private static String matchFullWord(String word) {
+		String match = "";
+		String encoded = "";
+		
+		String fullWordMatch = "";
+		String fullEncodingMatch = "";
+		
+		// Get full match where word is an exact match, no punctuation
+		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+
+			match = EncodingFileProcessor.getEncodings()[rows][0];
+			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+
+			if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
+			{
+				fullWordMatch = match;
+				fullEncodingMatch = encoded;
+				
+				break;
+			}
+
+		}
+		System.out.println(fullWordMatch);
+		return fullEncodingMatch;
+	}
+	
+	
 
 	public static String[] encode(String word) {
 		String[] encodedWords = new String[2];
@@ -61,22 +88,7 @@ public class EncoderDecoder {
 		}
 		else
 		{
-			// Get full match where word is an exact match, no punctuation
-			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
-
-				match = EncodingFileProcessor.getEncodings()[rows][0];
-				encoded = EncodingFileProcessor.getEncodings()[rows][1];
-
-				if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
-				{
-					fullMatch = match;
-					fullMatchEncoding = encoded;
-					
-					break;
-				}
-	
-			}
-				
+			fullMatchEncoding = matchFullWord(word);
 		}
 		
 		
