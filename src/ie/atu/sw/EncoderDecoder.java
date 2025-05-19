@@ -3,6 +3,11 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 
+	
+	
+	
+	
+	
 
 	private static String matchFullWord(String word) {
 		String match = "";
@@ -26,11 +31,57 @@ public class EncoderDecoder {
 			}
 
 		}
-		System.out.println(fullWordMatch);
+		//System.out.println(fullWordMatch);.
+		
 		return fullEncodingMatch;
 	}
 	
 	
+	private static boolean endsWithPunctuation(String word) {
+		boolean endsWithPunctuation = false;
+		char lastChar = word.charAt(word.length() - 1);
+		
+		if((String.valueOf(lastChar).matches("\\p{Punct}")))
+		{
+			 endsWithPunctuation = true;
+		}
+		
+		return endsWithPunctuation;
+		
+	}
+	
+	
+	private static String stripPunctuation(String word) { 
+		  return word.substring(0, word.length() - 1).trim();
+	}
+	
+	
+	private static String getPunctuation(String word) {  
+		char lastChar = word.charAt(word.length() - 1);
+		
+		return String.valueOf(lastChar).trim();
+		
+	}
+
+	/*
+	
+	private static String matchFullWord(String word) { 
+		
+	}
+
+	private static String matchPrefix(String baseWord) { 
+		
+	}
+
+	private static String matchSuffix(String word, String baseWord) {
+		
+	}
+
+	private static String matchPunctuation(String punc) {  
+		
+	}
+	
+	*/
 
 	public static String[] encode(String word) {
 		String[] encodedWords = new String[2];
@@ -57,6 +108,17 @@ public class EncoderDecoder {
 		String match = null;
 		String encoded = null;
 		
+
+		// new section to check word for punctuation before anything else. Works.
+	    if (endsWithPunctuation(word)) {
+	    	
+	        baseWord = stripPunctuation(word);
+	        punctuation = getPunctuation(word);
+	        
+	        System.out.println("hello" + baseWord);
+	    	System.out.println("hello" + punctuation);
+	    }
+	
 
 		
 		// Check if word ends with punctuation first
@@ -88,6 +150,7 @@ public class EncoderDecoder {
 		}
 		else
 		{
+			// works
 			fullMatchEncoding = matchFullWord(word);
 		}
 		
