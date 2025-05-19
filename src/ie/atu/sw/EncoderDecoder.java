@@ -29,15 +29,17 @@ public class EncoderDecoder {
 		
 		String match = null;
 		String encoded = null;
+		
 
 		
-		// Step 1: Check if word ends with punctuation
+		// Check if word ends with punctuation first
 		if (String.valueOf(lastChar).matches("\\p{Punct}")) {
 
-		    baseWord = word.substring(0, word.length() - 1);
-		    punctuation = String.valueOf(lastChar);
+		    baseWord = word.substring(0, word.length() - 1).trim();
+		    punctuation = String.valueOf(lastChar).trim();
+		    System.out.println(punctuation);
 
-			// Step 2: Loop once, match both base and punctuation
+			// Loop once, match both base and punctuation
 			for (int k = 0; k < EncodingFileProcessor.getEncodings().length; k++) {
 			    match = EncodingFileProcessor.getEncodings()[k][0];
 			    encoded = EncodingFileProcessor.getEncodings()[k][1];
@@ -59,7 +61,7 @@ public class EncoderDecoder {
 		}
 		else
 		{
-			// Get full match where word is an exact match
+			// Get full match where word is an exact match, no punctuation
 			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 
 				match = EncodingFileProcessor.getEncodings()[rows][0];
@@ -72,28 +74,13 @@ public class EncoderDecoder {
 					
 					break;
 				}
+	
 			}
 				
 		}
 		
 		
-	
-		
 
-		
-		
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		// Get best match for first part of word
@@ -138,18 +125,14 @@ public class EncoderDecoder {
 				}
 			}
 		}
-		
-		
 	
-
-
-		
-		
-		
-		
-		
-			
 	
+		
+		
+		
+		
+		
+		
 		if (fullMatch != null) {
 			encodedWords[counter] = fullMatchEncoding;
 			counter++;
@@ -160,6 +143,7 @@ public class EncoderDecoder {
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
+		
 
 			if (nextSuffixMatch != null) {
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
@@ -167,12 +151,14 @@ public class EncoderDecoder {
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
+		
 			if (nextPuncMatch != null) {
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = matchedPuncEncoding;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
+
 		}
 
 		/*
