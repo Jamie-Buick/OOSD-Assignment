@@ -3,12 +3,11 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 
+	// Notes:
+	// - for punct word, I think we strip the punct and base word and then pass the punct through a punct encoder and pass base word 
+	// matchfullword
 	
 	
-	
-	
-	
-
 	private static String matchFullWord(String word) {
 		String match = "";
 		String encoded = "";
@@ -29,12 +28,76 @@ public class EncoderDecoder {
 				
 				break;
 			}
-
 		}
 		//System.out.println(fullWordMatch);.
 		
 		return fullEncodingMatch;
 	}
+	
+	private static String matchPrefix(String word) { 
+		// Get best match for first part of word
+		String match = "";
+		String encoded = "";
+		
+		String nextPrefixMatch = null;
+		String matchedPrefixEncoding = null;
+		
+		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
+		{
+			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0])) 
+			{
+				match = EncodingFileProcessor.getEncodings()[i][0];
+				encoded = EncodingFileProcessor.getEncodings()[i][1];
+				
+				if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) 
+				{
+					nextPrefixMatch = match;
+					matchedPrefixEncoding = encoded;
+				}
+			}
+		}
+		
+		return matchedPrefixEncoding;
+	}
+	
+	private static String matchSuffix(String word, String prefixWord) {
+		String match = "";
+		String encoded = "";
+		
+		String nextSuffixMatch = null;
+		String matchedSuffixEncoding = null;
+		
+		// We will need to consider punct somewhere here
+		for (int j = 0; j < EncodingFileProcessor.getEncodings().length; j++) {
+
+			match = EncodingFileProcessor.getEncodings()[j][0];
+			encoded = EncodingFileProcessor.getEncodings()[j][1];
+			
+
+			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
+			{
+				String suffixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
+				String concatFullWord = prefixWord.concat(suffixStrip).trim();
+		
+
+				if (word.endsWith(suffixStrip) && concatFullWord.equals(word.trim())) 
+				{
+
+					if (nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
+					{
+						nextSuffixMatch = match;
+						matchedSuffixEncoding = encoded;
+					}
+					
+					break;
+				}
+			}
+		}
+		return matchedSuffixEncoding;
+	}
+	
+	
+	
 	
 	
 	private static boolean endsWithPunctuation(String word) {
@@ -63,151 +126,44 @@ public class EncoderDecoder {
 		
 	}
 
-	/*
 	
-	private static String matchFullWord(String word) { 
-		
-	}
-
-	private static String matchPrefix(String baseWord) { 
-		
-	}
-
-	private static String matchSuffix(String word, String baseWord) {
-		
-	}
 
 	private static String matchPunctuation(String punc) {  
+		String match = "";
+		String encoded = "";
 		
+		String puncMatch = "";
+		String puncEncodingMatch = "";
+		
+		// Get full match where word is an exact match, no punctuation
+		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+
+			match = EncodingFileProcessor.getEncodings()[rows][0];
+			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+
+			if (EncodingFileProcessor.getEncodings()[rows][0].equals(punc)) 
+			{
+				puncMatch = match;
+				puncEncodingMatch = encoded;
+				
+				break;
+			}
+		}
+		//System.out.println(fullWordMatch);.
+		
+		return puncEncodingMatch;
 	}
 	
-	*/
+	
 
 	public static String[] encode(String word) {
 		String[] encodedWords = new String[2];
 		int counter = 0;
 
-		String fullMatch = null;
-		String fullMatchEncoding = null;
-
-		String nextPrefixMatch = null;
-		String matchedPrefixEncoding = null;
-
-		String nextSuffixMatch = null;
-		String matchedSuffixEncoding = null;
 		
-
-		String nextPuncMatch = null;
-		String matchedPuncEncoding = null;
-		
-		String baseWord = word;
-		String punctuation = "";
-		char lastChar = word.charAt(word.length() - 1);
-		
-		
-		String match = null;
-		String encoded = null;
-		
-
-		// new section to check word for punctuation before anything else. Works.
-	    if (endsWithPunctuation(word)) {
-	    	
-	        baseWord = stripPunctuation(word);
-	        punctuation = getPunctuation(word);
-	        
-	        System.out.println("hello" + baseWord);
-	    	System.out.println("hello" + punctuation);
-	    }
 	
+		/*
 
-		
-		// Check if word ends with punctuation first
-		if (String.valueOf(lastChar).matches("\\p{Punct}")) {
-
-		    baseWord = word.substring(0, word.length() - 1).trim();
-		    punctuation = String.valueOf(lastChar).trim();
-		    System.out.println(punctuation);
-
-			// Loop once, match both base and punctuation
-			for (int k = 0; k < EncodingFileProcessor.getEncodings().length; k++) {
-			    match = EncodingFileProcessor.getEncodings()[k][0];
-			    encoded = EncodingFileProcessor.getEncodings()[k][1];
-		
-			    // Match base word
-			    if (match.equals(baseWord)) {
-			        if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) {
-			            nextPrefixMatch = match;
-			            matchedPrefixEncoding = encoded;
-			        }
-			    }
-		
-			    // Match punctuation (if applicable)
-			    if (!punctuation.isEmpty() && match.equals(punctuation)) {
-			        nextPuncMatch = match;
-			        matchedPuncEncoding = encoded;
-			    }
-			}
-		}
-		else
-		{
-			// works
-			fullMatchEncoding = matchFullWord(word);
-		}
-		
-		
-
-		
-		
-		// Get best match for first part of word
-		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
-		{
-			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0])) 
-			{
-				match = EncodingFileProcessor.getEncodings()[i][0];
-				encoded = EncodingFileProcessor.getEncodings()[i][1];
-				
-				if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) 
-				{
-					nextPrefixMatch = match;
-					matchedPrefixEncoding = encoded;
-				}
-			}
-		}
-		
-		// We will need to consider punct somewhere here
-		for (int j = 0; j < EncodingFileProcessor.getEncodings().length; j++) {
-
-			match = EncodingFileProcessor.getEncodings()[j][0];
-			encoded = EncodingFileProcessor.getEncodings()[j][1];
-			
-
-			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
-			{
-				String suffixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
-				String concatFullWord = nextPrefixMatch.concat(suffixStrip).trim();
-		
-
-				if (word.endsWith(suffixStrip) && concatFullWord.equals(word.trim())) 
-				{
-
-					if (nextSuffixMatch == null || match.length() > nextSuffixMatch.length()) 
-					{
-						nextSuffixMatch = match;
-						matchedSuffixEncoding = encoded;
-					}
-					
-					break;
-				}
-			}
-		}
-	
-	
-		
-		
-		
-		
-		
-		
 		if (fullMatch != null) {
 			encodedWords[counter] = fullMatchEncoding;
 			counter++;
@@ -236,11 +192,8 @@ public class EncoderDecoder {
 
 		}
 
-		/*
-		for (int i = 0; i < counter; i++)
-		{
-			System.out.println(encodedWords[i]);
-		}
+		
+	
 		*/
 		return encodedWords; // its fine here
 		
