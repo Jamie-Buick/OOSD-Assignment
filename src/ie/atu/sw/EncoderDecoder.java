@@ -12,8 +12,8 @@ public class EncoderDecoder {
 		String match = "";
 		String encoded = "";
 		
-		String fullWordMatch = "";
-		String fullEncodingMatch = "";
+		String fullWordMatch = null;
+		String fullEncodingMatch = null;
 		
 		// Get full match where word is an exact match, no punctuation
 		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
@@ -27,12 +27,16 @@ public class EncoderDecoder {
 				fullEncodingMatch = encoded;
 				
 				break;
+				
 			}
 		}
-		//System.out.println(fullWordMatch);.
+		//System.out.println(fullWordMatch);
 		
 		return fullEncodingMatch;
 	}
+	
+	
+	
 	
 	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
@@ -44,7 +48,7 @@ public class EncoderDecoder {
 		
 		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
 		{
-			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0])) 
+			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0]) && !EncodingFileProcessor.getEncodings()[i][0].equals(word))
 			{
 				match = EncodingFileProcessor.getEncodings()[i][0];
 				encoded = EncodingFileProcessor.getEncodings()[i][1];
@@ -57,6 +61,7 @@ public class EncoderDecoder {
 			}
 		}
 		
+		//System.out.println(matchedPrefixEncoding);
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
@@ -93,6 +98,7 @@ public class EncoderDecoder {
 				}
 			}
 		}
+		//System.out.println(matchedSuffixEncoding);
 		return matchedSuffixEncoding;
 	}
 	
@@ -157,9 +163,11 @@ public class EncoderDecoder {
 	
 
 	public static String[] encode(String word) {
-		String[] encodedWords = new String[2];
+		String[] encodedWords = new String[10];
 		String punc = null;
 		String puncEncoded = null;
+		String fullMatchEncoded = null;
+		String prefixWord = null;
 		String prefixEncoded = null;
 		String suffixEncoded = null;
 		
@@ -176,65 +184,73 @@ public class EncoderDecoder {
 		
 		// Call all methods here.
 		
-		String fullMatchEncoded = matchFullWord(word);
-
+		fullMatchEncoded = matchFullWord(word);
+		//System.out.println(fullMatchEncoded);
 	
 		if(fullMatchEncoded == null)
 		{
 			String[] prefixResult = matchPrefix(word); 
 			
-			String prefixWord = prefixResult[0];
+			prefixWord = prefixResult[0];
 			prefixEncoded = prefixResult[1];
 			
 			suffixEncoded = matchSuffix(word, prefixWord); 
 		}
 		
-		
-		
-		
-		
-		
-		//System.out.println(fullMatchEncoded);
-		System.out.println(fullMatchEncoded);
-		System.out.println(prefixEncoded);
-		System.out.println(suffixEncoded);
-		System.out.println(puncEncoded);
-		
-	
 		/*
+			System.out.println("Full match: " + fullMatchEncoded);
+			System.out.println("Prefix: " + prefixEncoded);
+			System.out.println("Suffix: " + suffixEncoded);
+			System.out.println("Punc: " + puncEncoded);
 
-		if (fullMatch != null) {
-			encodedWords[counter] = fullMatchEncoding;
+		*/
+	
+		
+
+		if (fullMatchEncoded != null) {
+			encodedWords[counter] = fullMatchEncoded;
 			counter++;
+			
+			if (puncEncoded != null) {
+				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
+				encodedWords[counter] = puncEncoded;
+				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
+				counter++;
+			}
+			
 		} else {
-			if (nextPrefixMatch != null) {
+			if (prefixEncoded != null) {
 				// System.out.println(nextPrefixMatch + "" + matchedPrefixEncoding);
-				encodedWords[counter] = matchedPrefixEncoding;
+				encodedWords[counter] = prefixEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 		
 
-			if (nextSuffixMatch != null) {
+			if (suffixEncoded != null) {
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
-				encodedWords[counter] = matchedSuffixEncoding;
+				encodedWords[counter] = suffixEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 		
-			if (nextPuncMatch != null) {
+			if (puncEncoded != null) {
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
-				encodedWords[counter] = matchedPuncEncoding;
+				encodedWords[counter] = puncEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 
 		}
 
-		
-	
+		/*
+		for (int q = 0; q < 10; q++)
+		{
+			System.out.println(encodedWords[q]);
+		}
 		*/
-		return encodedWords; // its fine here
+		
+		return encodedWords; 
 		
 	}
 

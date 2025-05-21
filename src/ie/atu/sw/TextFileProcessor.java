@@ -79,9 +79,9 @@ public class TextFileProcessor {
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath));
 			for (int i = 0; i < finalResults.length; i++) {
-				
+				System.out.println(finalResults[i]);
 			    if (finalResults[i] != null) {
-			    	System.out.println(finalResults[i]);
+			    	//System.out.println(finalResults[i]);
 			    	
 			    	if(encode) 
 			    	{
