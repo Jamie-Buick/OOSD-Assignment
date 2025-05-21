@@ -44,7 +44,7 @@ public class TextFileProcessor {
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
 				                finalResults[counter] = encoderDecoderReturn[i];
-				                //System.out.println(finalResults[i]);
+				                System.out.println(finalResults[i]);
 				                counter++;
 				            }
 				        }
@@ -91,6 +91,8 @@ public class TextFileProcessor {
 			    	// decoding format to text file
 			    	else
 			    	{
+			    		
+			    		// I possibly need two loops? one to be one step ahead and checking the next value?
 			    		if(finalResults[i].startsWith("@@"))
 			    		{
 			    			String suffix = finalResults[i].replace("@@", "").trim();
@@ -98,16 +100,14 @@ public class TextFileProcessor {
 			    		}
 			    		else
 			    		{
-			    			/*
-			    			if (finalResults[i+1].startsWith("@@") && (finalResults[i] != null)) 
+			    			if (finalResults[i].startsWith("@@")) // this gives a nullpointerexception
 			    			{
 			    				output.write(finalResults[i]);
 			    			}
-			    		*/
-			    			//else
-			    			//{
+			    			else
+			    			{
 			    				output.write(finalResults[i] + " ");
-			    			//}
+			    			}
 			    			
 			    		}
 			    	}
