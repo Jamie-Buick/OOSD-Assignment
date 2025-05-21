@@ -34,7 +34,7 @@ public class EncoderDecoder {
 		return fullEncodingMatch;
 	}
 	
-	private static String matchPrefix(String word) { 
+	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
 		String match = "";
 		String encoded = "";
@@ -57,7 +57,7 @@ public class EncoderDecoder {
 			}
 		}
 		
-		return matchedPrefixEncoding;
+		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
 	private static String matchSuffix(String word, String prefixWord) {
@@ -158,8 +158,34 @@ public class EncoderDecoder {
 
 	public static String[] encode(String word) {
 		String[] encodedWords = new String[2];
+		String punc = null;
+		String puncEncoded = null;
 		int counter = 0;
 
+		if(endsWithPunctuation(word)) {
+			punc = getPunctuation(word);
+			word = stripPunctuation(word);
+			
+			puncEncoded = matchPunctuation(punc);
+		}
+		
+		// Call all methods here.
+		
+		String fullMatchEncoded = matchFullWord(word);
+
+		
+		String[] prefixResult = matchPrefix(word); 
+		
+		String prefixWord = prefixResult[0];
+		String prefixEncoded = prefixResult[1];
+		
+		String suffixEncoded = matchSuffix(word, prefixWord); // I think I might need to pass the prefixMatch word here instead of the word~?
+		
+		
+		//System.out.println(fullMatchEncoded);
+		System.out.println(prefixEncoded);
+		System.out.println(suffixEncoded);
+		System.out.println(puncEncoded);
 		
 	
 		/*
