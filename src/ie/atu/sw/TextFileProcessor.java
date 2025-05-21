@@ -30,8 +30,6 @@ public class TextFileProcessor {
 						{
 							word = word.trim();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
-					
-							
 							
 						}
 						else
@@ -46,7 +44,7 @@ public class TextFileProcessor {
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
 				                finalResults[counter] = encoderDecoderReturn[i];
-				               // System.out.println(finalResults[i]);
+				                //System.out.println(finalResults[i]);
 				                counter++;
 				            }
 				        }
@@ -85,10 +83,12 @@ public class TextFileProcessor {
 			    if (finalResults[i] != null) {
 			    	//System.out.println(finalResults[i]);
 			    	
+			    	// encoding format to text file
 			    	if(encode) 
 			    	{
 			    		output.write(finalResults[i] + " ");
 			    	}
+			    	// decoding format to text file
 			    	else
 			    	{
 			    		if(finalResults[i].startsWith("@@"))
@@ -98,14 +98,16 @@ public class TextFileProcessor {
 			    		}
 			    		else
 			    		{
-			    			if (finalResults[i+1].startsWith("@@")) 
+			    			/*
+			    			if (finalResults[i+1].startsWith("@@") && (finalResults[i] != null)) 
 			    			{
 			    				output.write(finalResults[i]);
 			    			}
-			    			else
-			    			{
+			    		*/
+			    			//else
+			    			//{
 			    				output.write(finalResults[i] + " ");
-			    			}
+			    			//}
 			    			
 			    		}
 			    	}
