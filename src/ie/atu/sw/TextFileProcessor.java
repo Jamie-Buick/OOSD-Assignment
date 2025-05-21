@@ -38,7 +38,6 @@ public class TextFileProcessor {
 						{
 							word = word.strip().replaceAll("[^0-9 ]", "");
 							encoderDecoderReturn = EncoderDecoder.decode(word);
-							
 						}
 						
 						//not working or correct!
