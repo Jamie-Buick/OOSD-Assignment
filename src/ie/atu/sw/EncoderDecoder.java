@@ -160,6 +160,11 @@ public class EncoderDecoder {
 		String[] encodedWords = new String[2];
 		String punc = null;
 		String puncEncoded = null;
+		String prefixEncoded = null;
+		String suffixEncoded = null;
+		
+		
+		
 		int counter = 0;
 
 		if(endsWithPunctuation(word)) {
@@ -173,16 +178,24 @@ public class EncoderDecoder {
 		
 		String fullMatchEncoded = matchFullWord(word);
 
+	
+		if(fullMatchEncoded == null)
+		{
+			String[] prefixResult = matchPrefix(word); 
+			
+			String prefixWord = prefixResult[0];
+			prefixEncoded = prefixResult[1];
+			
+			suffixEncoded = matchSuffix(word, prefixWord); 
+		}
 		
-		String[] prefixResult = matchPrefix(word); 
 		
-		String prefixWord = prefixResult[0];
-		String prefixEncoded = prefixResult[1];
 		
-		String suffixEncoded = matchSuffix(word, prefixWord); // I think I might need to pass the prefixMatch word here instead of the word~?
+		
 		
 		
 		//System.out.println(fullMatchEncoded);
+		System.out.println(fullMatchEncoded);
 		System.out.println(prefixEncoded);
 		System.out.println(suffixEncoded);
 		System.out.println(puncEncoded);
