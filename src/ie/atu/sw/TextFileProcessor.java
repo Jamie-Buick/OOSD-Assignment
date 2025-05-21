@@ -30,12 +30,15 @@ public class TextFileProcessor {
 						{
 							word = word.trim();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
+					
+							
 							
 						}
 						else
 						{
 							word = word.strip().replaceAll("[^0-9 ]", "");
 							encoderDecoderReturn = EncoderDecoder.decode(word);
+							
 						}
 						
 						//not working or correct!
@@ -79,7 +82,7 @@ public class TextFileProcessor {
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath));
 			for (int i = 0; i < finalResults.length; i++) {
-				System.out.println(finalResults[i]);
+				//System.out.println(finalResults[i]);
 			    if (finalResults[i] != null) {
 			    	//System.out.println(finalResults[i]);
 			    	

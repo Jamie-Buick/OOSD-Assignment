@@ -163,7 +163,9 @@ public class EncoderDecoder {
 	
 
 	public static String[] encode(String word) {
-		String[] encodedWords = new String[10];
+		
+		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
+		String[] encodedWords = new String[3];
 		String punc = null;
 		String puncEncoded = null;
 		String fullMatchEncoded = null;
