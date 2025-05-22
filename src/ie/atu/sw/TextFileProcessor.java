@@ -142,34 +142,21 @@ public class TextFileProcessor {
 		String temp2 = null;
 		String[] tempArr = new String[25]; 
 		
+	    for (int i = 0; i < finalResult.length; i++) {
+	        if (finalResult[i] != null) {
+	            if (!finalResult[i].startsWith("@@")) {
+	                if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i + 1].startsWith("@@")) {
+	                    temp = finalResult[i + 1].replace("@@", "").trim();
+	                    tempArr[i] = finalResult[i] + temp;
+	                    i++; 
+	                } else {
+	                    
+	                    tempArr[i] = finalResult[i];
+	                }
+	            }
+	        }
+	    }
 		
-		for(int i = 0; i < finalResult.length; i++) 
-		{
-		
-			if((finalResult[i] != null) && (finalResult[i] != null)) {
-				if(finalResult[i].startsWith("@@"))
-				{
-					
-					//System.out.println("here!");
-					temp =  finalResult[i].replace("@@", "").trim();
-					//System.out.println("take off @@:" + temp);
-					temp2 = finalResult[i-1] + temp;
-					//System.out.println(temp2);
-					tempArr[i] = temp2;
-					i++;
-				}
-				else
-				{
-					//System.out.println("not here!");
-					tempArr[i] = finalResult[i];
-
-				}
-			}	
-		}
-			
-		
-		
-
 		 return tempArr;
 	}
 	
