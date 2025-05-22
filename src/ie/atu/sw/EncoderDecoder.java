@@ -38,14 +38,21 @@ public class EncoderDecoder {
 		{
 			String[] prefixResult = matchPrefix(word); 
 			
-			prefixWord = prefixResult[0];
-			prefixEncoded = prefixResult[1];
 			
-			suffixEncoded = matchSuffix(word, prefixWord); 
+			if (prefixResult[0] != null && prefixResult[1] != null)
+			{
+				prefixWord = prefixResult[0];
+				prefixEncoded = prefixResult[1];
+				
+				System.out.println("here " + prefixWord);
+				
+				suffixEncoded = matchSuffix(word, prefixWord); 
+			}
+			
 		}
 		
 		/*
-			System.out.println("Full match: " + fullMatchEncoded);
+			System.out.println("Full match: " + fullMatchEncoded);v
 			System.out.println("Prefix: " + prefixEncoded);
 			System.out.println("Suffix: " + suffixEncoded);
 			System.out.println("Punc: " + puncEncoded);

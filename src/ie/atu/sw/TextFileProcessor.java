@@ -6,7 +6,7 @@ import java.io.*;
 public class TextFileProcessor {
 	
 
-	String[] encoderDecoderResult = new String[25]; 
+	String[] encoderDecoderResult = new String[100000]; 
 	
 	
 	public boolean readFile(String filePath, Boolean encode) {
@@ -24,29 +24,31 @@ public class TextFileProcessor {
 				String[] words = line.split(" ");
 				
 					for (String word : words) {
-						
-						if (encode)
-						{
-							word = word.trim();
-							encoderDecoderReturn = EncoderDecoder.encode(word);
+						if(!word.isEmpty()) {
 							
+							if (encode)
+							{
+								word = word.trim();
+								encoderDecoderReturn = EncoderDecoder.encode(word);
+								
+							}
+							else
+							{
+								word = word.strip().replaceAll("[^0-9 ]", "");
+								encoderDecoderReturn = EncoderDecoder.decode(word);
+							}
+							
+							//not working or correct!
+							
+							 // Copy results into the main array
+					        for (int i = 0; i < encoderDecoderReturn.length; i++) {
+					            if (encoderDecoderReturn[i] != null) {
+					                encoderDecoderResult[counter] = encoderDecoderReturn[i];
+					                //System.out.println(finalResults[i]);
+					                counter++;
+					            }
+					        }
 						}
-						else
-						{
-							word = word.strip().replaceAll("[^0-9 ]", "");
-							encoderDecoderReturn = EncoderDecoder.decode(word);
-						}
-						
-						//not working or correct!
-						
-						 // Copy results into the main array
-				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
-				            if (encoderDecoderReturn[i] != null) {
-				                encoderDecoderResult[counter] = encoderDecoderReturn[i];
-				                //System.out.println(finalResults[i]);
-				                counter++;
-				            }
-				        }
 				  
 					}	
 			}
@@ -88,15 +90,17 @@ public class TextFileProcessor {
 		    	{
 		    		
 		    		// pass full encoderDecoder array to this method that will return a new array with the decoded text built into readable text
-		    		String res[] = buildDecodedText(encoderDecoderResult);
+		    		String res[] = buildPrefixSuffix(encoderDecoderResult);
+		    		String res1[] = buildPunct(res);
 		    		
 		    		
-		    		for (int i = 0; i < res.length; i++) 
+		    		for (int i = 0; i < res1.length; i++) 
 		    		{
-		    			if (res[i] != null) 
+		    			if (res1[i] != null) 
 		    			{
-		    				System.out.println(res[i]);
-		    				writeToText(res[i], filePath);
+		    				System.out.println(res1[i]);
+		    				writeToText(res1[i], filePath);
+		    				
 		    			}
 		    		}
 		    	}
@@ -136,30 +140,61 @@ public class TextFileProcessor {
 		
 	
 	
-	private static String[] buildDecodedText(String finalResult[]) { 
+	private static String[] buildPrefixSuffix(String finalResult[]) { 
 		
 		String temp;
-		String temp2 = null;
-		String[] tempArr = new String[25]; 
+		String[] tempArr = new String[100000]; 
 		
-	    for (int i = 0; i < finalResult.length; i++) {
-	        if (finalResult[i] != null) {
-	            if (!finalResult[i].startsWith("@@")) {
-	                if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i + 1].startsWith("@@")) {
+	    for (int i = 0; i < finalResult.length; i++) 
+	    {
+	        if (finalResult[i] != null) 
+	        {
+	            if (!finalResult[i].startsWith("@@")) 
+	            {
+	                if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i+1].startsWith("@@")) 
+	                {
 	                    temp = finalResult[i + 1].replace("@@", "").trim();
 	                    tempArr[i] = finalResult[i] + temp;
 	                    i++; 
-	                } else {
+	                } 
+	                else 
+	                {
 	                    
 	                    tempArr[i] = finalResult[i];
 	                }
 	            }
+	
 	        }
 	    }
 		
 		 return tempArr;
 	}
 	
+	
+	
+	private static String[] buildPunct(String[] finalResult) {
+	    String temp;
+	    String[] tempArr = new String[100000];
+	    
+	    for (int i = 0; i < finalResult.length; i++) 
+	    {
+	        if (finalResult[i] != null) 
+	        {
+	            if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i + 1].matches("\\p{Punct}")) 
+	            {
+	                temp = finalResult[i + 1].trim();
+	                tempArr[i] = finalResult[i] + temp;
+	                i++; // Skip the punctuation
+	            } 
+	            else 
+	            {
+	                tempArr[i] = finalResult[i];
+	            }
+	        }
+	    }
+	    
+	    return tempArr;
+	}
 
 	
 	
