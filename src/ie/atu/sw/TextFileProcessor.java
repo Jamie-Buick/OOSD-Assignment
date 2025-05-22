@@ -28,7 +28,7 @@ public class TextFileProcessor {
 							
 							if (encode)
 							{
-								word = word.trim();
+								word = word.trim().toLowerCase();
 								encoderDecoderReturn = EncoderDecoder.encode(word);
 								
 							}

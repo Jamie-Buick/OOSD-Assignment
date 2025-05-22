@@ -48,6 +48,10 @@ public class EncoderDecoder {
 				
 				suffixEncoded = matchSuffix(word, prefixWord); 
 			}
+			else
+			{
+				fullMatchEncoded = "0"; // the code for a missing word.
+			}
 			
 		}
 		
@@ -61,19 +65,24 @@ public class EncoderDecoder {
 	
 		
 
-		if (fullMatchEncoded != null) {
+		if (fullMatchEncoded != null) 
+		{
 			encodedWords[counter] = fullMatchEncoded;
 			counter++;
 			
-			if (puncEncoded != null) {
+			if (puncEncoded != null) 
+			{
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = puncEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 			
-		} else {
-			if (prefixEncoded != null) {
+		} 
+		else 
+		{
+			if (prefixEncoded != null) 
+			{
 				// System.out.println(nextPrefixMatch + "" + matchedPrefixEncoding);
 				encodedWords[counter] = prefixEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
@@ -81,14 +90,16 @@ public class EncoderDecoder {
 			}
 		
 
-			if (suffixEncoded != null) {
+			if (suffixEncoded != null) 
+			{
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = suffixEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 		
-			if (puncEncoded != null) {
+			if (puncEncoded != null) 
+			{
 				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = puncEncoded;
 				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
