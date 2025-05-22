@@ -96,7 +96,7 @@ public class TextFileProcessor {
 		    			if (res[i] != null) 
 		    			{
 		    				System.out.println(res[i]);
-		    				//writeToText(res[i], filePath);
+		    				writeToText(res[i], filePath);
 		    			}
 		    		}
 		    	}
