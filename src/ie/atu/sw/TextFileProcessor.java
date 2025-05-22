@@ -5,10 +5,9 @@ import java.io.*;
 // Processing of input files
 public class TextFileProcessor {
 	
-	//private EncoderDecoder EncoderDecoder;
+
+	String[] encoderDecoderResult = new String[25]; 
 	
-	
-	String[] finalResults = new String[25]; // Choose a size big enough for your use case
 	
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
@@ -19,7 +18,7 @@ public class TextFileProcessor {
 		try 
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
-	
+			
 			while((line = br.readLine()) != null) {
 					
 				String[] words = line.split(" ");
@@ -43,8 +42,8 @@ public class TextFileProcessor {
 						 // Copy results into the main array
 				        for (int i = 0; i < encoderDecoderReturn.length; i++) {
 				            if (encoderDecoderReturn[i] != null) {
-				                finalResults[counter] = encoderDecoderReturn[i];
-				                System.out.println(finalResults[i]);
+				                encoderDecoderResult[counter] = encoderDecoderReturn[i];
+				                //System.out.println(finalResults[i]);
 				                counter++;
 				            }
 				        }
@@ -71,63 +70,113 @@ public class TextFileProcessor {
 	}	
 	
 	public boolean writeFile(String filePath, Boolean encode) {
-		// I can do all over the processing for writing the files here, where the finalResults array just needs made into a file.
+
+		    	// encoding format to text file
+		    	if(encode) 
+		    	{
+		    		for (int i = 0; i < encoderDecoderResult.length; i++) 
+		    		{
+		    			if (encoderDecoderResult[i] != null) 
+		    			{
+		    				writeToText(encoderDecoderResult[i], filePath);
+		    			}
+		    		}	
+		    	}
+		    
+		    	// decoding format to text file
+		    	else
+		    	{
+		    		
+		    		// pass full encoderDecoder array to this method that will return a new array with the decoded text built into readable text
+		    		String res[] = buildDecodedText(encoderDecoderResult);
+		    		
+		    		
+		    		for (int i = 0; i < res.length; i++) 
+		    		{
+		    			if (res[i] != null) 
+		    			{
+		    				System.out.println(res[i]);
+		    				//writeToText(res[i], filePath);
+		    			}
+		    		}
+		    	}
+		    	
+		    	
+		    	//output.write(finalResults[i] + " ");
+		   
+		    	return true;
+		    }
+		
+			
+			
+		
+	private static boolean writeToText(String word, String filePath) { 
 		Boolean writeFinished = false;
-		 // Print results
 		
 		try 
 		{
-			BufferedWriter output = new BufferedWriter(new FileWriter(filePath));
-			for (int i = 0; i < finalResults.length; i++) {
-				//System.out.println(finalResults[i]);
-			    if (finalResults[i] != null) {
-			    	//System.out.println(finalResults[i]);
-			    	
-			    	// encoding format to text file
-			    	if(encode) 
-			    	{
-			    		output.write(finalResults[i] + " ");
-			    	}
-			    	// decoding format to text file
-			    	else
-			    	{
-			    		
-			    		// I possibly need two loops? one to be one step ahead and checking the next value?
-			    		if(finalResults[i].startsWith("@@"))
-			    		{
-			    			String suffix = finalResults[i].replace("@@", "").trim();
-			    			output.write(suffix + " ");
-			    		}
-			    		else
-			    		{
-			    			if (finalResults[i].startsWith("@@")) // this gives a nullpointerexception
-			    			{
-			    				output.write(finalResults[i]);
-			    			}
-			    			else
-			    			{
-			    				output.write(finalResults[i] + " ");
-			    			}
-			    			
-			    		}
-			    	}
-			    	
-			    	
-			    	//output.write(finalResults[i] + " ");
-			   
-			    }
-			}
+			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
+		
+			output.write(word + " ");
+
 			output.close();
+			writeFinished = true;
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			
 		}
-	
-		
 
 		return writeFinished;
 	}
+		
+
+		
+	
+	
+	private static String[] buildDecodedText(String finalResult[]) { 
+		
+		String temp;
+		String temp2 = null;
+		String[] tempArr = new String[25]; 
+		
+		
+		for(int i = 0; i < finalResult.length; i++) 
+		{
+			for (int j = 1; j < finalResult.length; j++)
+			{
+			
+				if((finalResult[i] != null) && (finalResult[j] != null)) {
+					if(finalResult[j].startsWith("@@"))
+					{
+
+						//System.out.println("here!");
+						temp =  finalResult[j].replace("@@", "").trim();
+						//System.out.println("take off @@:" + temp);
+						temp2 = finalResult[i] + temp;
+						//System.out.println(temp2);
+						
+						tempArr[j] = temp2;
+					}
+					else
+					{
+						//System.out.println("not here!");
+						tempArr[i] = finalResult[i];
+	
+					}
+				}	
+			}
+			
+		}
+		
+
+		 return tempArr;
+	}
+	
+
+	
+	
 	
 }
