@@ -47,6 +47,11 @@ public class EncoderDecoder {
 				System.out.println("here " + prefixWord);
 				
 				suffixEncoded = matchSuffix(word, prefixWord); 
+				
+				if(suffixEncoded == null)
+				{
+					prefixEncoded = "0";
+				}
 			}
 			else
 			{
