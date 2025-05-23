@@ -6,7 +6,7 @@ import java.io.*;
 public class TextFileProcessor {
 	
 
-	String[] encoderDecoderResult = new String[100000]; 
+	String[] encoderDecoderResult = new String[30]; 
 	
 	
 	public boolean readFile(String filePath, Boolean encode) {
@@ -98,7 +98,7 @@ public class TextFileProcessor {
 		    		{
 		    			if (res1[i] != null) 
 		    			{
-		    				System.out.println(res1[i]);
+		    				//System.out.println(res1[i]);
 		    				writeToText(res1[i], filePath);
 		    				
 		    			}
@@ -143,7 +143,9 @@ public class TextFileProcessor {
 	private static String[] buildPrefixSuffix(String finalResult[]) { 
 		
 		String temp;
-		String[] tempArr = new String[100000]; 
+		String[] tempArr = new String[30]; 
+		
+		String[] arr = new String[30];
 		
 	    for (int i = 0; i < finalResult.length; i++) 
 	    {
@@ -165,7 +167,19 @@ public class TextFileProcessor {
 	            }
 	
 	        }
+	       
 	    }
+	    
+	    
+	    arr = removeNulls(finalResult);
+	    
+		for (int i = 0; i < arr.length; i++) {
+			
+			System.out.println(arr[i]);
+
+	}
+	
+	       
 		
 		 return tempArr;
 	}
@@ -174,7 +188,7 @@ public class TextFileProcessor {
 	
 	private static String[] buildPunct(String[] finalResult) {
 	    String temp;
-	    String[] tempArr = new String[100000];
+	    String[] tempArr = new String[30];
 	    
 	    for (int i = 0; i < finalResult.length; i++) 
 	    {
@@ -195,8 +209,32 @@ public class TextFileProcessor {
 	    
 	    return tempArr;
 	}
+	
+	
+	
+	private static String[] removeNulls(String[] finalResult) {
+		
+		String[] arr = new String[30];
+		
+		int counter = 0;
+		for (int i = 0; i < finalResult.length; i++) {
+			
+			if(!(finalResult[i] == null))
+			{
+				arr[counter] = finalResult[i];
+				counter++;
+			}
+	
 
+
+	}
+	
+		return arr;
+
+	}
+	
 	
 	
 	
 }
+
