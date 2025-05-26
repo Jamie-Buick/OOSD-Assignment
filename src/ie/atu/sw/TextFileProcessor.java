@@ -12,64 +12,59 @@ public class TextFileProcessor {
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
-		String [] encoderDecoderReturn;
+		String[] encoderDecoderReturn;
 		int counter = 0;
-		
-		try 
-		{
+
+		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
-			
-			while((line = br.readLine()) != null) {
-					
+
+			while ((line = br.readLine()) != null) {
+
 				String[] words = line.split(" ");
-				
-					for (String word : words) {
-						if(!word.isEmpty()) {
-							
-							if (encode)
-							{
-								word = word.trim().toLowerCase();
-								encoderDecoderReturn = EncoderDecoder.encode(word);
-								
-							}
-							else
-							{
-								word = word.strip().replaceAll("[^0-9 ]", "");
-								encoderDecoderReturn = EncoderDecoder.decode(word);
-							}
-							
-							//not working or correct!
-							
-							 // Copy results into the main array
-					        for (int i = 0; i < encoderDecoderReturn.length; i++) {
-					            if (encoderDecoderReturn[i] != null) {
-					                encoderDecoderResult[counter] = encoderDecoderReturn[i];
-					                //System.out.println(finalResults[i]);
-					                counter++;
-					            }
-					        }
+
+				for (String word : words) 
+				{
+					if (!word.isEmpty()) 
+					{
+
+						if (encode) 
+						{
+							word = word.trim().toLowerCase();
+							encoderDecoderReturn = EncoderDecoder.encode(word);
+
 						}
-				  
-					}	
+						else 
+						{
+							word = word.strip().replaceAll("[^0-9 ]", "");
+							encoderDecoderReturn = EncoderDecoder.decode(word);
+						}
+
+						// Copy results into the main array
+						for (int i = 0; i < encoderDecoderReturn.length; i++) 
+						{
+							if (encoderDecoderReturn[i] != null) 
+							{
+								encoderDecoderResult[counter] = encoderDecoderReturn[i];
+								// System.out.println(finalResults[i]);
+								counter++;
+							}
+						}
+					}
+
+				}
 			}
-			
-			/*
-			// Print results
-	        for (int j = 0; j < finalResults.length; j++) {
-	              System.out.println("Final:" + finalResults[j]);
-	        }
-			  */
+
 			br.close();
 			readFinished = true;
-		}
-		catch(Exception e)
+		} 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		
-		return readFinished;
 
-	}	
+		return readFinished;
+		
+	}
 	
 	public boolean writeFile(String filePath, Boolean encode) {
 
@@ -90,24 +85,22 @@ public class TextFileProcessor {
 		    	{
 		    		
 		    		// pass full encoderDecoder array to this method that will return a new array with the decoded text built into readable text
-		    		String res[] = buildPrefixSuffix(encoderDecoderResult);
-		    		String res1[] = buildPunct(res);
+		    		String buildPartialWords[] = buildPrefixSuffix(encoderDecoderResult);
+		    		String removeNullVals[] = removeNulls(buildPartialWords);
+		    		String buildPunctuation[] = buildPunct(removeNullVals);
 		    		
 		    		
-		    		for (int i = 0; i < res1.length; i++) 
+		    		
+		    		for (int i = 0; i < buildPunctuation.length; i++) 
 		    		{
-		    			if (res1[i] != null) 
+		    			if (buildPunctuation[i] != null) 
 		    			{
-		    				//System.out.println(res1[i]);
-		    				writeToText(res1[i], filePath);
+		    				writeToText(buildPunctuation[i], filePath);
 		    				
 		    			}
 		    		}
 		    	}
-		    	
-		    	
-		    	//output.write(finalResults[i] + " ");
-		   
+
 		    	return true;
 		    }
 		
@@ -121,7 +114,6 @@ public class TextFileProcessor {
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
-		
 			output.write(word + " ");
 
 			output.close();
@@ -137,100 +129,79 @@ public class TextFileProcessor {
 	}
 		
 
+
+	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
-	
-	
-	private static String[] buildPrefixSuffix(String finalResult[]) { 
-		
+		String[] joinedWords = new String[30]; 
 		String temp;
-		String[] tempArr = new String[30]; 
-		
-		String[] arr = new String[30];
-		
-	    for (int i = 0; i < finalResult.length; i++) 
+
+	    for (int i = 0; i < inputWords.length; i++) 
 	    {
-	        if (finalResult[i] != null) 
+	        if (inputWords[i] != null) 
 	        {
-	            if (!finalResult[i].startsWith("@@")) 
+	            if (!inputWords[i].startsWith("@@")) 
 	            {
-	                if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i+1].startsWith("@@")) 
+	                if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i+1].startsWith("@@")) 
 	                {
-	                    temp = finalResult[i + 1].replace("@@", "").trim();
-	                    tempArr[i] = finalResult[i] + temp;
+	                    temp = inputWords[i + 1].replace("@@", "").trim();
+	                    joinedWords[i] = inputWords[i] + temp;
 	                    i++; 
 	                } 
 	                else 
-	                {
-	                    
-	                    tempArr[i] = finalResult[i];
+	                { 
+	                	joinedWords[i] = inputWords[i];
 	                }
 	            }
-	
 	        }
-	       
 	    }
 	    
-	    
-	    arr = removeNulls(finalResult);
-	    
-		for (int i = 0; i < arr.length; i++) {
-			
-			System.out.println(arr[i]);
-
-	}
-	
-	       
-		
-		 return tempArr;
+		 return joinedWords;
 	}
 	
 	
 	
-	private static String[] buildPunct(String[] finalResult) {
+	private static String[] buildPunct(String[] inputWords) {
+	  
+	    String[] joinedPunct = new String[30];
 	    String temp;
-	    String[] tempArr = new String[30];
 	    
-	    for (int i = 0; i < finalResult.length; i++) 
+	    for (int i = 0; i < inputWords.length; i++) 
 	    {
-	        if (finalResult[i] != null) 
+	        if (inputWords[i] != null) 
 	        {
-	            if (i + 1 < finalResult.length && finalResult[i + 1] != null && finalResult[i + 1].matches("\\p{Punct}")) 
+	            if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i + 1].matches("\\p{Punct}")) 
 	            {
-	                temp = finalResult[i + 1].trim();
-	                tempArr[i] = finalResult[i] + temp;
+	                temp = inputWords[i + 1].trim();
+	                joinedPunct[i] = inputWords[i] + temp;
 	                i++; // Skip the punctuation
 	            } 
 	            else 
 	            {
-	                tempArr[i] = finalResult[i];
+	            	joinedPunct[i] = inputWords[i];
 	            }
 	        }
 	    }
 	    
-	    return tempArr;
+	    return joinedPunct;
 	}
 	
 	
 	
-	private static String[] removeNulls(String[] finalResult) {
-		
-		String[] arr = new String[30];
-		
+	private static String[] removeNulls(String[] inputWords) {
+
+		String[] cleanedArr = new String[30];
+
 		int counter = 0;
-		for (int i = 0; i < finalResult.length; i++) {
-			
-			if(!(finalResult[i] == null))
+		for (int i = 0; i < inputWords.length; i++) 
+		{
+			if (!(inputWords[i] == null)) 
 			{
-				arr[counter] = finalResult[i];
+				cleanedArr[counter] = inputWords[i];
 				counter++;
 			}
-	
-
-
-	}
-	
-		return arr;
-
+		}
+		
+		return cleanedArr;
 	}
 	
 	

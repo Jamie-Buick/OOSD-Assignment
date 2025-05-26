@@ -18,8 +18,7 @@ public class EncoderDecoder {
 		String prefixEncoded = null;
 		String suffixEncoded = null;
 		
-		
-		
+
 		int counter = 0;
 
 		if(endsWithPunctuation(word)) {
@@ -29,22 +28,18 @@ public class EncoderDecoder {
 			puncEncoded = matchPunctuation(punc);
 		}
 		
-		// Call all methods here.
 		
 		fullMatchEncoded = matchFullWord(word);
-		//System.out.println(fullMatchEncoded);
+
 	
 		if(fullMatchEncoded == null)
 		{
 			String[] prefixResult = matchPrefix(word); 
 			
-			
 			if (prefixResult[0] != null && prefixResult[1] != null)
 			{
 				prefixWord = prefixResult[0];
 				prefixEncoded = prefixResult[1];
-				
-				System.out.println("here " + prefixWord);
 				
 				suffixEncoded = matchSuffix(word, prefixWord); 
 				
@@ -60,15 +55,7 @@ public class EncoderDecoder {
 			
 		}
 		
-		/*
-			System.out.println("Full match: " + fullMatchEncoded);v
-			System.out.println("Prefix: " + prefixEncoded);
-			System.out.println("Suffix: " + suffixEncoded);
-			System.out.println("Punc: " + puncEncoded);
 
-		*/
-	
-		
 
 		if (fullMatchEncoded != null) 
 		{
@@ -77,9 +64,7 @@ public class EncoderDecoder {
 			
 			if (puncEncoded != null) 
 			{
-				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = puncEncoded;
-				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 			
@@ -88,37 +73,24 @@ public class EncoderDecoder {
 		{
 			if (prefixEncoded != null) 
 			{
-				// System.out.println(nextPrefixMatch + "" + matchedPrefixEncoding);
 				encodedWords[counter] = prefixEncoded;
-				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 		
-
 			if (suffixEncoded != null) 
 			{
-				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = suffixEncoded;
-				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 		
 			if (puncEncoded != null) 
 			{
-				// System.out.println(nextSuffixMatch + "" + matchedSuffixEncoding);
 				encodedWords[counter] = puncEncoded;
-				// System.out.println(EncodingFileProcessor.encodings[rows][1]);
 				counter++;
 			}
 
 		}
 
-		/*
-		for (int q = 0; q < 10; q++)
-		{
-			System.out.println(encodedWords[q]);
-		}
-		*/
 		
 		return encodedWords; 
 		
@@ -158,6 +130,7 @@ public class EncoderDecoder {
 	
 	
 	
+	
 	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
 		String match = "";
@@ -185,6 +158,10 @@ public class EncoderDecoder {
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
+	
+	
+	
+	
 	private static String matchSuffix(String word, String prefixWord) {
 		String match = "";
 		String encoded = "";
@@ -198,7 +175,6 @@ public class EncoderDecoder {
 			match = EncodingFileProcessor.getEncodings()[j][0];
 			encoded = EncodingFileProcessor.getEncodings()[j][1];
 			
-
 			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
 			{
 				String suffixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
@@ -225,8 +201,8 @@ public class EncoderDecoder {
 	
 	
 	
-	
 	private static boolean endsWithPunctuation(String word) {
+		
 		boolean endsWithPunctuation = false;
 		char lastChar = word.charAt(word.length() - 1);
 		
@@ -240,6 +216,8 @@ public class EncoderDecoder {
 	}
 	
 	
+	
+	
 	private static String stripPunctuation(String word) { 
 		  return word.substring(0, word.length() - 1).trim();
 	}
@@ -251,9 +229,10 @@ public class EncoderDecoder {
 		return String.valueOf(lastChar).trim();
 		
 	}
-
 	
-
+	
+	
+	
 	private static String matchPunctuation(String punc) {  
 		String match = "";
 		String encoded = "";
@@ -275,8 +254,7 @@ public class EncoderDecoder {
 				break;
 			}
 		}
-		//System.out.println(fullWordMatch);.
-		
+
 		return puncEncodingMatch;
 	}
 	
@@ -310,16 +288,9 @@ public class EncoderDecoder {
 		if (fullMatch != null) {
 			decodedWords[0] = fullMatch;
 		}
-		
 
-		/*
-		for (int i = 0; i < 1; i++)
-		{
-			System.out.println(decodedWords[i]);
-		}
-		*/
-		return decodedWords;
 		
+		return decodedWords;
 	}
 
 }
