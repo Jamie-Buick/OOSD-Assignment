@@ -35,14 +35,15 @@ public class EncodingFileProcessor {
 		}
 		
 		
-		
+		/*
 		// Nested for loop to test that the file was being parsed correctly
 		for(int rows = 0; rows < encodings.length; rows++) {
 			for (int cols = 0; cols < 2; cols++) {
-				System.out.print(encodings[rows][cols] + "		" );
+				//System.out.print(encodings[rows][cols] + "		" );
 			}
-			System.out.println("");
+			//System.out.println("");
 		}
+		*/
 		
 	}
 	

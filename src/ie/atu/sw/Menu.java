@@ -34,9 +34,9 @@ public class Menu {
 			
 			switch(userInput)
 			{
-				case 1 -> mapFile();
-				case 2 -> textFile();
-				case 3 -> outputFile();
+				case 1 -> mapFile(userInput);
+				case 2 -> textFile(userInput);
+				case 3 -> outputFile(userInput);
 				case 4 -> configureOptions();
 				case 5 -> encode();
 				case 6 -> decode();
@@ -54,14 +54,14 @@ public class Menu {
 		System.out.println("*                                                          *");
 		System.out.println("*              Encoding Words with Suffixes                *");
 		System.out.println("*                                                          *");
+		System.out.println("*              		By Jamie Buick                	       *");
 		System.out.println("************************************************************");
-		System.out.println("(1) Specify Mapping File");
-		System.out.println("(2) Specify Text File to Encode");
-		System.out.println("(3) Specify Output File (default: ./out.txt)");
+		System.out.println("(1) Specify Mapping File (.csv)");
+		System.out.println("(2) Specify Text File to Encode (.txt)");
+		System.out.println("(3) Specify Output File (.txt)");
 		System.out.println("(4) Configure Options");
 		System.out.println("(5) Encode Text File");
 		System.out.println("(6) Decode Text File");
-		System.out.println("(?) Optional Extras...");
 		System.out.println("(?) Quit");
 
 		// Output a menu of options and solicit text from the user
@@ -83,11 +83,11 @@ public class Menu {
 	
 	
 	// Allows the user to enter a file path for options 1-2, it is then checked that it exists using the validateFilePath method
-	private String changeFilePath() {
+	private String changeFilePath(int userInput) {
 
 			String filePath = s.nextLine(); 
-			
-			while(validateFilePath(filePath) != true ) 
+
+			while(validateFilePath(filePath) != true  ) 
 			{
 				System.out.println("Enter a valid the file path>");
 				filePath = s.nextLine(); 
@@ -97,55 +97,80 @@ public class Menu {
 		return filePath;
 	}
 	
-	// Checks that the file path actually exists 
+	
+	
+	
+	/*
+	// Dont think I need this yet but will keep it now
+	// Checks the file extension of the filepath is correct for the selected menu option
+	private boolean checkFileExt(String filePath, int userInput) {
+			
+		String file = filePath.substring(filePath.lastIndexOf("/"));
+		String extension = file.substring(file.indexOf("."));
+		
+		if((userInput == 1) && (!extension.equals("csv")))
+		{
+			return false;
+		}
+		else if((userInput > 1) && (!extension.equals("txt")))
+		{
+			return false;
+		}
+		
+	
+		return true;
+	}
+	
+	*/
+	
+	
+	// Checks the file path exists 
 	private boolean validateFilePath(String s) {
 		File fp = new File(s);
 		
-		if (fp.exists()) {
+		if (fp.exists()) 
+		{
 			return true;
 		}
 		return false;
 	}
 	
 	
+	
+	
+	
+	
+	
 	// Menu functions
-	private void mapFile() {
-		filePathMap = changeFilePath();
+	private void mapFile(int userInput) {
+		filePathMap = changeFilePath(userInput);
 		EncodingFileProcessor.parseEncoding(filePathMap);
-		System.out.println(filePathMap);
 	}
 	
 	
-	private void textFile() {
-		filePathInput = changeFilePath();
-		//InputFileProcessor.readFile(filePathText);
-		System.out.println(filePathInput);	
+	private void textFile(int userInput) {
+		filePathInput = changeFilePath(userInput);
 	}
-		
-	private void outputFile() {
-
+	
+	// this needs set up to check the file path etc
+	private void outputFile(int userInput) {
 	    s.nextLine(); // Clear leftover newline from menu selection
-	    System.out.println("Enter a valid the file path>");
 	    filePathOutput = s.nextLine(); // Now it will wait for actual input
-		
-		
 	}
 	
 	private void configureOptions() {
 		System.out.println("config");
 	}
 	
+	
 	private void encode() {
 		encode = true;
-		// I will pass this a bool true / false
 		readFinished = TextFileProcessor.readFile(filePathInput, encode);
 		
 		if(readFinished)
 		{
 			TextFileProcessor.writeFile(filePathOutput,encode);
-		}
-		
-		System.out.println("encode");
+		} 
 	}
 	
 	
@@ -158,9 +183,7 @@ public class Menu {
 		if(readFinished)
 		{
 			TextFileProcessor.writeFile(filePathOutput, encode);
-			System.out.println("decodeoutput");
 		}
-		System.out.println("decode");
 	}
 	
 	
