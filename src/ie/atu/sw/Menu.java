@@ -30,18 +30,17 @@ public class Menu {
 		while (keepRunning) {
 			showOptions();
 
-			int userInput = Integer.parseInt(s.next());
+			int menuSelection = Integer.parseInt(s.next());
+			s.nextLine(); 
 			
-			switch(userInput)
+			switch(menuSelection)
 			{
-				case 1 -> mapFile(userInput);
-				case 2 -> textFile(userInput);
-				case 3 -> outputFile(userInput);
-				case 4 -> configureOptions();
-				case 5 -> encode();
-				case 6 -> decode();
-				case 7 -> extras();
-				case 8 -> keepRunning = false;
+				case 1 -> mapFile();
+				case 2 -> textFile();
+				case 3 -> outputFile();
+				case 4 -> encode();
+				case 5 -> decode();
+				case 6 -> keepRunning = false;
 				default -> out.println("[Error] Invalid Selection");
 			}
 		}
@@ -59,10 +58,9 @@ public class Menu {
 		System.out.println("(1) Specify Mapping File (.csv)");
 		System.out.println("(2) Specify Text File to Encode (.txt)");
 		System.out.println("(3) Specify Output File (.txt)");
-		System.out.println("(4) Configure Options");
-		System.out.println("(5) Encode Text File");
-		System.out.println("(6) Decode Text File");
-		System.out.println("(?) Quit");
+		System.out.println("(4) Encode Text File");
+		System.out.println("(5) Decode Text File");
+		System.out.println("(6) Quit");
 
 		// Output a menu of options and solicit text from the user
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
@@ -83,13 +81,14 @@ public class Menu {
 	
 	
 	// Allows the user to enter a file path for options 1-2, it is then checked that it exists using the validateFilePath method
-	private String changeFilePath(int userInput) {
+	private String changeFilePath() {
 
+			System.out.println("Enter a valid file path>");
 			String filePath = s.nextLine(); 
 
-			while(validateFilePath(filePath) != true  ) 
+			while (!validateFilePath(filePath)) 
 			{
-				System.out.println("Enter a valid the file path>");
+				System.out.println("Invalid file path. Enter a valid file path>");
 				filePath = s.nextLine(); 
 			
 			}
@@ -142,19 +141,20 @@ public class Menu {
 	
 	
 	// Menu functions
-	private void mapFile(int userInput) {
-		filePathMap = changeFilePath(userInput);
+	private void mapFile() {
+		filePathMap = changeFilePath();
 		EncodingFileProcessor.parseEncoding(filePathMap);
 	}
 	
 	
-	private void textFile(int userInput) {
-		filePathInput = changeFilePath(userInput);
+	private void textFile() {
+		filePathInput = changeFilePath();
 	}
 	
-	// this needs set up to check the file path etc
-	private void outputFile(int userInput) {
+
+	private void outputFile() {
 	    s.nextLine(); // Clear leftover newline from menu selection
+	    System.out.println("Enter a valid the file path>");
 	    filePathOutput = s.nextLine(); // Now it will wait for actual input
 	}
 	
