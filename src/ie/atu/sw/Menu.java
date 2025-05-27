@@ -153,7 +153,6 @@ public class Menu {
 	
 
 	private void outputFile() {
-	    s.nextLine(); // Clear leftover newline from menu selection
 	    System.out.println("Enter a valid the file path>");
 	    filePathOutput = s.nextLine(); // Now it will wait for actual input
 	}

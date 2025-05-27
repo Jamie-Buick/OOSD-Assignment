@@ -5,15 +5,23 @@ import java.io.*;
 // Processing of input files
 public class TextFileProcessor {
 	
-
-	String[] encoderDecoderResult = new String[30]; 
+	private String[] encoderDecoderResult; 
+	private int counterArr;
+	
+	public TextFileProcessor(){
+		encoderDecoderResult = new String[1000];
+		counterArr = 0;
+	}
+	
+	
 	
 	
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
 		String[] encoderDecoderReturn;
-		int counter = 0;
+		
+		
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -44,9 +52,9 @@ public class TextFileProcessor {
 						{
 							if (encoderDecoderReturn[i] != null) 
 							{
-								encoderDecoderResult[counter] = encoderDecoderReturn[i];
+								encoderDecoderResult[counterArr] = encoderDecoderReturn[i];
 								// System.out.println(finalResults[i]);
-								counter++;
+								counterArr++;
 							}
 						}
 					}
