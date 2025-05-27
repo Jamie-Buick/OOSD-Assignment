@@ -82,45 +82,44 @@ public class TextFileProcessor {
 	
 	public boolean writeFile(String filePath, Boolean encode) {
 
-		    	// encoding format to text file
-		    	if(encode) 
-		    	{
-		    		for (int i = 0; i < encoderDecoderResult.length; i++) 
-		    		{
-		    			if (encoderDecoderResult[i] != null) 
-		    			{
-		    				writeToText(encoderDecoderResult[i], filePath);
-		    			}
-		    		}	
-		    	}
-		    
-		    	// decoding format to text file
-		    	else
-		    	{
-		    		
-		    		// pass full encoderDecoder array to this method that will return a new array with the decoded text built into readable text
-		    		String buildPartialWords[] = buildPrefixSuffix(encoderDecoderResult);
-		    		String removeNullVals[] = removeNulls(buildPartialWords);
-		    		String buildPunctuation[] = buildPunct(removeNullVals);
-		    		
-		    		
-		    		
-		    		for (int i = 0; i < buildPunctuation.length; i++) 
-		    		{
-		    			if (buildPunctuation[i] != null) 
-		    			{
-		    				writeToText(buildPunctuation[i], filePath);
-		    				
-		    			}
-		    		}
-		    	}
+		// encoding format to text file
+		if (encode) {
+			for (int i = 0; i < encoderDecoderResult.length; i++) 
+			{
+				if (encoderDecoderResult[i] != null) 
+				{
+					writeToText(encoderDecoderResult[i], filePath);
+				}
+			}
+		}
 
-		    	return true;
-		    }
-		
+		// decoding format to text file
+		else 
+		{
+			// pass full encoderDecoder array to this method that will return a new array
+			// with the decoded text built into readable text
+			String buildPartialWords[] = buildPrefixSuffix(encoderDecoderResult);
+			String removeNullVals[] = removeNulls(buildPartialWords);
+			String buildPunctuation[] = buildPunct(removeNullVals);
+
+			for (int i = 0; i < buildPunctuation.length; i++) 
+			{
+				if (buildPunctuation[i] != null) 
+				{
+					writeToText(buildPunctuation[i], filePath);
+
+				}
+			}
+		}
+
+		cleanArray();
+
+		return true;
+	}
 			
 			
 		
+	
 	private static boolean writeToText(String word, String filePath) { 
 		Boolean writeFinished = false;
 		
@@ -229,6 +228,14 @@ public class TextFileProcessor {
 		
 		encoderDecoderResult = tempArr;
 		
+	}
+	
+	private void cleanArray() {
+		for (int i = 0; i < encoderDecoderResult.length; i++)
+		{
+			encoderDecoderResult[i] = null;
+		}
+
 	}
 	
 	
