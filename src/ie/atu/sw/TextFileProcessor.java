@@ -9,7 +9,7 @@ public class TextFileProcessor {
 	private int counterArr;
 	
 	public TextFileProcessor(){
-		encoderDecoderResult = new String[1000];
+		encoderDecoderResult = new String[10];
 		counterArr = 0;
 	}
 	
@@ -52,8 +52,14 @@ public class TextFileProcessor {
 						{
 							if (encoderDecoderReturn[i] != null) 
 							{
+								
+								if (counterArr >= encoderDecoderResult.length)
+								{
+									expandArray();
+									System.out.println(encoderDecoderResult.length);
+								}
+								
 								encoderDecoderResult[counterArr] = encoderDecoderReturn[i];
-								// System.out.println(finalResults[i]);
 								counterArr++;
 							}
 						}
@@ -140,7 +146,7 @@ public class TextFileProcessor {
 
 	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
-		String[] joinedWords = new String[30]; 
+		String[] joinedWords = new String[inputWords.length]; 
 		String temp;
 
 	    for (int i = 0; i < inputWords.length; i++) 
@@ -170,7 +176,7 @@ public class TextFileProcessor {
 	
 	private static String[] buildPunct(String[] inputWords) {
 	  
-	    String[] joinedPunct = new String[30];
+	    String[] joinedPunct = new String[inputWords.length];
 	    String temp;
 	    
 	    for (int i = 0; i < inputWords.length; i++) 
@@ -197,7 +203,7 @@ public class TextFileProcessor {
 	
 	private static String[] removeNulls(String[] inputWords) {
 
-		String[] cleanedArr = new String[30];
+		String[] cleanedArr = new String[inputWords.length];
 
 		int counter = 0;
 		for (int i = 0; i < inputWords.length; i++) 
@@ -210,6 +216,19 @@ public class TextFileProcessor {
 		}
 		
 		return cleanedArr;
+	}
+	
+	
+	private void expandArray() {
+		String[] tempArr = new String[encoderDecoderResult.length*2];
+		
+		for (int i = 0; i < counterArr; i++)
+		{
+			tempArr[i] = encoderDecoderResult[i];
+		}
+		
+		encoderDecoderResult = tempArr;
+		
 	}
 	
 	
