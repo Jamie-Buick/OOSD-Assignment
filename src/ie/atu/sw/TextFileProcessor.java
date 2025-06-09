@@ -28,7 +28,8 @@ public class TextFileProcessor {
 
 			while ((line = br.readLine()) != null) {
 
-				String[] words = line.split(" ");
+				String[] words = (line + "\n").split(" ");
+			
 
 				for (String word : words) 
 				{
@@ -56,7 +57,6 @@ public class TextFileProcessor {
 								if (counterArr >= encoderDecoderResult.length)
 								{
 									expandArray();
-									System.out.println(encoderDecoderResult.length);
 								}
 								
 								encoderDecoderResult[counterArr] = encoderDecoderReturn[i];
