@@ -20,22 +20,25 @@ public class TextFileProcessor {
 		String line = null;
 		Boolean readFinished = false;
 		String[] encoderDecoderReturn;
-		
+
 		
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 
 			while ((line = br.readLine()) != null) {
-
-				String[] words = (line + "\n").split(" ");
-			
+				
+				String[] words = line.split(" ");
+				
+				
 
 				for (String word : words) 
 				{
+					System.out.println(word);
+					
 					if (!word.isEmpty()) 
 					{
-
+				
 						if (encode) 
 						{
 							word = word.trim().toLowerCase();
@@ -64,7 +67,7 @@ public class TextFileProcessor {
 							}
 						}
 					}
-
+					
 				}
 			}
 
