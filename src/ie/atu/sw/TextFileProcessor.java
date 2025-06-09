@@ -30,6 +30,8 @@ public class TextFileProcessor {
 
 				String[] words = line.split(" ");
 
+				
+				
 				for (String word : words) 
 				{
 					if (!word.isEmpty()) 
