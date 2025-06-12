@@ -21,14 +21,12 @@ public class TextFileProcessor {
 		Boolean readFinished = false;
 		String[] encoderDecoderReturn;
 
-		
-
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 
 			while ((line = br.readLine()) != null) {
 
-				line = line + "//";
+				line = line + " @@NEWLINE";
 				//System.out.println(line);
 				
 				String[] words = line.split(" ");
@@ -37,14 +35,13 @@ public class TextFileProcessor {
 				
 				for (String word : words) 
 				{
+					
 					if (!word.isEmpty()) 
 					{
-						//System.out.println(word);
 						if (encode) 
 						{
 							word = word.trim().toLowerCase();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
-
 						}
 						else 
 						{
@@ -93,6 +90,7 @@ public class TextFileProcessor {
 				if (encoderDecoderResult[i] != null) 
 				{
 					writeToText(encoderDecoderResult[i], filePath);
+					System.out.println(encoderDecoderResult[i]);
 				}
 			}
 		}
