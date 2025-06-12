@@ -207,7 +207,7 @@ public class EncoderDecoder {
 	
 	private static boolean newLine(String word) {
 		
-		if(word.endsWith("\n"))
+		if(word.endsWith("//"))
 		{
 			return true;
 		}
