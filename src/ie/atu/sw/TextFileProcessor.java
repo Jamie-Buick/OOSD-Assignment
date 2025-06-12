@@ -29,16 +29,19 @@ public class TextFileProcessor {
 			while ((line = br.readLine()) != null) {
 				
 				String[] words = line.split(" ");
+				//System.out.println(words.length);
 				
-				
-
 				for (String word : words) 
 				{
-					System.out.println(word);
+					// This prints the line as empty.
+					if (word.isEmpty()) {
+						word = "\n";
+					}
+					
 					
 					if (!word.isEmpty()) 
 					{
-				
+						System.out.println(word);
 						if (encode) 
 						{
 							word = word.trim().toLowerCase();
