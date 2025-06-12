@@ -20,8 +20,7 @@ public class TextFileProcessor {
 		String line = null;
 		Boolean readFinished = false;
 		String[] encoderDecoderReturn;
-		
-		
+
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -30,8 +29,6 @@ public class TextFileProcessor {
 
 				String[] words = line.split(" ");
 
-				
-				
 				for (String word : words) 
 				{
 					if (!word.isEmpty()) 
