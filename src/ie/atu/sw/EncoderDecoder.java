@@ -21,7 +21,7 @@ public class EncoderDecoder {
 		
 
 		int counter = 0;
-		System.out.println(word);
+		//System.out.println(word);
 		
 		// New line
 		if(newLine(word)) 
@@ -65,11 +65,7 @@ public class EncoderDecoder {
 		}
 		
 		
-		if (newLine != null) 
-		{
-			encodedWords[counter] = "\n";
-			counter++;
-		}
+		
 
 		if (fullMatchEncoded != null) 
 		{
@@ -83,6 +79,19 @@ public class EncoderDecoder {
 			}
 			
 		} 
+		
+		else if (newLine != null) 
+		{
+			encodedWords[counter] = "\n";
+			counter++;
+			
+			if (puncEncoded != null) 
+			{
+				encodedWords[counter] = puncEncoded;
+				counter++;
+			}
+			
+		}
 		else 
 		{
 			if (prefixEncoded != null) 

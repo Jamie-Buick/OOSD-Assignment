@@ -129,7 +129,15 @@ public class TextFileProcessor {
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
-			output.write(word + " ");
+			if(!(word.equals("\n"))) 
+			{
+				output.write(word + " ");
+			}
+			else 
+			{
+				output.write(word);
+			}
+			
 
 			output.close();
 			writeFinished = true;
