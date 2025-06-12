@@ -17,18 +17,24 @@ public class EncoderDecoder {
 		String prefixWord = null;
 		String prefixEncoded = null;
 		String suffixEncoded = null;
+		String newLine = null;
 		
 
 		int counter = 0;
-
-		if(!(newLine(word) && endsWithPunctuation(word))) {
+		
+		if(newLine(word)) 
+		{
+			System.out.println("new line bro");
+		}
+		
+		if(endsWithPunctuation(word)) {
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
 			puncEncoded = matchPunctuation(punc);
 		}
-		
-		
+	
+
 		fullMatchEncoded = matchFullWord(word);
 
 	
@@ -200,11 +206,9 @@ public class EncoderDecoder {
 	
 	
 	private static boolean newLine(String word) {
-		System.out.println("here!!");
 		
-		if(word.contains("\n"))
+		if(word.endsWith("\n"))
 		{
-			
 			return true;
 		}
 		

@@ -27,9 +27,8 @@ public class TextFileProcessor {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 
 			while ((line = br.readLine()) != null) {
-			
-				
-				line = line + "\n";
+
+				//line = line + "\n";
 				//System.out.println(line);
 				
 				String[] words = line.split(" ");
