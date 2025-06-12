@@ -21,7 +21,8 @@ public class EncoderDecoder {
 
 		int counter = 0;
 
-		if(endsWithPunctuation(word)) {
+		if(endsWithPunctuation(word)) 
+		{
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
@@ -29,9 +30,11 @@ public class EncoderDecoder {
 		}
 		
 		
+		// Call method for finding a full match
 		fullMatchEncoded = matchFullWord(word);
 
 	
+		// If a full match is not found then we check for a prefix - suffix match
 		if(fullMatchEncoded == null)
 		{
 			String[] prefixResult = matchPrefix(word); 
@@ -56,7 +59,7 @@ public class EncoderDecoder {
 		}
 		
 
-
+		// add this logic into a method to tidy up this method that is used as a 'main'
 		if (fullMatchEncoded != null) 
 		{
 			encodedWords[counter] = fullMatchEncoded;
@@ -98,8 +101,6 @@ public class EncoderDecoder {
 
 	
 
-	
-	
 	private static String matchFullWord(String word) {
 		String match = "";
 		String encoded = "";
@@ -259,10 +260,6 @@ public class EncoderDecoder {
 	}
 	
 	
-
-
-
-
 
 	public static String[] decode(String encodedWord) {
 		
