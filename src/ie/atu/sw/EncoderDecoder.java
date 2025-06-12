@@ -21,7 +21,7 @@ public class EncoderDecoder {
 
 		int counter = 0;
 
-		if(endsWithPunctuation(word)) {
+		if(!(newLine(word) && endsWithPunctuation(word))) {
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
@@ -199,11 +199,27 @@ public class EncoderDecoder {
 	}
 	
 	
+	private static boolean newLine(String word) {
+		System.out.println("here!!");
+		
+		if(word.contains("\n"))
+		{
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	
+	
 	
 	
 	private static boolean endsWithPunctuation(String word) {
 		
 		boolean endsWithPunctuation = false;
+		
 		char lastChar = word.charAt(word.length() - 1);
 		
 		if((String.valueOf(lastChar).matches("\\p{Punct}")))
