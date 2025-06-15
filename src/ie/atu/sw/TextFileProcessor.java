@@ -46,8 +46,9 @@ public class TextFileProcessor {
 						else 
 						{
 							
-							if(word.equals("@@newline"))
+							if(word.trim().equals("@@newline"))
 							{
+								//System.out.println(word);
 								encoderDecoderReturn = EncoderDecoder.decode(word);
 							}
 							else
