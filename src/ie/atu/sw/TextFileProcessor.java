@@ -26,8 +26,8 @@ public class TextFileProcessor {
 
 			while ((line = br.readLine()) != null) {
 
-				line = line + " @@NEWLINE";
-				System.out.println(line);
+				line = line + " @@newline";
+				//System.out.println(line);
 				
 				String[] words = line.split(" ");
 				
@@ -45,8 +45,17 @@ public class TextFileProcessor {
 						}
 						else 
 						{
-							word = word.strip().replaceAll("[^0-9 ]", "");
-							encoderDecoderReturn = EncoderDecoder.decode(word);
+							
+							if(word.equals("@@newline"))
+							{
+								encoderDecoderReturn = EncoderDecoder.decode(word);
+							}
+							else
+							{
+								word = word.strip().replaceAll("[^0-9 ]", "");
+								encoderDecoderReturn = EncoderDecoder.decode(word);
+							}
+							
 						}
 
 						// Copy results into the main array

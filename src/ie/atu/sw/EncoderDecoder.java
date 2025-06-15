@@ -307,6 +307,9 @@ public class EncoderDecoder {
 		String encoded = null;
 		String fullMatch = null;
 		
+		System.out.println(encodedWord);
+		
+		
 		// Find a match for 
 		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
 
