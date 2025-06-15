@@ -27,7 +27,7 @@ public class TextFileProcessor {
 			while ((line = br.readLine()) != null) {
 
 				line = line + " @@NEWLINE";
-				//System.out.println(line);
+				System.out.println(line);
 				
 				String[] words = line.split(" ");
 				
@@ -90,7 +90,6 @@ public class TextFileProcessor {
 				if (encoderDecoderResult[i] != null) 
 				{
 					writeToText(encoderDecoderResult[i], filePath);
-					System.out.println(encoderDecoderResult[i]);
 				}
 			}
 		}

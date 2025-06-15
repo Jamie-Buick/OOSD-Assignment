@@ -21,13 +21,11 @@ public class EncoderDecoder {
 		
 
 		int counter = 0;
-		//System.out.println(word);
 		
 		// New line
 		if(newLine(word)) 
 		{
 			newLine = true;
-			//System.out.println("yes again");
 		}
 		
 		if(endsWithPunctuation(word)) {
@@ -315,6 +313,9 @@ public class EncoderDecoder {
 			match = EncodingFileProcessor.getEncodings()[rows][0];
 			encoded = EncodingFileProcessor.getEncodings()[rows][1];
 
+			// Maybe check here first to see if the 'encoded' word is actually just a new line?
+			
+			
 			if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
 			{
 				fullMatch = match;
