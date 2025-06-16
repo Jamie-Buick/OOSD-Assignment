@@ -95,6 +95,7 @@ public class TextFileProcessor {
 	public boolean writeFile(String filePath, Boolean encode) {
 
 		// encoding format to text file
+/*
 		if (encode) {
 			for (int i = 0; i < encoderDecoderResult.length; i++) 
 			{
@@ -104,7 +105,14 @@ public class TextFileProcessor {
 				}
 			}
 		}
-
+*/
+		if (encode) 
+		{
+			
+			writeToText(encoderDecoderResult, filePath);
+				
+		}
+		
 		// decoding format to text file
 		else 
 		{
@@ -118,7 +126,7 @@ public class TextFileProcessor {
 			{
 				if (buildPunctuation[i] != null) 
 				{
-					writeToText(buildPunctuation[i], filePath);
+					writeToText(buildPunctuation, filePath);
 
 				}
 			}
@@ -132,29 +140,36 @@ public class TextFileProcessor {
 			
 		
 	
-	private static boolean writeToText(String word, String filePath) { 
+	private static boolean writeToText(String[] encoderDecoderResult, String filePath) { 
 		Boolean writeFinished = false;
 		
 		try 
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
-			if(!(word.equals("\n"))) 
-			{
-				output.write(word + " ");
-			}
-			else 
-			{
-				output.write(word);
-			}
 			
-
+			for (int i = 0; i < encoderDecoderResult.length; i++) 
+			{
+				if (encoderDecoderResult[i] != null) 
+				{
+					
+					if(!(encoderDecoderResult[i].equals("\n"))) 
+					{
+						output.write(encoderDecoderResult[i] + " ");
+					}
+					else 
+					{
+						output.write(encoderDecoderResult[i]);
+					}
+				}
+			
+			}
 			output.close();
 			writeFinished = true;
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage()); 
+			System.out.println("Error writing to file: " + e.getMessage()); 
 			e.printStackTrace();
 			
 		}
