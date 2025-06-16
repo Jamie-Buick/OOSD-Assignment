@@ -17,23 +17,28 @@ public class EncoderDecoder {
 		String prefixWord = null;
 		String prefixEncoded = null;
 		String suffixEncoded = null;
+		Boolean newLine = null;
 		
 
 		int counter = 0;
-
-		if(endsWithPunctuation(word)) 
+		
+		
+		// New line
+		if(newLine(word)) 
 		{
+			newLine = true;
+		}
+		
+		if(endsWithPunctuation(word)) {
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
 			puncEncoded = matchPunctuation(punc);
 		}
-		
-		
-		// Call method for finding a full match
+
 		fullMatchEncoded = matchFullWord(word);
 
-	
+
 		// If a full match is not found then we check for a prefix - suffix match
 		if(fullMatchEncoded == null)
 		{
@@ -55,51 +60,95 @@ public class EncoderDecoder {
 			{
 				fullMatchEncoded = "0"; // the code for a missing word.
 			}
-			
 		}
 		
+		// Adding the encoded words into the encoded words/ punct array
+				if (fullMatchEncoded != null) 
+				{
+					encodedWords[counter] = fullMatchEncoded;
+					counter++;
+					
+					if (puncEncoded != null) 
+					{
+						encodedWords[counter] = puncEncoded;
+						counter++;
+					}
+				} 
+				else if (newLine != null) 
+				{
+					encodedWords[counter] = "\n";
+					counter++;
+					
+					if (puncEncoded != null) 
+					{
+						encodedWords[counter] = puncEncoded;
+						counter++;
+					}
+				}
+				else 
+				{
+					if (prefixEncoded != null) 
+					{
+						encodedWords[counter] = prefixEncoded;
+						counter++;
+					}
+				
+					if (suffixEncoded != null) 
+					{
+						encodedWords[counter] = suffixEncoded;
+						counter++;
+					}
+				
+					if (puncEncoded != null) 
+					{
+						encodedWords[counter] = puncEncoded;
+						counter++;
+					}
+				}
 
-		// add this logic into a method to tidy up this method that is used as a 'main'
-		if (fullMatchEncoded != null) 
-		{
-			encodedWords[counter] = fullMatchEncoded;
-			counter++;
-			
-			if (puncEncoded != null) 
-			{
-				encodedWords[counter] = puncEncoded;
-				counter++;
-			}
-			
-		} 
-		else 
-		{
-			if (prefixEncoded != null) 
-			{
-				encodedWords[counter] = prefixEncoded;
-				counter++;
-			}
-		
-			if (suffixEncoded != null) 
-			{
-				encodedWords[counter] = suffixEncoded;
-				counter++;
-			}
-		
-			if (puncEncoded != null) 
-			{
-				encodedWords[counter] = puncEncoded;
-				counter++;
+				return encodedWords; 
 			}
 
-		}
-
-		
-		return encodedWords; 
-		
-	}
 
 	
+	public static String[] decode(String encodedWord) {
+		
+		String[] decodedWords = new String[1];
+	
+		String match = null;
+		String encoded = null;
+		String fullMatch = null;
+		//Boolean newLine = null;
+		
+		System.out.println(encodedWord);
+		
+		// New line
+		if(newLine(encodedWord)) 
+		{
+			decodedWords[0] = "\n";
+		}
+		else {
+			// Find a match for 
+			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+	
+				match = EncodingFileProcessor.getEncodings()[rows][0];
+				encoded = EncodingFileProcessor.getEncodings()[rows][1];
+	
+				if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
+				{
+					fullMatch = match;
+					break;
+				}
+			}	
+		}
+		
+		if (fullMatch != null) {
+			decodedWords[0] = fullMatch;
+		}
+
+		
+		return decodedWords;
+	}
 
 	private static String matchFullWord(String word) {
 		String match = "";
@@ -129,9 +178,7 @@ public class EncoderDecoder {
 	}
 	
 	
-	
-	
-	
+
 	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
 		String match = "";
@@ -159,9 +206,7 @@ public class EncoderDecoder {
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
-	
-	
-	
+
 	
 	private static String matchSuffix(String word, String prefixWord) {
 		String match = "";
@@ -201,10 +246,23 @@ public class EncoderDecoder {
 	
 	
 	
+	private static boolean newLine(String word) {
+		
+		if(word.trim().equals("@@newline"))
+		{
+			return true;	
+		}
+		
+		return false;
+		
+	}
+	
+	
 	
 	private static boolean endsWithPunctuation(String word) {
 		
 		boolean endsWithPunctuation = false;
+		
 		char lastChar = word.charAt(word.length() - 1);
 		
 		if((String.valueOf(lastChar).matches("\\p{Punct}")))
@@ -215,7 +273,6 @@ public class EncoderDecoder {
 		return endsWithPunctuation;
 		
 	}
-	
 	
 	
 	
@@ -232,8 +289,7 @@ public class EncoderDecoder {
 	}
 	
 	
-	
-	
+
 	private static String matchPunctuation(String punc) {  
 		String match = "";
 		String encoded = "";
@@ -259,35 +315,6 @@ public class EncoderDecoder {
 		return puncEncodingMatch;
 	}
 	
-	
 
-	public static String[] decode(String encodedWord) {
-		
-		String[] decodedWords = new String[1];
-	
-		String match = null;
-		String encoded = null;
-		String fullMatch = null;
-		
-		// Find a match for 
-		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
-
-			match = EncodingFileProcessor.getEncodings()[rows][0];
-			encoded = EncodingFileProcessor.getEncodings()[rows][1];
-
-			if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
-			{
-				fullMatch = match;
-				break;
-			}
-		}	
-		
-		if (fullMatch != null) {
-			decodedWords[0] = fullMatch;
-		}
-
-		
-		return decodedWords;
-	}
 
 }

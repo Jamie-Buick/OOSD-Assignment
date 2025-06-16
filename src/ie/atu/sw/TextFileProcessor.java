@@ -21,29 +21,42 @@ public class TextFileProcessor {
 		Boolean readFinished = false;
 		String[] encoderDecoderReturn;
 
-
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
 
 			while ((line = br.readLine()) != null) {
 
+				line = line + " @@newline";
+				//System.out.println(line);
+				
 				String[] words = line.split(" ");
-
+				
+				//System.out.println(words.length);
+				
 				for (String word : words) 
 				{
+					
 					if (!word.isEmpty()) 
 					{
-
 						if (encode) 
 						{
 							word = word.trim().toLowerCase();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
-
 						}
 						else 
 						{
-							word = word.strip().replaceAll("[^0-9 ]", "");
-							encoderDecoderReturn = EncoderDecoder.decode(word);
+							
+							if(word.trim().equals("@@newline"))
+							{
+								//System.out.println(word);
+								encoderDecoderReturn = EncoderDecoder.decode(word);
+							}
+							else
+							{
+								word = word.strip().replaceAll("[^0-9 ]", "");
+								encoderDecoderReturn = EncoderDecoder.decode(word);
+							}
+							
 						}
 
 						// Copy results into the main array
@@ -55,7 +68,6 @@ public class TextFileProcessor {
 								if (counterArr >= encoderDecoderResult.length)
 								{
 									expandArray();
-									System.out.println(encoderDecoderResult.length);
 								}
 								
 								encoderDecoderResult[counterArr] = encoderDecoderReturn[i];
@@ -63,7 +75,7 @@ public class TextFileProcessor {
 							}
 						}
 					}
-
+					
 				}
 			}
 
@@ -126,7 +138,15 @@ public class TextFileProcessor {
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
-			output.write(word + " ");
+			if(!(word.equals("\n"))) 
+			{
+				output.write(word + " ");
+			}
+			else 
+			{
+				output.write(word);
+			}
+			
 
 			output.close();
 			writeFinished = true;
