@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class EncodingFileProcessor {
+public class ReadEncodingsFile {
 	
 	private static String[][] encodings = new String[10000][2];
 	

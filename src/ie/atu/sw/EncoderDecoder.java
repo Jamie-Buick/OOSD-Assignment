@@ -126,12 +126,12 @@ public class EncoderDecoder {
 		}
 		else {
 			// Find a match for 
-			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+			for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
 	
-				match = EncodingFileProcessor.getEncodings()[rows][0];
-				encoded = EncodingFileProcessor.getEncodings()[rows][1];
+				match = ReadEncodingsFile.getEncodings()[rows][0];
+				encoded = ReadEncodingsFile.getEncodings()[rows][1];
 	
-				if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
+				if (ReadEncodingsFile.getEncodings()[rows][1].equals(encodedWord)) 
 				{
 					fullMatch = match;
 					break;
@@ -155,12 +155,12 @@ public class EncoderDecoder {
 		String fullEncodingMatch = null;
 		
 		// Get full match where word is an exact match, no punctuation
-		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+		for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
 
-			match = EncodingFileProcessor.getEncodings()[rows][0];
-			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+			match = ReadEncodingsFile.getEncodings()[rows][0];
+			encoded = ReadEncodingsFile.getEncodings()[rows][1];
 
-			if (EncodingFileProcessor.getEncodings()[rows][0].equals(word)) 
+			if (ReadEncodingsFile.getEncodings()[rows][0].equals(word)) 
 			{
 				fullWordMatch = match;
 				fullEncodingMatch = encoded;
@@ -184,12 +184,12 @@ public class EncoderDecoder {
 		String nextPrefixMatch = null;
 		String matchedPrefixEncoding = null;
 		
-		for (int i = 0; i < EncodingFileProcessor.getEncodings().length; i++) 
+		for (int i = 0; i < ReadEncodingsFile.getEncodings().length; i++) 
 		{
-			if (word.startsWith(EncodingFileProcessor.getEncodings()[i][0]) && !EncodingFileProcessor.getEncodings()[i][0].equals(word))
+			if (word.startsWith(ReadEncodingsFile.getEncodings()[i][0]) && !ReadEncodingsFile.getEncodings()[i][0].equals(word))
 			{
-				match = EncodingFileProcessor.getEncodings()[i][0];
-				encoded = EncodingFileProcessor.getEncodings()[i][1];
+				match = ReadEncodingsFile.getEncodings()[i][0];
+				encoded = ReadEncodingsFile.getEncodings()[i][1];
 				
 				if (nextPrefixMatch == null || match.length() > nextPrefixMatch.length()) 
 				{
@@ -213,14 +213,14 @@ public class EncoderDecoder {
 		String matchedSuffixEncoding = null;
 		
 		// We will need to consider punct somewhere here
-		for (int j = 0; j < EncodingFileProcessor.getEncodings().length; j++) {
+		for (int j = 0; j < ReadEncodingsFile.getEncodings().length; j++) {
 
-			match = EncodingFileProcessor.getEncodings()[j][0];
-			encoded = EncodingFileProcessor.getEncodings()[j][1];
+			match = ReadEncodingsFile.getEncodings()[j][0];
+			encoded = ReadEncodingsFile.getEncodings()[j][1];
 			
-			if (EncodingFileProcessor.getEncodings()[j][0].startsWith("@@")) 
+			if (ReadEncodingsFile.getEncodings()[j][0].startsWith("@@")) 
 			{
-				String suffixStrip = EncodingFileProcessor.getEncodings()[j][0].replace("@@", "").trim();
+				String suffixStrip = ReadEncodingsFile.getEncodings()[j][0].replace("@@", "").trim();
 				String concatFullWord = prefixWord.concat(suffixStrip).trim();
 		
 
@@ -295,12 +295,12 @@ public class EncoderDecoder {
 		String puncEncodingMatch = "";
 		
 		// Get full match where word is an exact match, no punctuation
-		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+		for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
 
-			match = EncodingFileProcessor.getEncodings()[rows][0];
-			encoded = EncodingFileProcessor.getEncodings()[rows][1];
+			match = ReadEncodingsFile.getEncodings()[rows][0];
+			encoded = ReadEncodingsFile.getEncodings()[rows][1];
 
-			if (EncodingFileProcessor.getEncodings()[rows][0].equals(punc)) 
+			if (ReadEncodingsFile.getEncodings()[rows][0].equals(punc)) 
 			{
 				puncMatch = match;
 				puncEncodingMatch = encoded;
