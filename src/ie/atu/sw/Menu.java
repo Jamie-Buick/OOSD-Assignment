@@ -67,7 +67,7 @@ public class Menu {
 		System.out.print("Select Option [1-?]>");
 		System.out.println();
 
-		
+		/*
 		// Probably add this into encoding / decoding sections where something is actually done
 		// You may want to include a progress meter in you assignment!
 		System.out.print(ConsoleColour.YELLOW); // Change the colour of the console text
@@ -76,7 +76,7 @@ public class Menu {
 			printProgress(i + 1, size); // After each (some) steps, update the progress meter
 			//Thread.sleep(10); // Slows things down so the animation is visible
 		}
-		
+		*/
 	}
 	
 	
@@ -115,6 +115,7 @@ public class Menu {
 	// Menu functions
 	private void mapFile() {
 		filePathMap = changeFilePath();
+		
 		readEncodingsFile.parseEncoding(filePathMap);
 	}
 	
@@ -127,10 +128,6 @@ public class Menu {
 	private void outputFile() {
 	    System.out.println("Enter a valid the file path>");
 	    filePathOutput = s.nextLine(); // Now it will wait for actual input
-	}
-	
-	private void configureOptions() {
-		System.out.println("config");
 	}
 	
 	
@@ -156,15 +153,6 @@ public class Menu {
 			textFileProcessor.writeFile(filePathOutput, encode);
 		}
 	}
-	
-	
-	
-	private void extras() {
-		System.out.println("extra");
-	}
-
-
-	
 	
 
 	public static void printProgress(int index, int total) {
@@ -201,4 +189,5 @@ public class Menu {
 		if (done == total)
 			System.out.println("\n");
 	}
+
 }
