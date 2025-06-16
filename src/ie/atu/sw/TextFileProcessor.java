@@ -95,24 +95,13 @@ public class TextFileProcessor {
 	public boolean writeFile(String filePath, Boolean encode) {
 
 		// encoding format to text file
-/*
-		if (encode) {
-			for (int i = 0; i < encoderDecoderResult.length; i++) 
-			{
-				if (encoderDecoderResult[i] != null) 
-				{
-					writeToText(encoderDecoderResult[i], filePath);
-				}
-			}
-		}
-*/
 		if (encode) 
 		{
-			
+
 			writeToText(encoderDecoderResult, filePath);
-				
+
 		}
-		
+
 		// decoding format to text file
 		else 
 		{
@@ -122,20 +111,17 @@ public class TextFileProcessor {
 			String removeNullVals[] = removeNulls(buildPartialWords);
 			String buildPunctuation[] = buildPunct(removeNullVals);
 
-			for (int i = 0; i < buildPunctuation.length; i++) 
-			{
-				if (buildPunctuation[i] != null) 
-				{
-					writeToText(buildPunctuation, filePath);
+			writeToText(buildPunctuation, filePath);
 
-				}
-			}
 		}
 
 		cleanArray();
 
 		return true;
 	}
+
+
+	
 			
 			
 		
@@ -146,7 +132,6 @@ public class TextFileProcessor {
 		try 
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
-			
 			
 			for (int i = 0; i < encoderDecoderResult.length; i++) 
 			{
