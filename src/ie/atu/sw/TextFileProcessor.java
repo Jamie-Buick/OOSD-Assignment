@@ -35,7 +35,7 @@ public class TextFileProcessor {
 				
 				for (String word : words) 
 				{
-					
+					System.out.println(word);
 					if (!word.isEmpty()) 
 					{
 						if (encode) 

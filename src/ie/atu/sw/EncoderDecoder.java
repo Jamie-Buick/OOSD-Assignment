@@ -29,11 +29,14 @@ public class EncoderDecoder {
 			newLine = true;
 		}
 		
-		if(endsWithPunctuation(word)) {
+		
+		while(endsWithPunctuation(word)) {
+			
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
 			puncEncoded = matchPunctuation(punc);
+			System.out.println(puncEncoded);
 		}
 
 		fullMatchEncoded = matchFullWord(word);
@@ -272,7 +275,6 @@ public class EncoderDecoder {
 	}
 	
 	
-	
 	private static String stripPunctuation(String word) { 
 		  return word.substring(0, word.length() - 1).trim();
 	}
@@ -306,6 +308,10 @@ public class EncoderDecoder {
 				puncEncodingMatch = encoded;
 				
 				break;
+			}
+			else
+			{
+				puncEncodingMatch = "0";
 			}
 		}
 
