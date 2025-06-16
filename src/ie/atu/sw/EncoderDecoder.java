@@ -306,25 +306,29 @@ public class EncoderDecoder {
 		String match = null;
 		String encoded = null;
 		String fullMatch = null;
+		//Boolean newLine = null;
 		
 		System.out.println(encodedWord);
 		
-		
-		// Find a match for 
-		for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
-
-			match = EncodingFileProcessor.getEncodings()[rows][0];
-			encoded = EncodingFileProcessor.getEncodings()[rows][1];
-
-			// Maybe check here first to see if the 'encoded' word is actually just a new line?
-			
-			
-			if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
-			{
-				fullMatch = match;
-				break;
-			}
-		}	
+		// New line
+		if(newLine(encodedWord)) 
+		{
+			decodedWords[0] = "\n";
+		}
+		else {
+			// Find a match for 
+			for (int rows = 0; rows < EncodingFileProcessor.getEncodings().length; rows++) {
+	
+				match = EncodingFileProcessor.getEncodings()[rows][0];
+				encoded = EncodingFileProcessor.getEncodings()[rows][1];
+	
+				if (EncodingFileProcessor.getEncodings()[rows][1].equals(encodedWord)) 
+				{
+					fullMatch = match;
+					break;
+				}
+			}	
+		}
 		
 		if (fullMatch != null) {
 			decodedWords[0] = fullMatch;
