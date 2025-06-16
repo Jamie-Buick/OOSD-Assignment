@@ -205,7 +205,7 @@ public class TextFileProcessor {
 	            {
 	                temp = inputWords[i + 1].trim();
 	                joinedPunct[i] = inputWords[i] + temp;
-	                i++; // Skip the punctuation
+	                i++; 
 	            } 
 	            else 
 	            {

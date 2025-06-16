@@ -63,51 +63,51 @@ public class EncoderDecoder {
 		}
 		
 		// Adding the encoded words into the encoded words/ punct array
-				if (fullMatchEncoded != null) 
-				{
-					encodedWords[counter] = fullMatchEncoded;
-					counter++;
-					
-					if (puncEncoded != null) 
-					{
-						encodedWords[counter] = puncEncoded;
-						counter++;
-					}
-				} 
-				else if (newLine != null) 
-				{
-					encodedWords[counter] = "\n";
-					counter++;
-					
-					if (puncEncoded != null) 
-					{
-						encodedWords[counter] = puncEncoded;
-						counter++;
-					}
-				}
-				else 
-				{
-					if (prefixEncoded != null) 
-					{
-						encodedWords[counter] = prefixEncoded;
-						counter++;
-					}
-				
-					if (suffixEncoded != null) 
-					{
-						encodedWords[counter] = suffixEncoded;
-						counter++;
-					}
-				
-					if (puncEncoded != null) 
-					{
-						encodedWords[counter] = puncEncoded;
-						counter++;
-					}
-				}
-
-				return encodedWords; 
+		if (fullMatchEncoded != null) 
+		{
+			encodedWords[counter] = fullMatchEncoded;
+			counter++;
+			
+			if (puncEncoded != null) 
+			{
+				encodedWords[counter] = puncEncoded;
+				counter++;
 			}
+		} 
+		else if (newLine != null) 
+		{
+			encodedWords[counter] = "\n";
+			counter++;
+			
+			if (puncEncoded != null) 
+			{
+				encodedWords[counter] = puncEncoded;
+				counter++;
+			}
+		}
+		else 
+		{
+			if (prefixEncoded != null) 
+			{
+				encodedWords[counter] = prefixEncoded;
+				counter++;
+			}
+		
+			if (suffixEncoded != null) 
+			{
+				encodedWords[counter] = suffixEncoded;
+				counter++;
+			}
+		
+			if (puncEncoded != null) 
+			{
+				encodedWords[counter] = puncEncoded;
+				counter++;
+			}
+		}
+
+		return encodedWords; 
+	}
 
 
 	
@@ -118,9 +118,6 @@ public class EncoderDecoder {
 		String match = null;
 		String encoded = null;
 		String fullMatch = null;
-		//Boolean newLine = null;
-		
-		System.out.println(encodedWord);
 		
 		// New line
 		if(newLine(encodedWord)) 
