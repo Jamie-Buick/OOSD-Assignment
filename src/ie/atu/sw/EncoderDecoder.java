@@ -11,6 +11,8 @@ public class EncoderDecoder {
 		
 		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
 		String[] encodedWords = new String[3];
+		String[] puncStart = new String[1];
+		String[] puncEnd = new String[2];
 		String punc = null;
 		String puncEncoded = null;
 		String fullMatchEncoded = null;
@@ -28,17 +30,28 @@ public class EncoderDecoder {
 			newLine = true;
 		}
 		
+		if (startsWithPunctuation(word))
+		{
+			puncStart = getPunctuation(word, true);
+		}
+	
 		
-		while(endsWithPunctuation(word)) {
+		if(endsWithPunctuation(word)) {
 			
-			punc = getPunctuation(word);
+			puncEnd = getPunctuation(word, false);
 			word = stripPunctuation(word);
 			
-			System.out.println(word);
-			
-			puncEncoded = matchPunctuation(punc);
+			//puncEncoded = matchPunctuation(punc);
 			//System.out.println(puncEncoded);
 		}
+		
+		
+	
+		System.out.println(puncStart[0]);
+		System.out.println(word);
+		System.out.println(puncEnd[0]);
+		System.out.println(puncEnd[1]);
+		
 
 		fullMatchEncoded = matchFullWord(word);
 
@@ -261,7 +274,7 @@ public class EncoderDecoder {
 	
 	private static boolean startsWithPunctuation(String word) {
 		
-		char firstChar = word.charAt(word.length() - 1);
+		char firstChar = word.charAt(0);
 		
 		if((String.valueOf(firstChar).matches("\\p{Punct}")))
 		{
@@ -287,9 +300,40 @@ public class EncoderDecoder {
 		
 	}
 	
+	private static String[] getPunctuation(String word, boolean isStart) {
+		
+		if (isStart) 
+		{
+			String[] puncStart = new String[1];
+			
+			puncStart[0] = String.valueOf(word.charAt(0));
+			
+			return puncStart;
+		} 
+		else 
+		{
+			String[] puncEnd = new String[2];
+			int counter = 0;
+			
+			for (int i = 1; i < word.length(); i++) { // starting at 1 because I will have already checked the first index above
+				
+				
+				char c = word.charAt(i);
+				
+				if(String.valueOf(c).matches("\\p{Punct}"))
+				{
+					puncEnd[counter] = String.valueOf(c);
+					 counter++;
+				}
+			}
+			
+		  return puncEnd;
+		}
+	}
+	
 	
 
-	
+	/*
 	private static String getPunctuation(String word) {  
 		char lastChar = word.charAt(word.length() - 1);
 		
@@ -297,7 +341,7 @@ public class EncoderDecoder {
 		
 	}
 	
-	
+	*/
 	private static String stripPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
@@ -310,18 +354,12 @@ public class EncoderDecoder {
 			{
 				noPunctuation.append(c);
 			}
-			
 		}
 		
 		  return noPunctuation.toString();
 	}
 	
-	/*
-	private static String stripPunctuation(String word) { 
-		  return word.substring(0, word.length() - 1).trim();
-	}
-	*/
-	
+
 	
 
 	private static String matchPunctuation(String punc) {  
