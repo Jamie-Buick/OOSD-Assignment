@@ -21,8 +21,7 @@ public class EncoderDecoder {
 		
 
 		int counter = 0;
-		
-		
+			
 		// New line
 		if(newLine(word)) 
 		{
@@ -35,8 +34,10 @@ public class EncoderDecoder {
 			punc = getPunctuation(word);
 			word = stripPunctuation(word);
 			
+			System.out.println(word);
+			
 			puncEncoded = matchPunctuation(punc);
-			System.out.println(puncEncoded);
+			//System.out.println(puncEncoded);
 		}
 
 		fullMatchEncoded = matchFullWord(word);
@@ -273,12 +274,11 @@ public class EncoderDecoder {
 	
 	
 	
-	
 	private static boolean endsWithPunctuation(String word) {
 		
 		char lastChar = word.charAt(word.length() - 1);
 		
-		if((String.valueOf(lastChar).matches("\\p{Punct}")))
+		if(String.valueOf(lastChar).matches("\\p{Punct}"))
 		{
 			return true;
 		}
@@ -288,16 +288,7 @@ public class EncoderDecoder {
 	}
 	
 	
-	private static String stripPunctuation(String word) { 
-		  return word.substring(0, word.length() - 1).trim();
-	}
-	
-	
-	/*
-	private static String stripPunctuation(String word) { 
-		  return word.substring(0, word.length() - 1).trim();
-	}
-	*/
+
 	
 	private static String getPunctuation(String word) {  
 		char lastChar = word.charAt(word.length() - 1);
@@ -305,6 +296,31 @@ public class EncoderDecoder {
 		return String.valueOf(lastChar).trim();
 		
 	}
+	
+	
+	private static String stripPunctuation(String word) { 
+		StringBuilder noPunctuation = new StringBuilder();
+	
+		
+		for (int i = 0; i < word.length(); i++) {
+			
+			char c = word.charAt(i);
+			
+			if(!String.valueOf(c).matches("\\p{Punct}"))
+			{
+				noPunctuation.append(c);
+			}
+			
+		}
+		
+		  return noPunctuation.toString();
+	}
+	
+	/*
+	private static String stripPunctuation(String word) { 
+		  return word.substring(0, word.length() - 1).trim();
+	}
+	*/
 	
 	
 
