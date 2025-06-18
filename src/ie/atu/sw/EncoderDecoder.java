@@ -30,7 +30,7 @@ public class EncoderDecoder {
 			newLine = true;
 		}
 		
-		if (startsWithPunctuation(word))
+		if (startsWithPunctuation(word) && !word.startsWith("@@"))
 		{
 			puncStart = getPunctuation(word, true);
 		}
@@ -41,7 +41,7 @@ public class EncoderDecoder {
 			puncEnd = getPunctuation(word, false);
 			word = stripPunctuation(word);
 			
-			//puncEncoded = matchPunctuation(punc);
+			puncEncoded = matchPunctuation(punc);
 			//System.out.println(puncEncoded);
 		}
 		
