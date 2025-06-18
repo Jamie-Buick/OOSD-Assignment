@@ -258,19 +258,32 @@ public class EncoderDecoder {
 	}
 	
 	
+	private static boolean startsWithPunctuation(String word) {
+		
+		char firstChar = word.charAt(word.length() - 1);
+		
+		if((String.valueOf(firstChar).matches("\\p{Punct}")))
+		{
+			 return true;
+		}
+		
+		return false;
+		
+	}
+	
+	
+	
 	
 	private static boolean endsWithPunctuation(String word) {
-		
-		boolean endsWithPunctuation = false;
 		
 		char lastChar = word.charAt(word.length() - 1);
 		
 		if((String.valueOf(lastChar).matches("\\p{Punct}")))
 		{
-			 endsWithPunctuation = true;
+			return true;
 		}
 		
-		return endsWithPunctuation;
+		return false;
 		
 	}
 	
@@ -279,6 +292,12 @@ public class EncoderDecoder {
 		  return word.substring(0, word.length() - 1).trim();
 	}
 	
+	
+	/*
+	private static String stripPunctuation(String word) { 
+		  return word.substring(0, word.length() - 1).trim();
+	}
+	*/
 	
 	private static String getPunctuation(String word) {  
 		char lastChar = word.charAt(word.length() - 1);
