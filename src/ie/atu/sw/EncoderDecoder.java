@@ -10,11 +10,14 @@ public class EncoderDecoder {
 	public static String[] encode(String word) {
 		
 		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
-		String[] encodedWords = new String[3];
+		String[] encodedWords = new String[5];
 		String[] puncStart = new String[1];
 		String[] puncEnd = new String[2];
 		String punc = null;
-		String puncEncoded = null;
+		String puncStartEncoded = null;
+		String puncEndEncoded1 = null;
+		String puncEndEncoded2 = null;
+		
 		String fullMatchEncoded = null;
 		String prefixWord = null;
 		String prefixEncoded = null;
@@ -33,6 +36,13 @@ public class EncoderDecoder {
 		if (startsWithPunctuation(word) && !word.startsWith("@@"))
 		{
 			puncStart = getPunctuation(word, true);
+			puncStartEncoded = matchPunctuation(puncStart[0]);
+			
+			
+		
+			word = stripStartPunctuation(word);
+			System.out.println("Punct at started: " + puncStart[0]); 
+			System.out.println("word at started: " + word); 
 		}
 	
 		
@@ -41,20 +51,21 @@ public class EncoderDecoder {
 			puncEnd = getPunctuation(word, false);
 			word = stripPunctuation(word);
 			
-			puncEncoded = matchPunctuation(punc);
+			puncEndEncoded1 = matchPunctuation(puncEnd[0]);
+			puncEndEncoded2 = matchPunctuation(puncEnd[1]);
 			//System.out.println(puncEncoded);
 		}
 		
 		
 	
-		System.out.println(puncStart[0]);
-		System.out.println(word);
-		System.out.println(puncEnd[0]);
-		System.out.println(puncEnd[1]);
+		//System.out.println(puncStart[0]);
+		//System.out.println(word);
+		//System.out.println(puncEnd[0]);
+		//System.out.println(puncEnd[1]);
 		
 
 		fullMatchEncoded = matchFullWord(word);
-
+		
 
 		// If a full match is not found then we check for a prefix - suffix match
 		if(fullMatchEncoded == null)
@@ -79,29 +90,55 @@ public class EncoderDecoder {
 			}
 		}
 		
+		
+		
 		// Adding the encoded words into the encoded words/ punct array
+		
+		// Check if word starts with punctuation
+		if(puncStartEncoded != null) 
+		{
+			encodedWords[counter] = puncStartEncoded;
+			counter++;
+		}
+		
+		
+		// Full word encoding
 		if (fullMatchEncoded != null) 
 		{
 			encodedWords[counter] = fullMatchEncoded;
 			counter++;
 			
-			if (puncEncoded != null) 
+			if (puncEndEncoded1 != null) 
 			{
-				encodedWords[counter] = puncEncoded;
+				encodedWords[counter] = puncEndEncoded1;
+				counter++;
+			}
+			if (puncEndEncoded2 != null)
+			{
+				encodedWords[counter] = puncEndEncoded2;
 				counter++;
 			}
 		} 
+		
+	
 		else if (newLine != null) 
 		{
 			encodedWords[counter] = "\n";
 			counter++;
 			
-			if (puncEncoded != null) 
+			if (puncEndEncoded1 != null) 
 			{
-				encodedWords[counter] = puncEncoded;
+				encodedWords[counter] = puncEndEncoded1;
+				counter++;
+			}
+			if (puncEndEncoded2 != null)
+			{
+				encodedWords[counter] = puncEndEncoded2;
 				counter++;
 			}
 		}
+		
+
 		else 
 		{
 			if (prefixEncoded != null) 
@@ -116,9 +153,16 @@ public class EncoderDecoder {
 				counter++;
 			}
 		
-			if (puncEncoded != null) 
+			
+			if (puncEndEncoded1 != null) 
 			{
-				encodedWords[counter] = puncEncoded;
+				encodedWords[counter] = puncEndEncoded1;
+				counter++;
+			}
+			
+			if (puncEndEncoded2 != null)
+			{
+				encodedWords[counter] = puncEndEncoded2;
 				counter++;
 			}
 		}
@@ -333,15 +377,14 @@ public class EncoderDecoder {
 	
 	
 
-	/*
-	private static String getPunctuation(String word) {  
-		char lastChar = word.charAt(word.length() - 1);
-		
-		return String.valueOf(lastChar).trim();
+	
+	private static String stripStartPunctuation(String word) {  
+
+	    return word.substring(1);
 		
 	}
 	
-	*/
+	
 	private static String stripPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
