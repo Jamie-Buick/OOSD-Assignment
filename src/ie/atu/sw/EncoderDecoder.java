@@ -52,7 +52,12 @@ public class EncoderDecoder {
 			word = stripPunctuation(word);
 			
 			puncEndEncoded1 = matchPunctuation(puncEnd[0]);
-			puncEndEncoded2 = matchPunctuation(puncEnd[1]);
+			
+			if (puncEnd[1] != null) 
+			{
+				puncEndEncoded2 = matchPunctuation(puncEnd[1]);
+			}
+			
 			//System.out.println(puncEncoded);
 		}
 		
