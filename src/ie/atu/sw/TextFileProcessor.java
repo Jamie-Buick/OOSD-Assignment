@@ -124,10 +124,6 @@ public class TextFileProcessor {
 	
 
 	
-			
-			
-		
-	
 	private static boolean writeToText(String[] encoderDecoderResult, String filePath) { 
 		Boolean writeFinished = false;
 		
