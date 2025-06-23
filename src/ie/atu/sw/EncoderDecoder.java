@@ -37,12 +37,9 @@ public class EncoderDecoder {
 		{
 			puncStart = getPunctuation(word, true);
 			puncStartEncoded = matchPunctuation(puncStart[0]);
-			
-			
 		
 			word = stripStartPunctuation(word);
-			System.out.println("Punct at started: " + puncStart[0]); 
-			System.out.println("word at started: " + word); 
+
 		}
 	
 		
@@ -58,16 +55,9 @@ public class EncoderDecoder {
 				puncEndEncoded2 = matchPunctuation(puncEnd[1]);
 			}
 			
-			//System.out.println(puncEncoded);
 		}
 		
-		
-	
-		//System.out.println(puncStart[0]);
-		//System.out.println(word);
-		//System.out.println(puncEnd[0]);
-		//System.out.println(puncEnd[1]);
-		
+
 
 		fullMatchEncoded = matchFullWord(word);
 		
