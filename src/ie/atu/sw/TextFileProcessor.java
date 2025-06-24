@@ -197,19 +197,31 @@ public class TextFileProcessor {
 	    String[] joinedPunct = new String[inputWords.length];
 	    String temp;
 	    
+	    
 	    for (int i = 0; i < inputWords.length; i++) 
 	    {
 	        if (inputWords[i] != null) 
 	        {
 	            if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i + 1].matches("\\p{Punct}")) 
 	            {
-	                temp = inputWords[i + 1].trim();
-	                joinedPunct[i] = inputWords[i] + temp;
-	                i++; 
+	                // Check if next next word is also punctuation
+	                if (i + 2 < inputWords.length && inputWords[i + 2] != null && inputWords[i + 2].matches("\\p{Punct}")) 
+	                {
+	                    // Two punctuation marks after the word
+	                    joinedPunct[i] = inputWords[i] + inputWords[i + 1].trim() + inputWords[i + 2].trim();
+	                    i += 2; // Skip both punctuation marks
+	                }
+	                else 
+	                {
+	                    // Only one punctuation mark after the word
+	                    temp = inputWords[i + 1].trim();
+	                    joinedPunct[i] = inputWords[i] + temp;
+	                    i++; // Skip the one punctuation mark
+	                }
 	            } 
 	            else 
 	            {
-	            	joinedPunct[i] = inputWords[i];
+	                joinedPunct[i] = inputWords[i];
 	            }
 	        }
 	    }

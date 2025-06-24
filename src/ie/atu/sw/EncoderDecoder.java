@@ -356,10 +356,8 @@ public class EncoderDecoder {
 			
 			for (int i = word.length() - 2; i < word.length(); i++) { // starting at 1 because I will have already checked the first index above
 				
-				
 				char c = word.charAt(i);
-				System.out.println("character :" + c);
-				
+			
 				if(String.valueOf(c).matches("\\p{Punct}"))
 				{
 					puncEnd[counter] = String.valueOf(c);
