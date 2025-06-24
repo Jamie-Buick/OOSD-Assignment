@@ -13,7 +13,6 @@ public class EncoderDecoder {
 		String[] encodedWords = new String[5];
 		String[] puncStart = new String[1];
 		String[] puncEnd = new String[2];
-		String punc = null;
 		String puncStartEncoded = null;
 		String puncEndEncoded1 = null;
 		String puncEndEncoded2 = null;
