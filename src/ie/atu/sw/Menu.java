@@ -9,10 +9,7 @@ public class Menu {
 	private boolean keepRunning = true;
 	private boolean encode;
 	private boolean readFinished;
-	private boolean writeFinished;
-	
-	
-	private int userInput;
+
 	private TextFileProcessor textFileProcessor = new TextFileProcessor();
 	private ReadEncodingsFile readEncodingsFile = new ReadEncodingsFile();
 
@@ -29,9 +26,16 @@ public class Menu {
 	public void start() {
 		while (keepRunning) {
 			showOptions();
-
-			int menuSelection = Integer.parseInt(s.next());
+			
+			String input = s.next();
 			s.nextLine(); 
+			
+			if (!input.matches("\\d+")) {
+				out.println("[Error] Please enter a valid number.");
+				continue;
+			}
+			
+			int menuSelection = Integer.parseInt(input);
 			
 			switch(menuSelection)
 			{
