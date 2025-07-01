@@ -43,13 +43,12 @@ public class TextFileProcessor {
 							expandInputArray();
 						}
 
-						encoderDecoderResult[counterInputArr] = word;
+						encoderDecoderInput[counterInputArr] = word;
 						counterInputArr++;
 					}
-
 				}
-
 			}
+			
 			br.close();
 
 			readFinished = true;
@@ -62,6 +61,19 @@ public class TextFileProcessor {
 		
 		
 		// Pass it to the encode / decode methods now?
+		// remove nulls here
+		
+		
+		
+		
+		for (int i = 0; i < encoderDecoderInput.length; i++) 
+		{
+		
+			System.out.println(encoderDecoderInput[i]);
+			
+		}
+		
+		
 
 		return readFinished;
 
@@ -277,7 +289,7 @@ public class TextFileProcessor {
 	private void expandInputArray() {
 		String[] tempArr = new String[encoderDecoderInput.length*2];
 		
-		for (int i = 0; i < counterArr; i++)
+		for (int i = 0; i < counterInputArr; i++)
 		{
 			tempArr[i] = encoderDecoderInput[i];
 		}
