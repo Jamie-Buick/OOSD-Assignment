@@ -6,16 +6,18 @@ import java.io.*;
 public class TextFileProcessor {
 	
 	private String[] encoderDecoderResult; 
-	private int counterArr;
+	private String[] encoderDecoderInput; 
+	private int counterInputArr;
 	
 	public TextFileProcessor(){
 		encoderDecoderResult = new String[10];
-		counterArr = 0;
+		encoderDecoderInput = new String[10];
+		counterInputArr = 0;
 	}
 	
 	
 	
-	
+
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
@@ -27,18 +29,47 @@ public class TextFileProcessor {
 			while ((line = br.readLine()) != null) {
 
 				line = line + " @@newline";
-				//System.out.println(line);
-				
+
 				String[] words = line.split(" ");
-				
-				//System.out.println(words.length);
-				
+
 				for (String word : words) 
 				{
 					//System.out.println(word);
 					if (!word.isEmpty()) 
 					{
-						if (encode) 
+
+						if (counterInputArr >= encoderDecoderInput.length)
+						{
+							expandInputArray();
+						}
+
+						encoderDecoderResult[counterInputArr] = word;
+						counterInputArr++;
+					}
+
+				}
+
+			}
+			br.close();
+
+			readFinished = true;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println(e.getMessage()); 
+			e.printStackTrace();
+		}
+		
+		
+		// Pass it to the encode / decode methods now?
+
+		return readFinished;
+
+	}
+	
+	
+	
+	/*		if (encode) 
 						{
 							word = word.trim().toLowerCase();
 							encoderDecoderReturn = EncoderDecoder.encode(word);
@@ -58,8 +89,9 @@ public class TextFileProcessor {
 							}
 							
 						}
-
-						// Copy results into the main array
+						
+						
+									// Copy results into the main array
 						for (int i = 0; i < encoderDecoderReturn.length; i++) 
 						{
 							if (encoderDecoderReturn[i] != null) 
@@ -74,23 +106,16 @@ public class TextFileProcessor {
 								counterArr++;
 							}
 						}
-					}
-					
-				}
-			}
-
-			br.close();
-			readFinished = true;
-		} 
-		catch (Exception e) 
-		{
-			System.out.println(e.getMessage()); 
-			e.printStackTrace();
-		}
-
-		return readFinished;
-		
-	}
+	 * 
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public boolean writeFile(String filePath, Boolean encode) {
 
@@ -249,15 +274,15 @@ public class TextFileProcessor {
 	}
 	
 	
-	private void expandArray() {
-		String[] tempArr = new String[encoderDecoderResult.length*2];
+	private void expandInputArray() {
+		String[] tempArr = new String[encoderDecoderInput.length*2];
 		
 		for (int i = 0; i < counterArr; i++)
 		{
-			tempArr[i] = encoderDecoderResult[i];
+			tempArr[i] = encoderDecoderInput[i];
 		}
 		
-		encoderDecoderResult = tempArr;
+		encoderDecoderInput = tempArr;
 		
 	}
 	
