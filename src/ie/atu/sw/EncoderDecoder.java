@@ -29,12 +29,10 @@ public class EncoderDecoder {
         String[] result = new String[50];
         int resultCounter = 0;
 		
-		
-		
-
 		for (String word : input) 
 		{
 			// Reset every word
+			//System.out.println(word);
 			int counter = 0;
 		    puncStartEncoded = null;
 		    puncEndEncoded1 = null;
@@ -45,6 +43,9 @@ public class EncoderDecoder {
 		    
 		    if(word != null) {
 			
+		    	System.out.println(word);
+		    	
+		    	
 				// New line
 				if(isNewLine(word)) 
 				{
@@ -186,24 +187,41 @@ public class EncoderDecoder {
 				}
 			}
 			
+			
+			
+			
 		    // === Copy encodedWords[] to result[] ===
-            for (int i = 0; i < encodedWords.length; i++) {
-                if (encodedWords[i] != null) {
-                    if (resultCounter >= result.length) {
-                        result = expandArray(result);
-                    }
+            for (int i = 0; i < encodedWords.length; i++) 
+            {
+                if (encodedWords[i] != null) 
+                {
+                  //  if (resultCounter >= result.length) 
+                  //  {
+                   //     result = expandArray(result);
+                   // }
                     result[resultCounter++] = encodedWords[i];
+                    System.out.println();
                 }
             }
+            
 		}
-	
 		
-		// Replace this at the end of encode()
-		String[] trimmedResult = new String[resultCounter];
-		for (int i = 0; i < resultCounter; i++) {
-		    trimmedResult[i] = result[i];
-		}
-		return trimmedResult;
+		/*
+	    // === Copy encodedWords[] to result[] ===
+        for (int i = 0; i < result.length; i++) 
+        {
+           
+            
+                System.out.println(result[i]);
+           }
+        
+	*/
+		
+
+	
+
+		
+		return result;
 	}
 	
 	

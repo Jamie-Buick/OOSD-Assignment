@@ -21,7 +21,7 @@ public class TextFileProcessor {
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
-		String[] encoderDecoderReturn;
+		String[] encoderDecoderReturn = null;
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -34,8 +34,7 @@ public class TextFileProcessor {
 
 				for (String word : words) 
 				{
-					//System.out.println(word);
-					if (!word.isEmpty()) 
+					if  (word != null && !word.trim().isEmpty()) 
 					{
 
 						if (counterInputArr >= encoderDecoderInput.length)
@@ -74,15 +73,8 @@ public class TextFileProcessor {
 		}
 		
 		
-		
-		
-		for (int i = 0; i < encoderDecoderInput.length; i++) 
-		{
-		
-			System.out.println(encoderDecoderInput[i]);
-			
-		}
-		
+
+
 	
 		return readFinished;
 
