@@ -70,7 +70,7 @@ public class TextFileProcessor {
 		else 
 		{
 			
-			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
+			//encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
 		}
 		
 		

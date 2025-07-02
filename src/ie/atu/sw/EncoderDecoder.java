@@ -6,6 +6,8 @@ public class EncoderDecoder {
 	// Notes:
 	// - for punct word, I think we strip the punct and base word and then pass the punct through a punct encoder and pass base word 
 	// matchfullword
+
+
 	
 	public static String[] encode(String[] input) {
 
@@ -22,12 +24,18 @@ public class EncoderDecoder {
 		String prefixEncoded = null;
 		String suffixEncoded = null;
 		Boolean newLine = null;
-
-		int counter = 0;
+		
+        // Large enough to start, expand if needed
+        String[] result = new String[50];
+        int resultCounter = 0;
+		
+		
+		
 
 		for (String word : input) 
 		{
 			// Reset every word
+			int counter = 0;
 		    puncStartEncoded = null;
 		    puncEndEncoded1 = null;
 		    puncEndEncoded2 = null;
@@ -35,72 +43,72 @@ public class EncoderDecoder {
 		    prefixEncoded = null;
 		    suffixEncoded = null;
 		    
-
+		    if(word != null) {
 			
-			// New line
-			if(isNewLine(word)) 
-			{
-				newLine = true;
-			}
-			else
-			{
-				newLine = false;
-			}
-	
-
-			if (startsWithPunctuation(word) && !word.startsWith("@@"))
-			{
-				puncStart = getPunctuation(word, true);
-				puncStartEncoded = matchPunctuation(puncStart[0]);
-
-				word = stripStartPunctuation(word);
-
-			}
-
-
-			if(endsWithPunctuation(word)) {
-
-				puncEnd = getPunctuation(word, false);
-				word = stripPunctuation(word);
-
-				puncEndEncoded1 = matchPunctuation(puncEnd[0]);
-
-				if (puncEnd[1] != null) 
+				// New line
+				if(isNewLine(word)) 
 				{
-					puncEndEncoded2 = matchPunctuation(puncEnd[1]);
-				}
-
-			}
-
-
-			fullMatchEncoded = matchFullWord(word);
-
-
-
-
-			// If a full match is not found then we check for a prefix - suffix match
-			if(fullMatchEncoded == null)
-			{
-				String[] prefixResult = matchPrefix(word); 
-
-				if (prefixResult[0] != null && prefixResult[1] != null)
-				{
-					prefixWord = prefixResult[0];
-					prefixEncoded = prefixResult[1];
-
-					suffixEncoded = matchSuffix(word, prefixWord); 
-
-					if(suffixEncoded == null)
-					{
-						prefixEncoded = "0";
-					}
+					newLine = true;
 				}
 				else
 				{
-					fullMatchEncoded = "0"; // the code for a missing word.
+					newLine = false;
 				}
-			}
-
+		
+	
+				if (startsWithPunctuation(word) && !word.startsWith("@@"))
+				{
+					puncStart = getPunctuation(word, true);
+					puncStartEncoded = matchPunctuation(puncStart[0]);
+	
+					word = stripStartPunctuation(word);
+	
+				}
+	
+	
+				if(endsWithPunctuation(word)) {
+	
+					puncEnd = getPunctuation(word, false);
+					word = stripPunctuation(word);
+	
+					puncEndEncoded1 = matchPunctuation(puncEnd[0]);
+	
+					if (puncEnd[1] != null) 
+					{
+						puncEndEncoded2 = matchPunctuation(puncEnd[1]);
+					}
+	
+				}
+	
+	
+				fullMatchEncoded = matchFullWord(word);
+	
+	
+	
+	
+				// If a full match is not found then we check for a prefix - suffix match
+				if(fullMatchEncoded == null)
+				{
+					String[] prefixResult = matchPrefix(word); 
+	
+					if (prefixResult[0] != null && prefixResult[1] != null)
+					{
+						prefixWord = prefixResult[0];
+						prefixEncoded = prefixResult[1];
+	
+						suffixEncoded = matchSuffix(word, prefixWord); 
+	
+						if(suffixEncoded == null)
+						{
+							prefixEncoded = "0";
+						}
+					}
+					else
+					{
+						fullMatchEncoded = "0"; // the code for a missing word.
+					}
+				}
+		    }
 
 
 			// Adding the encoded words into the encoded words/ punct array
@@ -177,12 +185,45 @@ public class EncoderDecoder {
 					counter++;
 				}
 			}
+			
+		    // === Copy encodedWords[] to result[] ===
+            for (int i = 0; i < encodedWords.length; i++) {
+                if (encodedWords[i] != null) {
+                    if (resultCounter >= result.length) {
+                        result = expandArray(result);
+                    }
+                    result[resultCounter++] = encodedWords[i];
+                }
+            }
 		}
-		return encodedWords; 
+	
+		
+		// Replace this at the end of encode()
+		String[] trimmedResult = new String[resultCounter];
+		for (int i = 0; i < resultCounter; i++) {
+		    trimmedResult[i] = result[i];
+		}
+		return trimmedResult;
 	}
-
+	
+	
+	
+	
+	// Expands an array manually using a loop
+	private static String[] expandArray(String[] original) {
+	    String[] bigger = new String[original.length * 2];
+	    for (int i = 0; i < original.length; i++) {
+	        bigger[i] = original[i];
+	    }
+	    return bigger;
+	}
+	   
+	   
 
 	
+
+
+	/*
 	public static String[] decode(String[] input) {
 		
 		String[] decodedWords = new String[1];
@@ -218,6 +259,7 @@ public class EncoderDecoder {
 		
 		return decodedWords;
 	}
+	*/
 
 	private static String matchFullWord(String word) {
 		String match = "";
@@ -443,6 +485,10 @@ public class EncoderDecoder {
 
 		return puncEncodingMatch;
 	}
+	
+
+	
+
 	
 
 
