@@ -43,7 +43,7 @@ public class TextFileProcessor {
 							expandInputArray();
 						}
 
-						encoderDecoderInput[counterInputArr] = word;
+						encoderDecoderInput[counterInputArr] = word.trim().toLowerCase();
 						counterInputArr++;
 					}
 				}
@@ -62,6 +62,16 @@ public class TextFileProcessor {
 		
 		// Pass it to the encode / decode methods now?
 		// remove nulls here
+		if (encode) 
+		{
+			
+			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
+		}
+		else 
+		{
+			
+			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
+		}
 		
 		
 		
@@ -73,8 +83,7 @@ public class TextFileProcessor {
 			
 		}
 		
-		
-
+	
 		return readFinished;
 
 	}

@@ -7,8 +7,8 @@ public class EncoderDecoder {
 	// - for punct word, I think we strip the punct and base word and then pass the punct through a punct encoder and pass base word 
 	// matchfullword
 	
-	public static String[] encode(String word) {
-		
+	public static String[] encode(String[] input) {
+
 		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
 		String[] encodedWords = new String[5];
 		String[] puncStart = new String[1];
@@ -16,157 +16,170 @@ public class EncoderDecoder {
 		String puncStartEncoded = null;
 		String puncEndEncoded1 = null;
 		String puncEndEncoded2 = null;
-		
+
 		String fullMatchEncoded = null;
 		String prefixWord = null;
 		String prefixEncoded = null;
 		String suffixEncoded = null;
 		Boolean newLine = null;
-		
 
 		int counter = 0;
-			
-		// New line
-		if(newLine(word)) 
-		{
-			newLine = true;
-		}
-		
-		if (startsWithPunctuation(word) && !word.startsWith("@@"))
-		{
-			puncStart = getPunctuation(word, true);
-			puncStartEncoded = matchPunctuation(puncStart[0]);
-		
-			word = stripStartPunctuation(word);
 
-		}
-	
-		
-		if(endsWithPunctuation(word)) {
+		for (String word : input) 
+		{
+			// Reset every word
+		    puncStartEncoded = null;
+		    puncEndEncoded1 = null;
+		    puncEndEncoded2 = null;
+		    fullMatchEncoded = null;
+		    prefixEncoded = null;
+		    suffixEncoded = null;
+		    newLine = false;
+
 			
-			puncEnd = getPunctuation(word, false);
-			word = stripPunctuation(word);
-			
-			puncEndEncoded1 = matchPunctuation(puncEnd[0]);
-			
-			if (puncEnd[1] != null) 
+			// New line
+			if(isNewLine(word)) 
 			{
-				puncEndEncoded2 = matchPunctuation(puncEnd[1]);
+				newLine = true;
 			}
-			
-		}
-		
+	
 
-
-		fullMatchEncoded = matchFullWord(word);
-		
-
-		// If a full match is not found then we check for a prefix - suffix match
-		if(fullMatchEncoded == null)
-		{
-			String[] prefixResult = matchPrefix(word); 
-			
-			if (prefixResult[0] != null && prefixResult[1] != null)
+			if (startsWithPunctuation(word) && !word.startsWith("@@"))
 			{
-				prefixWord = prefixResult[0];
-				prefixEncoded = prefixResult[1];
-				
-				suffixEncoded = matchSuffix(word, prefixWord); 
-				
-				if(suffixEncoded == null)
+				puncStart = getPunctuation(word, true);
+				puncStartEncoded = matchPunctuation(puncStart[0]);
+
+				word = stripStartPunctuation(word);
+
+			}
+
+
+			if(endsWithPunctuation(word)) {
+
+				puncEnd = getPunctuation(word, false);
+				word = stripPunctuation(word);
+
+				puncEndEncoded1 = matchPunctuation(puncEnd[0]);
+
+				if (puncEnd[1] != null) 
 				{
-					prefixEncoded = "0";
+					puncEndEncoded2 = matchPunctuation(puncEnd[1]);
+				}
+
+			}
+
+
+			fullMatchEncoded = matchFullWord(word);
+
+
+
+
+			// If a full match is not found then we check for a prefix - suffix match
+			if(fullMatchEncoded == null)
+			{
+				String[] prefixResult = matchPrefix(word); 
+
+				if (prefixResult[0] != null && prefixResult[1] != null)
+				{
+					prefixWord = prefixResult[0];
+					prefixEncoded = prefixResult[1];
+
+					suffixEncoded = matchSuffix(word, prefixWord); 
+
+					if(suffixEncoded == null)
+					{
+						prefixEncoded = "0";
+					}
+				}
+				else
+				{
+					fullMatchEncoded = "0"; // the code for a missing word.
 				}
 			}
-			else
-			{
-				fullMatchEncoded = "0"; // the code for a missing word.
-			}
-		}
-		
-		
-		
-		// Adding the encoded words into the encoded words/ punct array
-		
-		// Check if word starts with punctuation
-		if(puncStartEncoded != null) 
-		{
-			encodedWords[counter] = puncStartEncoded;
-			counter++;
-		}
-		
-		
-		// Full word encoding
-		if (fullMatchEncoded != null) 
-		{
-			encodedWords[counter] = fullMatchEncoded;
-			counter++;
-			
-			if (puncEndEncoded1 != null) 
-			{
-				encodedWords[counter] = puncEndEncoded1;
-				counter++;
-			}
-			if (puncEndEncoded2 != null)
-			{
-				encodedWords[counter] = puncEndEncoded2;
-				counter++;
-			}
-		} 
-		
-	
-		else if (newLine != null) 
-		{
-			encodedWords[counter] = "\n";
-			counter++;
-			
-			if (puncEndEncoded1 != null) 
-			{
-				encodedWords[counter] = puncEndEncoded1;
-				counter++;
-			}
-			if (puncEndEncoded2 != null)
-			{
-				encodedWords[counter] = puncEndEncoded2;
-				counter++;
-			}
-		}
-		
 
-		else 
-		{
-			if (prefixEncoded != null) 
+
+
+			// Adding the encoded words into the encoded words/ punct array
+
+			// Check if word starts with punctuation
+			if(puncStartEncoded != null) 
 			{
-				encodedWords[counter] = prefixEncoded;
+				encodedWords[counter] = puncStartEncoded;
 				counter++;
 			}
-		
-			if (suffixEncoded != null) 
+
+
+			// Full word encoding
+			if (fullMatchEncoded != null) 
 			{
-				encodedWords[counter] = suffixEncoded;
+				encodedWords[counter] = fullMatchEncoded;
 				counter++;
+
+				if (puncEndEncoded1 != null) 
+				{
+					encodedWords[counter] = puncEndEncoded1;
+					counter++;
+				}
+				if (puncEndEncoded2 != null)
+				{
+					encodedWords[counter] = puncEndEncoded2;
+					counter++;
+				}
+			} 
+
+
+			else if (newLine != null) 
+			{
+				encodedWords[counter] = "\n";
+				counter++;
+
+				if (puncEndEncoded1 != null) 
+				{
+					encodedWords[counter] = puncEndEncoded1;
+					counter++;
+				}
+				if (puncEndEncoded2 != null)
+				{
+					encodedWords[counter] = puncEndEncoded2;
+					counter++;
+				}
 			}
-		
-			
-			if (puncEndEncoded1 != null) 
+
+
+			else 
 			{
-				encodedWords[counter] = puncEndEncoded1;
-				counter++;
-			}
-			
-			if (puncEndEncoded2 != null)
-			{
-				encodedWords[counter] = puncEndEncoded2;
-				counter++;
+				if (prefixEncoded != null) 
+				{
+					encodedWords[counter] = prefixEncoded;
+					counter++;
+				}
+
+				if (suffixEncoded != null) 
+				{
+					encodedWords[counter] = suffixEncoded;
+					counter++;
+				}
+
+
+				if (puncEndEncoded1 != null) 
+				{
+					encodedWords[counter] = puncEndEncoded1;
+					counter++;
+				}
+
+				if (puncEndEncoded2 != null)
+				{
+					encodedWords[counter] = puncEndEncoded2;
+					counter++;
+				}
 			}
 		}
-
 		return encodedWords; 
 	}
 
 
 	
-	public static String[] decode(String encodedWord) {
+	public static String[] decode(String[] input) {
 		
 		String[] decodedWords = new String[1];
 	
@@ -298,7 +311,7 @@ public class EncoderDecoder {
 	
 	
 	
-	private static boolean newLine(String word) {
+	private static boolean isNewLine(String word) {
 		
 		if(word.trim().equals("@@newline"))
 		{
