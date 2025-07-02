@@ -34,13 +34,17 @@ public class EncoderDecoder {
 		    fullMatchEncoded = null;
 		    prefixEncoded = null;
 		    suffixEncoded = null;
-		    newLine = false;
+		    
 
 			
 			// New line
 			if(isNewLine(word)) 
 			{
 				newLine = true;
+			}
+			else
+			{
+				newLine = false;
 			}
 	
 
@@ -128,7 +132,7 @@ public class EncoderDecoder {
 			} 
 
 
-			else if (newLine != null) 
+			else if (newLine) 
 			{
 				encodedWords[counter] = "\n";
 				counter++;
