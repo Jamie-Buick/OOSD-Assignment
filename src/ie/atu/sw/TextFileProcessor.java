@@ -11,7 +11,7 @@ public class TextFileProcessor {
 	
 	public TextFileProcessor(){
 		encoderDecoderResult = new String[10];
-		encoderDecoderInput = new String[10];
+		encoderDecoderInput = new String[20];
 		counterInputArr = 0;
 	}
 	
@@ -34,6 +34,8 @@ public class TextFileProcessor {
 
 				for (String word : words) 
 				{
+					//System.out.println(word); // fine here
+					
 					if  (word != null && !word.trim().isEmpty()) 
 					{
 
@@ -43,6 +45,7 @@ public class TextFileProcessor {
 						}
 
 						encoderDecoderInput[counterInputArr] = word.trim().toLowerCase();
+						//System.out.println(counterInputArr + " " + word.trim().toLowerCase()); // fine too
 						counterInputArr++;
 					}
 				}

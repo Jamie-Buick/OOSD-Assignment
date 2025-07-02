@@ -12,6 +12,7 @@ public class EncoderDecoder {
 	public static String[] encode(String[] input) {
 
 		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
+		String word = null;
 		String[] encodedWords = new String[5];
 		String[] puncStart = new String[1];
 		String[] puncEnd = new String[2];
@@ -28,12 +29,20 @@ public class EncoderDecoder {
         // Large enough to start, expand if needed
         String[] result = new String[50];
         int resultCounter = 0;
+        
+        /*
+        
+        {
+        	  System.out.println("[" + input[x] + "]");
+        }
+        */
 		
-		for (String word : input) 
+        for (int x = 0; x < input.length; x++)
 		{
 			// Reset every word
-			//System.out.println(word);
+			//System.out.println("[" + word + "]");
 			int counter = 0;
+			
 		    puncStartEncoded = null;
 		    puncEndEncoded1 = null;
 		    puncEndEncoded2 = null;
@@ -41,9 +50,13 @@ public class EncoderDecoder {
 		    prefixEncoded = null;
 		    suffixEncoded = null;
 		    
+		    
+		    
+		    word = input[x];
+		    
 		    if(word != null) {
 			
-		    	System.out.println(word);
+		    
 		    	
 		    	
 				// New line
@@ -205,8 +218,8 @@ public class EncoderDecoder {
             }
             
 		}
+	
 		
-		/*
 	    // === Copy encodedWords[] to result[] ===
         for (int i = 0; i < result.length; i++) 
         {
@@ -215,7 +228,7 @@ public class EncoderDecoder {
                 System.out.println(result[i]);
            }
         
-	*/
+	
 		
 
 	
