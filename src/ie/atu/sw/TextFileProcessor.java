@@ -7,6 +7,7 @@ public class TextFileProcessor {
 	
 	private String[] encoderDecoderResult; 
 	private String[] encoderDecoderInput; 
+	private String[] encoderDecoderReturn;
 	private int counterInputArr;
 	
 	public TextFileProcessor(){
@@ -21,7 +22,7 @@ public class TextFileProcessor {
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
-		String[] encoderDecoderReturn = null;
+		
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -68,6 +69,13 @@ public class TextFileProcessor {
 		{
 			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
+			
+			for(int g = 0; g < encoderDecoderReturn.length; g++) 
+			{
+				System.out.println(encoderDecoderReturn[g]);
+			}
+			
+			
 		}
 		else 
 		{
@@ -75,60 +83,11 @@ public class TextFileProcessor {
 			//encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
 		}
 		
-		
-
 
 	
 		return readFinished;
 
 	}
-	
-	
-	
-	/*		if (encode) 
-						{
-							word = word.trim().toLowerCase();
-							encoderDecoderReturn = EncoderDecoder.encode(word);
-						}
-						else 
-						{
-							
-							if(word.trim().equals("@@newline"))
-							{
-								//System.out.println(word);
-								encoderDecoderReturn = EncoderDecoder.decode(word);
-							}
-							else
-							{
-								word = word.strip().replaceAll("[^0-9 ]", "");
-								encoderDecoderReturn = EncoderDecoder.decode(word);
-							}
-							
-						}
-						
-						
-									// Copy results into the main array
-						for (int i = 0; i < encoderDecoderReturn.length; i++) 
-						{
-							if (encoderDecoderReturn[i] != null) 
-							{
-								
-								if (counterArr >= encoderDecoderResult.length)
-								{
-									expandArray();
-								}
-								
-								encoderDecoderResult[counterArr] = encoderDecoderReturn[i];
-								counterArr++;
-							}
-						}
-	 * 
-	 */
-	
-	
-	
-	
-	
 	
 	
 	
@@ -139,7 +98,7 @@ public class TextFileProcessor {
 		if (encode) 
 		{
 
-			writeToText(encoderDecoderResult, filePath);
+			writeToText(encoderDecoderReturn, filePath);
 
 		}
 
@@ -174,7 +133,8 @@ public class TextFileProcessor {
 			
 			for (int i = 0; i < encoderDecoderResult.length; i++) 
 			{
-				if (encoderDecoderResult[i] != null) 
+				if (encoderDecoderResult[i] != null && !encoderDecoderResult[i].isEmpty())
+
 				{
 					
 					if(!(encoderDecoderResult[i].equals("\n"))) 
