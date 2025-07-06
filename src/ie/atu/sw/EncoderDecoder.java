@@ -207,14 +207,14 @@ public class EncoderDecoder {
                 if (encodedWords[i] != null) 
                 {
                 	
-                  //  if (resultCounter >= result.length) 
-                  //  {
-                   //     result = expandArray(result);
-                   // }
+                  if (resultCounter >= result.length) 
+                  {
+                        result = expandArray(result);
+                  }
                 	
-                	 System.out.println(encodedWords[i]);
-                    result[resultCounter++] = encodedWords[i];
-                    encodedWords[i] = null;
+                  //System.out.println(encodedWords[i]);
+                result[resultCounter++] = encodedWords[i];
+                encodedWords[i] = null;
                 }
             }
             
