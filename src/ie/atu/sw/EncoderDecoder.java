@@ -27,7 +27,8 @@ public class EncoderDecoder {
 		Boolean newLine = null;
 		
         // Large enough to start, expand if needed
-        String[] result = new String[50];
+        String[] encodings = new String[50];
+        String[] result;
         int resultCounter = 0;
         
         /*
@@ -207,23 +208,55 @@ public class EncoderDecoder {
                 if (encodedWords[i] != null) 
                 {
                 	
-                  if (resultCounter >= result.length) 
+                  if (resultCounter >= encodings.length) 
                   {
-                        result = expandArray(result);
+                	  encodings = expandArray(encodings);
                   }
                 	
-                  //System.out.println(encodedWords[i]);
-                result[resultCounter++] = encodedWords[i];
-                encodedWords[i] = null;
+		            //System.out.println(encodedWords[i]);
+		            encodings[resultCounter++] = encodedWords[i];
+		            encodedWords[i] = null;
                 }
             }
                   
 		}
 	
-        
+        // clean the array of empty / null spaces
+        result = cleanArray(encodings);
+         
 		return result;
 	}
 	
+	
+	private static String[] cleanArray(String [] original) {
+		
+		int count = 0;
+
+		for (int i = 0; i < original.length; i++)
+		{
+			
+			if (original[i] != null  ) 
+			{
+				count++;
+			}
+
+		}
+		
+	    String[] trimmedArray = new String[count];
+	    int index = 0;
+	
+		for (int i = 0; i < original.length; i++)
+		{
+			
+			if (original[i] != null ) 
+			{
+				trimmedArray[index++] = original[i];
+			}
+			
+		}
+		
+		return trimmedArray;
+	}
 	
 	
 	
