@@ -46,7 +46,6 @@ public class TextFileProcessor {
 						}
 
 						encoderDecoderInput[counterInputArr] = word.trim().toLowerCase();
-						//System.out.println(counterInputArr + " " + word.trim().toLowerCase()); // fine too
 						counterInputArr++;
 					}
 				}
@@ -70,12 +69,14 @@ public class TextFileProcessor {
 			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
 			
+			/*
+			
 			for(int g = 0; g < encoderDecoderReturn.length; g++) 
 			{
 				System.out.println(encoderDecoderReturn[g]);
 			}
 			
-			
+			*/
 		}
 		else 
 		{
@@ -124,26 +125,26 @@ public class TextFileProcessor {
 	
 
 	
-	private static boolean writeToText(String[] encoderDecoderResult, String filePath) { 
+	private static boolean writeToText(String[] input, String filePath) { 
 		Boolean writeFinished = false;
 		
 		try 
 		{
 			BufferedWriter output = new BufferedWriter(new FileWriter(filePath, true));
 			
-			for (int i = 0; i < encoderDecoderResult.length; i++) 
+			for (int i = 0; i < input.length; i++) 
 			{
-				if (encoderDecoderResult[i] != null && !encoderDecoderResult[i].isEmpty())
+				if (input[i] != null && !input[i].isEmpty())
 
 				{
 					
-					if(!(encoderDecoderResult[i].equals("\n"))) 
+					if(!(input[i].equals("\n"))) 
 					{
-						output.write(encoderDecoderResult[i] + " ");
+						output.write(input[i] + " ");
 					}
 					else 
 					{
-						output.write(encoderDecoderResult[i]);
+						output.write(input[i]);
 					}
 				}
 			

@@ -50,10 +50,13 @@ public class EncoderDecoder {
 		    fullMatchEncoded = null;
 		    prefixEncoded = null;
 		    suffixEncoded = null;
-		    
+		    newLine = false;
 		    
 		    
 		    word = input[x];
+		    
+		
+		    
 		    
 		    if(word != null) {
 			
@@ -235,25 +238,39 @@ public class EncoderDecoder {
 		for (int i = 0; i < original.length; i++)
 		{
 			
-			if (original[i] != null  ) 
+			if (original[i] != null && !original[i].equals("")) 
 			{
 				count++;
 			}
-
 		}
 		
+		
+		System.out.println("Final Count: " + count);
 	    String[] trimmedArray = new String[count];
 	    int index = 0;
 	
 		for (int i = 0; i < original.length; i++)
 		{
 			
-			if (original[i] != null ) 
+			if (original[i] != null && !original[i].equals("")) 
 			{
 				trimmedArray[index++] = original[i];
 			}
 			
 		}
+		/*
+		for (int i = 0; i < trimmedArray.length; i++) {
+		    String element = trimmedArray[i];
+		    // Replace whitespace chars with visible tags
+		    String visible = element
+		        .replace(" ", "[space]")
+		        .replace("\t", "[tab]")
+		        .replace("\n", "[newline]")
+		        .replace("\r", "[return]");
+		    System.out.println(visible);
+		}
+		
+	*/
 		
 		return trimmedArray;
 	}
