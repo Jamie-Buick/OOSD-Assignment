@@ -57,8 +57,6 @@ public class EncoderDecoder {
 		    if(word != null) {
 			
 		    
-		    	
-		    	
 				// New line
 				if(isNewLine(word)) 
 				{
@@ -95,9 +93,9 @@ public class EncoderDecoder {
 				}
 	
 	
+				
+				
 				fullMatchEncoded = matchFullWord(word);
-	
-	
 	
 	
 				// If a full match is not found then we check for a prefix - suffix match
@@ -208,17 +206,24 @@ public class EncoderDecoder {
             {
                 if (encodedWords[i] != null) 
                 {
+                	
                   //  if (resultCounter >= result.length) 
                   //  {
                    //     result = expandArray(result);
                    // }
+                	
+                	 System.out.println(encodedWords[i]);
                     result[resultCounter++] = encodedWords[i];
-                    System.out.println();
+                    encodedWords[i] = null;
                 }
             }
             
+
+            
 		}
 	
+        
+        /*
 		
 	    // === Copy encodedWords[] to result[] ===
         for (int i = 0; i < result.length; i++) 
@@ -226,10 +231,10 @@ public class EncoderDecoder {
            
             
                 System.out.println(result[i]);
-           }
+       }
         
 	
-		
+		*/
 
 	
 
