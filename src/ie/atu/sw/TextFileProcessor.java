@@ -17,7 +17,6 @@ public class TextFileProcessor {
 	}
 	
 	
-	
 
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
@@ -35,7 +34,6 @@ public class TextFileProcessor {
 
 				for (String word : words) 
 				{
-					//System.out.println(word); // fine here
 					
 					if  (word != null && !word.trim().isEmpty()) 
 					{
@@ -60,23 +58,13 @@ public class TextFileProcessor {
 			System.out.println(e.getMessage()); 
 			e.printStackTrace();
 		}
-		
-		
-		// Pass it to the encode / decode methods now?
-		// remove nulls here
+
 		if (encode) 
 		{
 			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
 			
-			/*
-			
-			for(int g = 0; g < encoderDecoderReturn.length; g++) 
-			{
-				System.out.println(encoderDecoderReturn[g]);
-			}
-			
-			*/
+
 		}
 		else 
 		{

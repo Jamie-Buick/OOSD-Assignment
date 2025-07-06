@@ -26,22 +26,14 @@ public class EncoderDecoder {
 		String suffixEncoded = null;
 		Boolean newLine = null;
 		
-        // Large enough to start, expand if needed
+ 
         String[] encodings = new String[50];
         String[] result;
         int resultCounter = 0;
-        
-        /*
-        
-        {
-        	  System.out.println("[" + input[x] + "]");
-        }
-        */
-		
+
         for (int x = 0; x < input.length; x++)
 		{
-			// Reset every word
-			//System.out.println("[" + word + "]");
+
 			int counter = 0;
 			
 		    puncStartEncoded = null;
@@ -54,9 +46,7 @@ public class EncoderDecoder {
 		    
 		    
 		    word = input[x];
-		    
-		
-		    
+
 		    
 		    if(word != null) {
 			
@@ -258,20 +248,7 @@ public class EncoderDecoder {
 			}
 			
 		}
-		/*
-		for (int i = 0; i < trimmedArray.length; i++) {
-		    String element = trimmedArray[i];
-		    // Replace whitespace chars with visible tags
-		    String visible = element
-		        .replace(" ", "[space]")
-		        .replace("\t", "[tab]")
-		        .replace("\n", "[newline]")
-		        .replace("\r", "[return]");
-		    System.out.println(visible);
-		}
-		
-	*/
-		
+	
 		return trimmedArray;
 	}
 	
@@ -351,7 +328,7 @@ public class EncoderDecoder {
 				
 			}
 		}
-		//System.out.println(fullWordMatch);
+		
 		
 		return fullEncodingMatch;
 	}
@@ -381,7 +358,7 @@ public class EncoderDecoder {
 			}
 		}
 		
-		//System.out.println(matchedPrefixEncoding);
+		
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
@@ -419,7 +396,7 @@ public class EncoderDecoder {
 				}
 			}
 		}
-		//System.out.println(matchedSuffixEncoding);
+	
 		return matchedSuffixEncoding;
 	}
 	
