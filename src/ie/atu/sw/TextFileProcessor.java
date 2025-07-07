@@ -50,13 +50,7 @@ public class TextFileProcessor {
 			}
 			
 			br.close();
-			
-			
-			for (int i = 0; i < encoderDecoderInput.length; i++) 
-			{
-				System.out.println(encoderDecoderInput[i]);
-			}
-			
+
 
 			readFinished = true;
 		} 
@@ -76,7 +70,7 @@ public class TextFileProcessor {
 		else 
 		{
 	
-			
+
 			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
 		
 		}

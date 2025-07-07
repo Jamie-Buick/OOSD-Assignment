@@ -223,10 +223,14 @@ public class EncoderDecoder {
 	public static String[] decode(String[] input) {
 		
 		String[] decodedWords = new String[1];
-	
+		String[] decodings = new String[50];
+		
+		 
 		String match = null;
 		String encoded = null;
 		String fullMatch = null;
+		
+		int resultCounter = 0;
 		
 	   for (int x = 0; x < input.length; x++)
 	   {
@@ -252,19 +256,20 @@ public class EncoderDecoder {
 				}
 		   }
 			
+	     
+	                  
+	
+		   
+		   
+		   
 			if (fullMatch != null) {
 				decodedWords[0] = fullMatch;
+				System.out.println(decodedWords[0]);
 			}
 	
 		   }
 	  
-	   
-	   
-	   for(int i = 0; i < decodedWords.length; i++) 
-	   {
-		   System.out.println(decodedWords);
-	   }
-	   
+
 	   
 	  
 	   return decodedWords;
