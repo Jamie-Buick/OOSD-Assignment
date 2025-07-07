@@ -50,6 +50,13 @@ public class TextFileProcessor {
 			}
 			
 			br.close();
+			
+			
+			for (int i = 0; i < encoderDecoderInput.length; i++) 
+			{
+				System.out.println(encoderDecoderInput[i]);
+			}
+			
 
 			readFinished = true;
 		} 
@@ -68,8 +75,10 @@ public class TextFileProcessor {
 		}
 		else 
 		{
+	
 			
-			//encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
+			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
+		
 		}
 		
 
@@ -96,7 +105,7 @@ public class TextFileProcessor {
 		{
 			// pass full encoderDecoder array to this method that will return a new array
 			// with the decoded text built into readable text
-			String buildPartialWords[] = buildPrefixSuffix(encoderDecoderResult);
+			String buildPartialWords[] = buildPrefixSuffix(encoderDecoderReturn);
 			String removeNullVals[] = removeNulls(buildPartialWords);
 			String buildPunctuation[] = buildPunct(removeNullVals);
 
@@ -151,6 +160,25 @@ public class TextFileProcessor {
 	}
 		
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
@@ -252,9 +280,9 @@ public class TextFileProcessor {
 	}
 	
 	private void cleanArray() {
-		for (int i = 0; i < encoderDecoderResult.length; i++)
+		for (int i = 0; i < encoderDecoderReturn.length; i++)
 		{
-			encoderDecoderResult[i] = null;
+			encoderDecoderReturn[i] = null;
 		}
 
 	}

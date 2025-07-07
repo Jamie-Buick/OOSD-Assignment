@@ -219,7 +219,7 @@ public class EncoderDecoder {
 	
 
 
-	/*
+	
 	public static String[] decode(String[] input) {
 		
 		String[] decodedWords = new String[1];
@@ -228,34 +228,48 @@ public class EncoderDecoder {
 		String encoded = null;
 		String fullMatch = null;
 		
-		// New line
-		if(newLine(encodedWord)) 
-		{
-			decodedWords[0] = "\n";
-		}
-		else {
-			// Find a match for 
-			for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
-	
-				match = ReadEncodingsFile.getEncodings()[rows][0];
-				encoded = ReadEncodingsFile.getEncodings()[rows][1];
-	
-				if (ReadEncodingsFile.getEncodings()[rows][1].equals(encodedWord)) 
+	   for (int x = 0; x < input.length; x++)
+	   {
+		   if(input[x] != null) {
+		  	// New line
+				if(isNewLine(input[x])) 
 				{
-					fullMatch = match;
-					break;
+					decodedWords[0] = "\n";
 				}
-			}	
-		}
-		
-		if (fullMatch != null) {
-			decodedWords[0] = fullMatch;
-		}
-
-		
-		return decodedWords;
+				else {
+					// Find a match for 
+					for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
+			
+						match = ReadEncodingsFile.getEncodings()[rows][0];
+						encoded = ReadEncodingsFile.getEncodings()[rows][1];
+			
+						if (ReadEncodingsFile.getEncodings()[rows][1].equals(input[x])) 
+						{
+							fullMatch = match;
+							break;
+						}
+					}	
+				}
+		   }
+			
+			if (fullMatch != null) {
+				decodedWords[0] = fullMatch;
+			}
+	
+		   }
+	  
+	   
+	   
+	   for(int i = 0; i < decodedWords.length; i++) 
+	   {
+		   System.out.println(decodedWords);
+	   }
+	   
+	   
+	  
+	   return decodedWords;
 	}
-	*/
+	
 	
 	
 	
@@ -368,7 +382,6 @@ public class EncoderDecoder {
 		}
 		
 		return false;
-		
 	}
 	
 	
@@ -395,9 +408,11 @@ public class EncoderDecoder {
 			return true;
 		}
 		
-		return false;
-		
+		return false;	
 	}
+	
+	
+	
 	
 	private static String[] getPunctuation(String word, boolean isStart) {
 		
@@ -434,9 +449,10 @@ public class EncoderDecoder {
 	
 	private static String stripStartPunctuation(String word) {  
 
-	    return word.substring(1);
-		
+	    return word.substring(1);	
 	}
+	
+	
 	
 	
 	private static String stripPunctuation(String word) { 
@@ -486,6 +502,8 @@ public class EncoderDecoder {
 
 		return puncEncodingMatch;
 	}
+	
+	
 	
 	
 	private static String[] cleanArray(String [] original) {
