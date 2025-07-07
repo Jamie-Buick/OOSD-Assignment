@@ -49,9 +49,7 @@ public class EncoderDecoder {
 
 		    
 		    if(word != null) {
-			
-		    
-				// New line
+
 				if(isNewLine(word)) 
 				{
 					newLine = true;
@@ -86,8 +84,7 @@ public class EncoderDecoder {
 	
 				}
 	
-	
-				
+
 				
 				fullMatchEncoded = matchFullWord(word);
 	
@@ -191,11 +188,8 @@ public class EncoderDecoder {
 					counter++;
 				}
 			}
-			
-			
-			
-			
-		    // === Copy encodedWords[] to result[] ===
+		
+				
             for (int i = 0; i < encodedWords.length; i++) 
             {
                 if (encodedWords[i] != null) 
@@ -206,7 +200,6 @@ public class EncoderDecoder {
                 	  encodings = expandArray(encodings);
                   }
                 	
-		            //System.out.println(encodedWords[i]);
 		            encodings[resultCounter++] = encodedWords[i];
 		            encodedWords[i] = null;
                 }
@@ -214,55 +207,13 @@ public class EncoderDecoder {
                   
 		}
 	
-        // clean the array of empty / null spaces
         result = cleanArray(encodings);
          
 		return result;
 	}
 	
 	
-	private static String[] cleanArray(String [] original) {
-		
-		int count = 0;
 
-		for (int i = 0; i < original.length; i++)
-		{
-			
-			if (original[i] != null && !original[i].equals("")) 
-			{
-				count++;
-			}
-		}
-		
-		
-		System.out.println("Final Count: " + count);
-	    String[] trimmedArray = new String[count];
-	    int index = 0;
-	
-		for (int i = 0; i < original.length; i++)
-		{
-			
-			if (original[i] != null && !original[i].equals("")) 
-			{
-				trimmedArray[index++] = original[i];
-			}
-			
-		}
-	
-		return trimmedArray;
-	}
-	
-	
-	
-	// Expands an array manually using a loop
-	private static String[] expandArray(String[] original) {
-	    String[] bigger = new String[original.length * 2];
-	    for (int i = 0; i < original.length; i++) {
-	        bigger[i] = original[i];
-	    }
-	    return bigger;
-	}
-	   
 	   
 
 	
@@ -305,6 +256,13 @@ public class EncoderDecoder {
 		return decodedWords;
 	}
 	*/
+	
+	
+	
+	
+	/*
+	 * Below are methods specifically related to encoding the words.
+	 */
 
 	private static String matchFullWord(String word) {
 		String match = "";
@@ -428,7 +386,6 @@ public class EncoderDecoder {
 	}
 	
 	
-	
 	private static boolean endsWithPunctuation(String word) {
 		
 		char lastChar = word.charAt(word.length() - 1);
@@ -500,7 +457,6 @@ public class EncoderDecoder {
 	}
 	
 
-	
 
 	private static String matchPunctuation(String punc) {  
 		String match = "";
@@ -530,6 +486,48 @@ public class EncoderDecoder {
 
 		return puncEncodingMatch;
 	}
+	
+	
+	private static String[] cleanArray(String [] original) {
+		
+		int count = 0;
+
+		for (int i = 0; i < original.length; i++)
+		{
+			
+			if (original[i] != null && !original[i].equals("")) 
+			{
+				count++;
+			}
+		}
+
+	    String[] trimmedArray = new String[count];
+	    int index = 0;
+	
+		for (int i = 0; i < original.length; i++)
+		{
+			
+			if (original[i] != null && !original[i].equals("")) 
+			{
+				trimmedArray[index++] = original[i];
+			}
+			
+		}
+	
+		return trimmedArray;
+	}
+	
+	
+	
+	// Expands an array manually using a loop
+	private static String[] expandArray(String[] original) {
+	    String[] bigger = new String[original.length * 2];
+	    for (int i = 0; i < original.length; i++) {
+	        bigger[i] = original[i];
+	    }
+	    return bigger;
+	}
+	   
 	
 
 	
