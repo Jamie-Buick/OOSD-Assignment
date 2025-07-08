@@ -256,23 +256,33 @@ public class EncoderDecoder {
 				}
 		   }
 			
+			
+           for (int i = 0; i < decodedWords.length; i++) 
+           {
+               if (fullMatch != null) 
+               {
+               	
+                 if (resultCounter >= decodings.length) 
+                 {
+                	 decodings = expandArray(decodings);
+                 }
+               	
+                 decodings[resultCounter++] = fullMatch;
+                 fullMatch = null;
+               }
+           }
 	     
-	                  
-	
-		   
-		   
-		   
-			if (fullMatch != null) {
-				decodedWords[0] = fullMatch;
-				System.out.println(decodedWords[0]);
-			}
-	
+
 		   }
+	   
+	   for(int x = 0; x < decodings.length; x++)  {
+		   System.out.println(decodings[x]);
+	   }
 	  
 
 	   
 	  
-	   return decodedWords;
+	   return decodings;
 	}
 	
 	
