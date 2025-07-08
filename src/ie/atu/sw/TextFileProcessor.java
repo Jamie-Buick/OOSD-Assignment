@@ -97,14 +97,7 @@ public class TextFileProcessor {
 		// decoding format to text file
 		else 
 		{
-			// pass full encoderDecoder array to this method that will return a new array
-			// with the decoded text built into readable text
-			String buildPartialWords[] = buildPrefixSuffix(encoderDecoderReturn);
-			String removeNullVals[] = removeNulls(buildPartialWords);
-			String buildPunctuation[] = buildPunct(removeNullVals);
-
-			writeToText(buildPunctuation, filePath);
-
+			writeToText(encoderDecoderReturn, filePath);
 		}
 
 		cleanArray();
@@ -114,7 +107,6 @@ public class TextFileProcessor {
 
 	
 	
-
 	
 	private static boolean writeToText(String[] input, String filePath) { 
 		Boolean writeFinished = false;
@@ -154,113 +146,7 @@ public class TextFileProcessor {
 	}
 		
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	private static String[] buildPrefixSuffix(String inputWords[]) { 
-		
-		String[] joinedWords = new String[inputWords.length]; 
-		String temp;
-
-	    for (int i = 0; i < inputWords.length; i++) 
-	    {
-	        if (inputWords[i] != null) 
-	        {
-	            if (!inputWords[i].startsWith("@@")) 
-	            {
-	                if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i+1].startsWith("@@")) 
-	                {
-	                    temp = inputWords[i + 1].replace("@@", "").trim();
-	                    joinedWords[i] = inputWords[i] + temp;
-	                    i++; 
-	                } 
-	                else 
-	                { 
-	                	joinedWords[i] = inputWords[i];
-	                }
-	            }
-	        }
-	    }
-	    
-		 return joinedWords;
-	}
-	
-	
-	
-	private static String[] buildPunct(String[] inputWords) {
-	  
-	    String[] joinedPunct = new String[inputWords.length];
-	    String temp;
-	    
-	    
-	    for (int i = 0; i < inputWords.length; i++) 
-	    {
-	        if (inputWords[i] != null) 
-	        {
-	            if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i + 1].matches("\\p{Punct}")) 
-	            {
-	                // Check if next next word is also punctuation
-	                if (i + 2 < inputWords.length && inputWords[i + 2] != null && inputWords[i + 2].matches("\\p{Punct}")) 
-	                {
-	                    // Two punctuation marks after the word
-	                    joinedPunct[i] = inputWords[i] + inputWords[i + 1].trim() + inputWords[i + 2].trim();
-	                    i += 2; // Skip both punctuation marks
-	                }
-	                else 
-	                {
-	                    // Only one punctuation mark after the word
-	                    temp = inputWords[i + 1].trim();
-	                    joinedPunct[i] = inputWords[i] + temp;
-	                    i++; // Skip the one punctuation mark
-	                }
-	            } 
-	            else 
-	            {
-	                joinedPunct[i] = inputWords[i];
-	            }
-	        }
-	    }
-	    
-	    return joinedPunct;
-	}
-	
-	
-	
-	private static String[] removeNulls(String[] inputWords) {
-
-		String[] cleanedArr = new String[inputWords.length];
-
-		int counter = 0;
-		for (int i = 0; i < inputWords.length; i++) 
-		{
-			if (!(inputWords[i] == null)) 
-			{
-				cleanedArr[counter] = inputWords[i];
-				counter++;
-			}
-		}
-		
-		return cleanedArr;
-	}
-	
-	
 	private void expandInputArray() {
 		String[] tempArr = new String[encoderDecoderInput.length*2];
 		
