@@ -238,7 +238,7 @@ public class EncoderDecoder {
 		  	// New line
 				if(isNewLine(input[x])) 
 				{
-					decodedWords[0] = "\n";
+					fullMatch = "\n";
 				}
 				else {
 					// Find a match for 
