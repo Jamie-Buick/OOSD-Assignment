@@ -13,7 +13,6 @@ public class TextFileProcessor {
 	public TextFileProcessor(){
 		encoderDecoderResult = new String[10];
 		encoderDecoderInput = new String[20];
-		counterInputArr = 0;
 	}
 	
 	
@@ -21,6 +20,7 @@ public class TextFileProcessor {
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
+		//resetArray();  
 		
 
 		try {
@@ -64,7 +64,6 @@ public class TextFileProcessor {
 		{
 			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
-			
 
 		}
 		else 
@@ -72,7 +71,14 @@ public class TextFileProcessor {
 	
 
 			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
-		
+			
+			/*
+			for (int i = 0; i < encoderDecoderReturn.length; i++)
+			{
+				System.out.println(encoderDecoderReturn[i]);
+			}
+			*/
+			
 		}
 		
 
@@ -84,13 +90,14 @@ public class TextFileProcessor {
 	
 	
 	
-	public boolean writeFile(String filePath, Boolean encode) {
+	public void writeFile(String filePath, Boolean encode) {
 
 		// encoding format to text file
 		if (encode) 
 		{
 
 			writeToText(encoderDecoderReturn, filePath);
+			resetArray();
 
 		}
 
@@ -98,11 +105,10 @@ public class TextFileProcessor {
 		else 
 		{
 			writeToText(encoderDecoderReturn, filePath);
+			resetArray();
 		}
 
-		cleanArray();
-
-		return true;
+	
 	}
 
 	
@@ -159,11 +165,12 @@ public class TextFileProcessor {
 		
 	}
 	
-	private void cleanArray() {
+	private void resetArray() {
 		for (int i = 0; i < encoderDecoderReturn.length; i++)
 		{
 			encoderDecoderReturn[i] = null;
 		}
+		counterInputArr = 0;
 
 	}
 	

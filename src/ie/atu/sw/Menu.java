@@ -143,6 +143,7 @@ public class Menu {
 		{
 			textFileProcessor.writeFile(filePathOutput,encode);
 		} 
+		readFinished = false;
 	}
 	
 	
@@ -156,6 +157,8 @@ public class Menu {
 		{
 			textFileProcessor.writeFile(filePathOutput, encode);
 		}
+		
+		readFinished = false;
 	}
 	
 

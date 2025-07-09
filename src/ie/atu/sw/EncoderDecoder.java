@@ -207,7 +207,7 @@ public class EncoderDecoder {
                   
 		}
 	
-        result = cleanArray(encodings);
+        result = trimArray(encodings);
          
 		return result;
 	}
@@ -224,6 +224,7 @@ public class EncoderDecoder {
 		
 		String[] decodedWords = new String[1];
 		String[] decodings = new String[50];
+		String[] result;
 		
 		 
 		String match = null;
@@ -281,9 +282,9 @@ public class EncoderDecoder {
 		String removeNullVals[] = removeNulls(buildPartialWords);
 		String buildPunctuation[] = buildPunct(removeNullVals);
 
-	   
-	  
-	   return buildPunctuation;
+		result = trimArray(buildPunctuation);
+		
+	   return result;
 	}
 	
 	
@@ -616,7 +617,7 @@ public class EncoderDecoder {
 	
 	
 	
-	private static String[] cleanArray(String [] original) {
+	private static String[] trimArray(String [] original) {
 		
 		int count = 0;
 
@@ -656,7 +657,6 @@ public class EncoderDecoder {
 	    return bigger;
 	}
 	   
-	
 
 	
 
