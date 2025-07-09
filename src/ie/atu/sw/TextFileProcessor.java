@@ -5,13 +5,13 @@ import java.io.*;
 // Processing of input files
 public class TextFileProcessor {
 	
-	private String[] encoderDecoderResult; 
+
 	private String[] encoderDecoderInput; 
 	private String[] encoderDecoderReturn;
 	private int counterInputArr;
 	
 	public TextFileProcessor(){
-		encoderDecoderResult = new String[10];
+
 		encoderDecoderInput = new String[20];
 	}
 	
@@ -64,6 +64,13 @@ public class TextFileProcessor {
 		{
 			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
+			
+			// run this and check the second time
+			for (int i = 0; i < encoderDecoderReturn.length; i++)
+			{
+				System.out.println(encoderDecoderReturn[i]);
+			}
+			
 
 		}
 		else 
@@ -166,6 +173,12 @@ public class TextFileProcessor {
 	}
 	
 	private void resetArray() {
+		for (int i = 0; i < encoderDecoderInput.length; i++)
+		{
+			encoderDecoderInput[i] = null;
+		}
+		
+		
 		for (int i = 0; i < encoderDecoderReturn.length; i++)
 		{
 			encoderDecoderReturn[i] = null;
