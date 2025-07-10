@@ -44,10 +44,8 @@ public class EncoderDecoder {
 		    suffixEncoded = null;
 		    newLine = false;
 		    
-		    
 		    word = input[x];
 
-		    
 		    if(word != null) {
 
 				if(isNewLine(word)) 
@@ -59,7 +57,6 @@ public class EncoderDecoder {
 					newLine = false;
 				}
 		
-	
 				if (startsWithPunctuation(word) && !word.startsWith("@@"))
 				{
 					puncStart = getPunctuation(word, true);
@@ -68,7 +65,6 @@ public class EncoderDecoder {
 					word = stripStartPunctuation(word);
 	
 				}
-	
 	
 				if(endsWithPunctuation(word)) {
 	
@@ -84,10 +80,7 @@ public class EncoderDecoder {
 	
 				}
 	
-
-				
 				fullMatchEncoded = matchFullWord(word);
-	
 	
 				// If a full match is not found then we check for a prefix - suffix match
 				if(fullMatchEncoded == null)
@@ -213,12 +206,6 @@ public class EncoderDecoder {
 	}
 	
 	
-
-	   
-
-	
-
-
 	
 	public static String[] decode(String[] input) {
 		
@@ -226,7 +213,6 @@ public class EncoderDecoder {
 		String[] decodings = new String[50];
 		String[] result;
 		
-		 
 		String match = null;
 		String encoded = null;
 		String fullMatch = null;
@@ -290,7 +276,6 @@ public class EncoderDecoder {
 	
 	
 	
-	
 	/*
 	 * Below are methods specifically related to encoding the words.
 	 */
@@ -314,10 +299,8 @@ public class EncoderDecoder {
 				fullEncodingMatch = encoded;
 				
 				break;
-				
 			}
 		}
-		
 		
 		return fullEncodingMatch;
 	}
@@ -347,7 +330,6 @@ public class EncoderDecoder {
 			}
 		}
 		
-		
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
@@ -371,7 +353,6 @@ public class EncoderDecoder {
 				String suffixStrip = ReadEncodingsFile.getEncodings()[j][0].replace("@@", "").trim();
 				String concatFullWord = prefixWord.concat(suffixStrip).trim();
 		
-
 				if (word.endsWith(suffixStrip) && concatFullWord.equals(word.trim())) 
 				{
 
@@ -402,6 +383,7 @@ public class EncoderDecoder {
 	}
 	
 	
+	
 	private static boolean startsWithPunctuation(String word) {
 		
 		char firstChar = word.charAt(0);
@@ -414,6 +396,7 @@ public class EncoderDecoder {
 		return false;
 		
 	}
+	
 	
 	
 	private static boolean endsWithPunctuation(String word) {
@@ -429,8 +412,7 @@ public class EncoderDecoder {
 	}
 	
 	
-	
-	
+
 	private static String[] getPunctuation(String word, boolean isStart) {
 		
 		if (isStart) 
@@ -471,11 +453,9 @@ public class EncoderDecoder {
 	
 	
 	
-	
 	private static String stripPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
-		
 		for (int i = 0; i < word.length(); i++) {
 			
 			char c = word.charAt(i);
@@ -557,7 +537,6 @@ public class EncoderDecoder {
 	    String[] joinedPunct = new String[inputWords.length];
 	    String temp;
 	    
-	    
 	    for (int i = 0; i < inputWords.length; i++) 
 	    {
 	        if (inputWords[i] != null) 
@@ -608,14 +587,7 @@ public class EncoderDecoder {
 		return cleanedArr;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	private static String[] trimArray(String [] original) {
 		
@@ -650,10 +622,14 @@ public class EncoderDecoder {
 	
 	// Expands an array manually using a loop
 	private static String[] expandArray(String[] original) {
+		
 	    String[] bigger = new String[original.length * 2];
-	    for (int i = 0; i < original.length; i++) {
+	    
+	    for (int i = 0; i < original.length; i++) 
+	    {
 	        bigger[i] = original[i];
 	    }
+	    
 	    return bigger;
 	}
 	   
