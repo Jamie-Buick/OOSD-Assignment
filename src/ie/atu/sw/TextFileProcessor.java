@@ -16,12 +16,9 @@ public class TextFileProcessor {
 	}
 	
 	
-
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
-		//resetArray();  
-		
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
@@ -34,7 +31,7 @@ public class TextFileProcessor {
 
 				for (String word : words) 
 				{
-					
+
 					if  (word != null && !word.trim().isEmpty()) 
 					{
 
@@ -48,10 +45,8 @@ public class TextFileProcessor {
 					}
 				}
 			}
-			
+
 			br.close();
-
-
 			readFinished = true;
 		} 
 		catch (Exception e) 
@@ -62,34 +57,14 @@ public class TextFileProcessor {
 
 		if (encode) 
 		{
-			
 			encoderDecoderReturn = EncoderDecoder.encode(encoderDecoderInput);
-			
-			// run this and check the second time
-			for (int i = 0; i < encoderDecoderReturn.length; i++)
-			{
-				System.out.println(encoderDecoderReturn[i]);
-			}
-			
-
 		}
 		else 
 		{
-	
 
 			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
-			
-			/*
-			for (int i = 0; i < encoderDecoderReturn.length; i++)
-			{
-				System.out.println(encoderDecoderReturn[i]);
-			}
-			*/
-			
 		}
-		
 
-	
 		return readFinished;
 
 	}
@@ -102,25 +77,19 @@ public class TextFileProcessor {
 		// encoding format to text file
 		if (encode) 
 		{
-
 			writeToText(encoderDecoderReturn, filePath);
 			resetArray();
-
 		}
-
-		// decoding format to text file
 		else 
 		{
 			writeToText(encoderDecoderReturn, filePath);
 			resetArray();
 		}
-
-	
 	}
 
 	
 	
-	
+
 	private static boolean writeToText(String[] input, String filePath) { 
 		Boolean writeFinished = false;
 		
@@ -152,7 +121,6 @@ public class TextFileProcessor {
 		{
 			System.out.println("Error writing to file: " + e.getMessage()); 
 			e.printStackTrace();
-			
 		}
 
 		return writeFinished;
@@ -169,8 +137,9 @@ public class TextFileProcessor {
 		}
 		
 		encoderDecoderInput = tempArr;
-		
 	}
+	
+	
 	
 	private void resetArray() {
 		for (int i = 0; i < encoderDecoderInput.length; i++)
@@ -187,8 +156,6 @@ public class TextFileProcessor {
 
 	}
 	
-	
-	
-	
+
 }
 
