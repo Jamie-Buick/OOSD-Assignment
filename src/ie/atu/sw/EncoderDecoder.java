@@ -217,6 +217,7 @@ public class EncoderDecoder {
 	}
 	
 	
+	
 	/**
 	 * Decodes an array of words based on the encodings-10000.csv. Words / punctuation are decoded and added to an array.
 	 * This array holds separate words and punctuation that may need formatted. Newlines are maintained throughout this, prefix-suffix 
@@ -233,8 +234,6 @@ public class EncoderDecoder {
 	 * @return A trimmed array of constructed words and punctuation.
 	 */
 
-	
-	
 	public static String[] decode(String[] input) {
 		
 		String[] decodedWords = new String[1];
@@ -344,6 +343,8 @@ public class EncoderDecoder {
 		return fullEncodingMatch;
 	}
 	
+	
+	
 	/**
 	 * Searches the encoding map for a prefix-word match and returns its encoding.
 	 *
@@ -355,7 +356,6 @@ public class EncoderDecoder {
 	 * 				- Index 1 - The prefix word
 	 * 				- Index 2 - The encoding of the prefix word
 	 */
-	
 
 	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
@@ -383,6 +383,9 @@ public class EncoderDecoder {
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
+	
+	
+	
 	/**
 	 * Searches the encoding map for a suffix-word match and returns its encoding.
 	 *
@@ -396,7 +399,6 @@ public class EncoderDecoder {
 	 * @return Encoding of the matching suffix
 	 */
 	
-	
 	private static String matchSuffix(String word, String prefixWord) {
 		String match = "";
 		String encoded = "";
@@ -404,7 +406,6 @@ public class EncoderDecoder {
 		String nextSuffixMatch = null;
 		String matchedSuffixEncoding = null;
 		
-		// We will need to consider punct somewhere here
 		for (int j = 0; j < ReadEncodingsFile.getEncodings().length; j++) {
 
 			match = ReadEncodingsFile.getEncodings()[j][0];
@@ -433,7 +434,16 @@ public class EncoderDecoder {
 	}
 	
 	
-
+	
+	/**
+	 * Checks whether the word starts with a punctuation character.
+	 *
+	 * This method returns {@code true} if the first character of the word is punctuation,
+	 * based on Unicode punctuation character matching.
+	 *
+	 * @param word The input word to check.
+	 * @return {@code true} if the word starts with punctuation; {@code false} otherwise.
+	 */
 	
 	private static boolean startsWithPunctuation(String word) {
 		
@@ -450,6 +460,17 @@ public class EncoderDecoder {
 	
 	
 	
+	
+	/**
+	 * Checks whether the word ends with a punctuation character.
+	 *
+	 * This method returns {@code true} if the last character of the word is punctuation,
+	 * based on Unicode punctuation character matching.
+	 *
+	 * @param word The input word to check.
+	 * @return {@code true} if the word ends with punctuation; {@code false} otherwise.
+	 */
+	
 	private static boolean endsWithPunctuation(String word) {
 		
 		char lastChar = word.charAt(word.length() - 1);
@@ -463,6 +484,25 @@ public class EncoderDecoder {
 	}
 	
 	
+	
+	
+	/**
+	 * Returns the punctuation that has been found in the word 
+	 *
+	 * This method finds and returns punctuation found at the start or the end of the 
+	 * word depending on the {@code isStart} flag. This method can account for 1 punctuation 
+	 * character at the start of the word and 2 punctuation characters at the end of the word.
+	 *
+	 * @param word The input word to check.
+	 * @param isStart if the punctuation is t the start of the word
+	 * @return String array of size 1 or 2, depending if punctuation is at the start or end,
+	 * 		   containing extracted punctuation. Unused positions will be {@code null}.
+	 * 		   puncStart 		
+	 * 				- Index 0 - punctuation
+	 * 		   puncEnd
+	 * 				- Index 0 - punctuation at word.length-1
+	 * 				- Index 1 - punctuation at word.length-2
+	 */
 
 	private static String[] getPunctuation(String word, boolean isStart) {
 		
@@ -495,7 +535,16 @@ public class EncoderDecoder {
 	}
 	
 	
-
+	
+	/**
+	 * Strips the word of starting punctuation
+	 *
+	 * This method returns the word after stripping any starting punctuation. 
+	 * This allows the 'clean' word to be processed further.
+	 *
+	 * @param word The input word strip punctuation from.
+	 * @return {@code word.substring(1)}. The rest of the word except the first character.
+	 */
 	
 	private static String stripStartPunctuation(String word) {  
 
@@ -504,6 +553,16 @@ public class EncoderDecoder {
 	
 	
 	
+	/**
+	 * Strips the word of ending punctuation
+	 *
+	 * This method returns the word after stripping any ending punctuation. 
+	 * This allows the 'clean' word to be processed further.
+	 *
+	 * @param word The input word strip punctuation from.
+	 * @return The word with all punctuation characters removed.
+	 */
+
 	private static String stripPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
@@ -627,16 +686,26 @@ public class EncoderDecoder {
 	
 	
 	
-	private static String[] removeNulls(String[] inputWords) {
+	/**
+	 * Moves all non-null elements to the front of the array, pushing null elements to the end.
+	 *
+	 * This method creates a new array of the same size, copying all non-null values from 
+	 * the input array in order. Any remaining positions will be {@code null}.
+	 *
+	 * @param original The input array to process.
+	 * @return cleanedArr A new array with non-null elements at the front and nulls at the end.
+	 */
 
-		String[] cleanedArr = new String[inputWords.length];
+	private static String[] removeNulls(String[] original) {
+
+		String[] cleanedArr = new String[original.length];
 
 		int counter = 0;
-		for (int i = 0; i < inputWords.length; i++) 
+		for (int i = 0; i < original.length; i++) 
 		{
-			if (!(inputWords[i] == null)) 
+			if (!(original[i] == null)) 
 			{
-				cleanedArr[counter] = inputWords[i];
+				cleanedArr[counter] = original[i];
 				counter++;
 			}
 		}
@@ -645,12 +714,20 @@ public class EncoderDecoder {
 	}
 	
 	
-	
+
 	
 	/*
 	 * Below are methods used for Encoding and Decoding methods.
 	 */
 
+	/**
+	 * Finds the @@newline token used to detect a new line
+	 *
+	 * This method returns true if the word is equal to newline token.
+	 *
+	 * @param word The input word to check.
+	 * @return {@code true} if the word equals '@@newline'; {@code false} otherwise.
+	 */
 	
 	private static boolean isNewLine(String word) {
 		
@@ -664,8 +741,15 @@ public class EncoderDecoder {
 	
 	
 	
-	
-	
+	/**
+	 * Trims nulls and empty elements from an array
+	 *
+	 * This method returns a new array that only has legitimate elements.
+	 * all null valves and empty elements are removed.
+	 *
+	 * @param orignal The input array to trim.
+	 * @return trimmedArray a trimmed array with valid data only.
+	 */
 	
 	private static String[] trimArray(String [] original) {
 		
@@ -698,23 +782,28 @@ public class EncoderDecoder {
 	
 	
 	
-	// Expands an array manually using a loop
+	/**
+	 * Expands the array dynamically
+	 *
+	 * This method returns a new array that is x2 larger than the input array.
+	 * The output array contains the contents of the original array plus empty 
+	 * elements.
+	 *
+	 * @param orignal The input array to expand.
+	 * @return bigger an array double the size of the original.
+	 */
+	
 	private static String[] expandArray(String[] original) {
-		
-	    String[] bigger = new String[original.length * 2];
-	    
-	    for (int i = 0; i < original.length; i++) 
-	    {
-	        bigger[i] = original[i];
-	    }
-	    
-	    return bigger;
+
+		String[] bigger = new String[original.length * 2];
+
+		for (int i = 0; i < original.length; i++) 
+		{
+			bigger[i] = original[i];
+		}
+
+		return bigger;
 	}
-	   
-
-	
-
-	
 
 
 }
