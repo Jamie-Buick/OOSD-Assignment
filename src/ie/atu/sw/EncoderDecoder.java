@@ -230,7 +230,7 @@ public class EncoderDecoder {
 	 * - Constructing a clean, trimmed array of correctly structured words/punctuation that can be written to a .txt file
 	 *
 	 * @param input An array of encodings to be decoded.
-	 * @return A trimmed array of words and punctuation.
+	 * @return A trimmed array of constructed words and punctuation.
 	 */
 
 	
@@ -308,6 +308,17 @@ public class EncoderDecoder {
 	 * Below are methods specifically related to encoding the words.
 	 */
 
+	
+	/**
+	 * Searches the encoding map for a full-word match and returns its encoding.
+	 *
+	 * This method performs a linear search through the encoding list and returns the encoded value
+	 * if the input word exactly matches a word in the encoding file.
+	 *
+	 * @param word The word or punctuation to be matched against the encoding map.
+	 * @return The encoded word or punctuation, defaults to '0' if no match is found.
+	 */
+	
 	private static String matchFullWord(String word) {
 		String match = "";
 		String encoded = "";
@@ -333,6 +344,17 @@ public class EncoderDecoder {
 		return fullEncodingMatch;
 	}
 	
+	/**
+	 * Searches the encoding map for a prefix-word match and returns its encoding.
+	 *
+	 * This method performs a linear search through the encoding list and returns the encoded value
+	 * if the input word matches a prefix word in the encoding file. 
+	 *
+	 * @param word The word or punctuation to be matched against the encoding map.
+	 * @return String array of size 2
+	 * 				- Index 1 - The prefix word
+	 * 				- Index 2 - The encoding of the prefix word
+	 */
 	
 
 	private static String[] matchPrefix(String word) { 
