@@ -383,7 +383,19 @@ public class EncoderDecoder {
 		return new String[] {nextPrefixMatch, matchedPrefixEncoding};
 	}
 	
-
+	/**
+	 * Searches the encoding map for a suffix-word match and returns its encoding.
+	 *
+	 *  This method performs a linear search through the encoding list, checking for suffix entries 
+	 *  with "@@" as a prefix. The "@@" is stripped and the {@code endsWith} function is used to find the 
+	 *  best match. The prefix is concatenated with suffix to reconstruct the original word. If the reconstructed 
+	 *  word matches the input word, the suffix and suffix encoding is returned.
+	 *
+	 * @param word The word or punctuation to be matched against the encoding map.
+	 * @param prefixWord The prefix is used to ensure the suffix found matches the full word.
+	 * @return Encoding of the matching suffix
+	 */
+	
 	
 	private static String matchSuffix(String word, String prefixWord) {
 		String match = "";
