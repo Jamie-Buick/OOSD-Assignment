@@ -457,8 +457,7 @@ public class EncoderDecoder {
 		return false;
 		
 	}
-	
-	
+
 	
 	
 	/**
@@ -482,7 +481,6 @@ public class EncoderDecoder {
 		
 		return false;	
 	}
-	
 	
 	
 	
@@ -579,7 +577,18 @@ public class EncoderDecoder {
 		  return noPunctuation.toString();
 	}
 	
+	
 
+	/**
+	 * Matches a punctuation character against the encoding map and returns its encoding.
+	 *
+	 * This method performs a linear search through the encodings to find a punctuation
+	 * character that exactly matches the input string {@code punc}. If a match is found,
+	 * the corresponding encoding is returned. If no match is found, it returns "0".
+	 *
+	 * @param punc The punctuation character to be matched.
+	 * @return The encoding of the punctuation if found; otherwise "0".
+	 */
 
 	private static String matchPunctuation(String punc) {  
 		String match = "";
@@ -617,7 +626,20 @@ public class EncoderDecoder {
 	 * Below are methods specifically related to Decoding the words.
 	 */
 	
-	
+	/**
+	 * Reconstructs full words from a prefix and a suffix encoding.
+	 *
+	 * This method processes the decoded words where suffixes are indicated by the "@@" prefix.
+	 * It detects prefix-suffix pairs and concatenates them to form the original word.
+	 * If no suffix follows a prefix, the prefix is added to the result as a normal word.
+	 *
+	 * Example input: {"walk", "@@ing"}
+	 * Example output: {"walking"}
+	 *
+	 * @param inputWords The array of decoded strings (decoded words).
+	 * @return A new array with prefix and suffix parts merged into complete words.
+	 */
+
 	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
 		String[] joinedWords = new String[inputWords.length]; 
@@ -647,6 +669,19 @@ public class EncoderDecoder {
 	}
 	
 	
+	
+	/**
+	 * Reconstructs words with their punctuation from an input array.
+	 *
+	 * This method scans an array of strings (decoded words) and merges each word with up to two 
+	 * punctuation characters that immediately follow it. It returns a new array where words and 
+	 * their punctuation (e.g., "hello" + "," => "hello,") are joined properly. Remaining nulls from 
+	 * the array are trimmed at the end.
+	 *
+	 *
+	 * @param inputWords The array of strings containing decoded words and punctuation.
+	 * @return A new array where punctuation has been joined to their corresponding words.
+	 */
 	
 	private static String[] buildPunct(String[] inputWords) {
 	  
