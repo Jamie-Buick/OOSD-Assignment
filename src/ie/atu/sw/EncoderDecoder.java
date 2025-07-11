@@ -3,15 +3,26 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 
-	// Notes:
-	// - for punct word, I think we strip the punct and base word and then pass the punct through a punct encoder and pass base word 
-	// matchfullword
 
+	/**
+	 * Encodes an array of words based on the encodings-10000.csv. Words are encoded by full matches, prefix/suffix matches 
+	 * and punctuation matches.
+	 * 
+	 * The encoding process involves:
+	 * 
+	 * - Detecting newlines
+	 * - Detecting and separating leading and trailing punctuation 
+	 * - Attempting to a 'full match' encoding
+	 * - Attempting a prefix-suffix encoding
+	 * - Handle words/ punctuation with no match
+	 * - Constructing a clean, trimmed array of encoded words/punctuation that can be written to a .txt file
+	 *
+	 * @param input An array of words to be encoded.
+	 * @return A trimmed array of encoded words and punctuation.
+	 */
 
-	
 	public static String[] encode(String[] input) {
 
-		// This returns the multiple parts or single encoding. I have made this a max 3 here to account for prefix suffix and punc word
 		String word = null;
 		String[] encodedWords = new String[5];
 		String[] puncStart = new String[1];
@@ -206,6 +217,23 @@ public class EncoderDecoder {
 	}
 	
 	
+	/**
+	 * Decodes an array of words based on the encodings-10000.csv. Words / punctuation are decoded and added to an array.
+	 * This array holds separate words and punctuation that may need formatted. Newlines are maintained throughout this, prefix-suffix 
+	 * words are joined and any punctuation is added back to maintain as close as possible format to the original file. 
+	 * 
+	 * 
+	 * The decoding process involves:
+	 * 
+	 * - Detecting newlines
+	 * - Matching the 'encoding' to the word / punctuation 
+	 * - Constructing a clean, trimmed array of correctly structured words/punctuation that can be written to a .txt file
+	 *
+	 * @param input An array of encodings to be decoded.
+	 * @return A trimmed array of words and punctuation.
+	 */
+
+	
 	
 	public static String[] decode(String[] input) {
 		
@@ -371,18 +399,7 @@ public class EncoderDecoder {
 	}
 	
 	
-	
-	private static boolean isNewLine(String word) {
-		
-		if(word.trim().equals("@@newline"))
-		{
-			return true;	
-		}
-		
-		return false;
-	}
-	
-	
+
 	
 	private static boolean startsWithPunctuation(String word) {
 		
@@ -502,6 +519,12 @@ public class EncoderDecoder {
 	
 	
 	
+	
+	/*
+	 * Below are methods specifically related to Decoding the words.
+	 */
+	
+	
 	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
 		String[] joinedWords = new String[inputWords.length]; 
@@ -587,7 +610,28 @@ public class EncoderDecoder {
 		return cleanedArr;
 	}
 	
+	
+	
+	
+	/*
+	 * Below are methods used for Encoding and Decoding methods.
+	 */
 
+	
+	private static boolean isNewLine(String word) {
+		
+		if(word.trim().equals("@@newline"))
+		{
+			return true;	
+		}
+		
+		return false;
+	}
+	
+	
+	
+	
+	
 	
 	private static String[] trimArray(String [] original) {
 		
