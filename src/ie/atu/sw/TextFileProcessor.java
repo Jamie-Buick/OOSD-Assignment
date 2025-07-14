@@ -16,6 +16,7 @@ public class TextFileProcessor {
 	}
 	
 	
+	
 	/**
 	 * Reads a text file given a correct file path
 	 * 
@@ -30,7 +31,6 @@ public class TextFileProcessor {
 	 * @param encode A boolean {@code true} to encode and {@code false} to decode. 
 	 * @return readFinished {@code true} To indicate that the file was read successfully, otherwise {@code false}.
 	 */
-	
 	
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
@@ -86,8 +86,9 @@ public class TextFileProcessor {
 	}
 	
 	
+	
 	/**
-	 * Writes the contents of {@code encoderDecoderReturn} to a text file at the specified path.
+	 * Delegates the writing of the contents of {@code encoderDecoderReturn} to a text file at the specified path.
 	 * 
 	 * This method takes a file path and the contents of {@code encoderDecoderReturn} and passes
 	 * it to another method {@code writeToText}. After this, the {@code encoderDecoderReturn} is reset using
@@ -102,12 +103,26 @@ public class TextFileProcessor {
 		
 			writeToText(encoderDecoderReturn, filePath);
 			resetArray();
-	
 	}
 
 	
 	
-
+	/**
+	 * Writes the contents of {@code encoderDecoderReturn} to a text file at the specified path.
+	 * 
+	 * This method takes a file path and the contents of {@code encoderDecoderReturn} and writes
+	 * to the text file using BufferedWriter. The array is stepped through and the contents of 
+	 * each element are written as long as they or not null or empty. Line breaks are maintained 
+	 * through the "\n" newline character. Correct spacing is maintained by concatenating " " 
+	 * after each word.
+	 * 
+	 * 
+	 *
+	 * @param input An array of words to be written directly to the text file.
+	 * @param filePath A string containing the file path of the file to write to.
+	 * @return writeFinished {@code true} To indicate that the file was written to successfully, otherwise {@code false}.
+	 */
+	
 	private static boolean writeToText(String[] input, String filePath) { 
 		Boolean writeFinished = false;
 		
@@ -145,7 +160,16 @@ public class TextFileProcessor {
 	}
 		
 
-
+	
+	/**
+	 * Expands the {@code encoderDecoderInput} array dynamically.
+	 * 
+	 * This method creates a new array with double the size of {@code encoderDecoderInput}, 
+	 * copies the existing contents into it and then replaces {@code encoderDecoderInput} 
+	 * with the new expanded array.
+	 * 
+	 */
+	
 	private void expandInputArray() {
 		String[] tempArr = new String[encoderDecoderInput.length*2];
 		
@@ -158,6 +182,14 @@ public class TextFileProcessor {
 	}
 	
 	
+	
+	/**
+	 * Resets the {@code encoderDecoderInput} array.
+	 * 
+	 * This method replaces the contents of the {@code encoderDecoderInput} array
+	 * with null. This is to ensure a clean array before processing new data.
+	 * 
+	 */
 	
 	private void resetArray() {
 		for (int i = 0; i < encoderDecoderInput.length; i++)
