@@ -16,6 +16,22 @@ public class TextFileProcessor {
 	}
 	
 	
+	/**
+	 * Reads a text file given a correct file path
+	 * 
+	 * This method reads the text file line by line using BufferedReader. Each line is contacted using a 
+	 * special keyword '@@newline' to indicate the end of a line. The line is then split into individual 
+	 * words which are trimmed, converted to lower case and added to an array. If the array exceeds its 
+	 * capacity, it is dynamically expanded. After processing the file, the array is passed to either the
+	 * encode or decode method depending on the value of the {@code encode} parameter.
+
+	 *
+	 * @param filePath A string containing the file path of the file to read.
+	 * @param encode A boolean {@code true} to encode and {@code false} to decode. 
+	 * @return readFinished {@code true} To indicate that the file was read successfully, otherwise {@code false}.
+	 */
+	
+	
 	public boolean readFile(String filePath, Boolean encode) {
 		String line = null;
 		Boolean readFinished = false;
@@ -70,21 +86,23 @@ public class TextFileProcessor {
 	}
 	
 	
-	
-	
-	public void writeFile(String filePath, Boolean encode) {
+	/**
+	 * Writes the contents of {@code encoderDecoderReturn} to a text file at the specified path.
+	 * 
+	 * This method takes a file path and the contents of {@code encoderDecoderReturn} and passes
+	 * it to another method {@code writeToText}. After this, the {@code encoderDecoderReturn} is reset using
+	 * {@code resetArray()}.
+	 * 
+	 *
+	 * @param filePath A string containing the file path of the file to write to.
 
-		// encoding format to text file
-		if (encode) 
-		{
+	 */
+	
+	public void writeFile(String filePath) {
+		
 			writeToText(encoderDecoderReturn, filePath);
 			resetArray();
-		}
-		else 
-		{
-			writeToText(encoderDecoderReturn, filePath);
-			resetArray();
-		}
+	
 	}
 
 	
