@@ -141,7 +141,7 @@ public class Menu {
 		
 		if(readFinished)
 		{
-			textFileProcessor.writeFile(filePathOutput,encode);
+			textFileProcessor.writeFile(filePathOutput);
 		} 
 		readFinished = false;
 	}
@@ -155,7 +155,7 @@ public class Menu {
 		
 		if(readFinished)
 		{
-			textFileProcessor.writeFile(filePathOutput, encode);
+			textFileProcessor.writeFile(filePathOutput);
 		}
 		
 		readFinished = false;
