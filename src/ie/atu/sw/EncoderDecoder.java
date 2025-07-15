@@ -233,7 +233,6 @@ public class EncoderDecoder {
 			{
 				if (encodedWords[i] != null) 
 				{
-
 					// If the number of elements added reaches the length of the encodings array, dynamically expand.
 					if (resultCounter >= encodings.length) 
 					{
@@ -246,7 +245,7 @@ public class EncoderDecoder {
 				}
 			}     
 		}
-
+		
 		// The encodings array is given to the trimArray method which moves null characters to the end of the array.
 		result = trimArray(encodings);
 
@@ -272,20 +271,25 @@ public class EncoderDecoder {
 	 */
 	public static String[] decode(String[] input) {
 
+		// Arrays for holding decoded words
 		String[] decodedWords = new String[1];
 		String[] decodings = new String[50];
 		String[] result;
 
 		String match = null;
-		String encoded = null;
 		String fullMatch = null;
 
 		int resultCounter = 0;
 
+		/*
+		 * Loop through the input array 
+		 * 
+		 * 
+		 */
 		for (int x = 0; x < input.length; x++)
 		{
 			if(input[x] != null) {
-				// New line
+				
 				if(isNewLine(input[x])) 
 				{
 					fullMatch = "\n";
@@ -295,7 +299,6 @@ public class EncoderDecoder {
 					for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
 
 						match = ReadEncodingsFile.getEncodings()[rows][0];
-						encoded = ReadEncodingsFile.getEncodings()[rows][1];
 
 						if (ReadEncodingsFile.getEncodings()[rows][1].equals(input[x])) 
 						{
