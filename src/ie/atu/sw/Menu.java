@@ -5,21 +5,34 @@ import java.io.File;
 import static java.lang.System.out;
 
 public class Menu {
+	
+	// Used for user input in the menu.
 	private Scanner s;
+	
+	// Keeps the menu running on a loop.
 	private boolean keepRunning = true;
+	
+	// True = encode, false = decode.
 	private boolean encode;
+	
+	// Indicated that the reading of input file is complete.
 	private boolean readFinished;
 
+	// Handles reading, storing and writing text file data.
 	private TextFileProcessor textFileProcessor = new TextFileProcessor();
+	
+	// Handles reading the encoding map CSV.
 	private ReadEncodingsFile readEncodingsFile = new ReadEncodingsFile();
 
+	// Strings for encoding map, input file & output file paths.
 	String filePathMap;
 	String filePathInput;
 	String filePathOutput;
 	
-	
+	/**
+	 * Constructs a new {@code Menu} and initializes the Scanner for user input
+	 */
 	public Menu() {
-
 		s = new Scanner(System.in);
 	}
 
@@ -33,14 +46,15 @@ public class Menu {
 	 * to run different functions of the program.
 	 * 
 	 */
-	
 	public void start() {
+		// Loop until keepRunning is false
 		while (keepRunning) {
 			showOptions();
 			
 			String input = s.next();
 			s.nextLine(); 
 			
+			// If the user input is not a digit, provide error message.
 			if (!input.matches("\\d+")) {
 				out.println("[Error] Please enter a valid number.");
 				continue;
@@ -50,12 +64,12 @@ public class Menu {
 			
 			switch(menuSelection)
 			{
-				case 1 -> mapFile();
-				case 2 -> textFile();
-				case 3 -> outputFile();
-				case 4 -> encode();
-				case 5 -> decode();
-				case 6 -> keepRunning = false;
+				case 1 -> mapFile();					// Set the file path for encoding mapping CSV.
+				case 2 -> textFile();					// Set the file path for input file.
+				case 3 -> outputFile();					// Set the file path for output file.
+				case 4 -> encode();						// Encode the input file.
+				case 5 -> decode();						// Decode the input file.
+				case 6 -> keepRunning = false;			// Exit the menu loop.
 				default -> out.println("[Error] Invalid Selection");
 			}
 		}
@@ -69,7 +83,6 @@ public class Menu {
 	 * This method displays a console menu and prompts the user to select a valid option.
 	 * 
 	 */
-
 	private void showOptions()  {
 		System.out.println(ConsoleColour.WHITE);
 		System.out.println("************************************************************");
@@ -114,17 +127,16 @@ public class Menu {
 	 * 
 	 * @return filePath A string that contains a valid file path.
 	 */
-	
 	private String changeFilePath() {
 
 			System.out.println("Enter a valid file path>");
 			String filePath = s.nextLine(); 
-
+			
+			// Loop here while the entered path is invalid or does not exist.
 			while (!validateFilePath(filePath)) 
 			{
 				System.out.println("Invalid file path. Enter a valid file path>");
 				filePath = s.nextLine(); 
-			
 			}
 	
 		return filePath;
@@ -140,11 +152,10 @@ public class Menu {
 	 * @param s A string containing the file path to be checked.
 	 * @return {@code true} To indicate that the file path is valid, otherwise {@code false}.
 	 */
-	
-	// Checks the file path exists 
 	private boolean validateFilePath(String s) {
 		File fp = new File(s);
 		
+		// Checks if the file path exists
 		if (fp.exists()) 
 		{
 			return true;
@@ -161,7 +172,6 @@ public class Menu {
 	 * existing file. It calls {@code parseEncoding} on the {@code readEncodingsFile}
 	 * object to parse the contents into an array.
 	 */
-	
 	private void mapFile() {
 		filePathMap = changeFilePath();
 		readEncodingsFile.parseEncoding(filePathMap);
@@ -175,7 +185,6 @@ public class Menu {
 	 * This method gets the file path for the .txt file to be encoded or decoded.
 	 * This file path is validated in the {@code changeFilePath} method.
 	 */
-	
 	private void textFile() {
 		filePathInput = changeFilePath();
 	}
@@ -188,10 +197,9 @@ public class Menu {
 	 * This method asks the user to enter the file path where the output
 	 * file should be created and saved.
 	 */
-
 	private void outputFile() {
 	    System.out.println("Enter a valid the file path>");
-	    filePathOutput = s.nextLine(); // Now it will wait for actual input
+	    filePathOutput = s.nextLine(); 
 	}
 	
 	
@@ -204,7 +212,6 @@ public class Menu {
 	 * successful {@code writeFile} is called to write the result to the specified output file path.  
 	 * 
 	 */
-	
 	private void encode() {
 		encode = true;
 		readFinished = textFileProcessor.readFile(filePathInput, encode);
@@ -226,17 +233,14 @@ public class Menu {
 	 * successful {@code writeFile} is called to write the result to the specified output file path.  
 	 * 
 	 */
-	
 	private void decode() {
 		encode = false;
-		// I will pass this a bool true / false
 		readFinished = textFileProcessor.readFile(filePathInput, encode);
 		
 		if(readFinished)
 		{
 			textFileProcessor.writeFile(filePathOutput);
 		}
-		
 		readFinished = false;
 	}
 	
@@ -250,7 +254,6 @@ public class Menu {
 	 * Currently I do not use this.
 	 * 
 	 */
-	
 	public static void printProgress(int index, int total) {
 		if (index > total)
 			return; // Out of range
