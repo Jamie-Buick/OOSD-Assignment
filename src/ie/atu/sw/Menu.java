@@ -23,6 +23,17 @@ public class Menu {
 		s = new Scanner(System.in);
 	}
 
+	
+	
+	/**
+	 * Starts and handles selections from the console menu.
+	 * 
+	 * This method starts a console menu, this menu will run until exited by the user.
+	 * The user input must be a numerical value between 1-6. This user input will be used
+	 * to run different functions of the program.
+	 * 
+	 */
+	
 	public void start() {
 		while (keepRunning) {
 			showOptions();
@@ -49,6 +60,15 @@ public class Menu {
 			}
 		}
 	}
+	
+	
+	
+	/**
+	 * Displays console menu and available options
+	 * 
+	 * This method displays a console menu and prompts the user to select a valid option.
+	 * 
+	 */
 
 	private void showOptions()  {
 		System.out.println(ConsoleColour.WHITE);
@@ -68,7 +88,7 @@ public class Menu {
 
 		// Output a menu of options and solicit text from the user
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-		System.out.print("Select Option [1-?]>");
+		System.out.print("Select Option [1-6]>");
 		System.out.println();
 
 		/*
@@ -84,7 +104,17 @@ public class Menu {
 	}
 	
 	
-	// Allows the user to enter a file path for options 1-2, it is then checked that it exists using the validateFilePath method
+	
+	/**
+	 * Allows the user to change the file path of the read text file
+	 * 
+	 * This method prompts the user to enter a file path, it is checked for validity.
+	 * The user is prompted until a valid path is entered, as determined by the 
+	 * {@code validateFilePath} method.
+	 * 
+	 * @return filePath A string that contains a valid file path.
+	 */
+	
 	private String changeFilePath() {
 
 			System.out.println("Enter a valid file path>");
@@ -102,6 +132,14 @@ public class Menu {
 	
 
 	
+	/**
+	 * Checks if a file path exists
+	 * 
+	 * This method verifies whether the specified file path points to an existing file.
+	 *
+	 * @param s A string containing the file path to be checked.
+	 * @return {@code true} To indicate that the file path is valid, otherwise {@code false}.
+	 */
 	
 	// Checks the file path exists 
 	private boolean validateFilePath(String s) {
@@ -116,10 +154,16 @@ public class Menu {
 	
 
 	
-	// Menu functions
+	/**
+	 * Checks that the encodings map file path exists
+	 * 
+	 * This method verifies whether the specified encodings map file path points to an 
+	 * existing file. It calls {@code parseEncoding} on the {@code readEncodingsFile}
+	 * object to parse the contents into an array.
+	 */
+	
 	private void mapFile() {
 		filePathMap = changeFilePath();
-		
 		readEncodingsFile.parseEncoding(filePathMap);
 	}
 	
