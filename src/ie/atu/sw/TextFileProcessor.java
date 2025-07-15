@@ -2,10 +2,21 @@ package ie.atu.sw;
 
 import java.io.*;
 
-// Processing of input files
+/**
+ * Handles reading from an input text file and passing its contents to encoder or decoder methods.
+ * The resulting data is then written to an output text file.
+ * 
+ * This class reads and stores words from a text file into an array that is dynamically sized.
+ * It passes the array to the {@code EncoderDecoder} class for processing. A processed array
+ * is returned and can be written to a text file.
+ * 
+ * This class will reset the arrays after processing to ensure no old data can alter results of
+ * future operations.
+ * 
+ * 
+ */
 public class TextFileProcessor {
 	
-
 	// String array that stores words to be encoded/encoded
 	private String[] encoderDecoderInput; 
 	
