@@ -22,87 +22,104 @@ public class EncoderDecoder {
 	 */
 	public static String[] encode(String[] input) {
 
+		// Input
 		String word = null;
+		Boolean newLine = null;
+
+		// String array to hold parts of words i.e. prefix, suffix, punctuation 
 		String[] encodedWords = new String[5];
+
+		// Punctuation handling
 		String[] puncStart = new String[1];
 		String[] puncEnd = new String[2];
 		String puncStartEncoded = null;
 		String puncEndEncoded1 = null;
 		String puncEndEncoded2 = null;
 
+		// Encoded words
 		String fullMatchEncoded = null;
 		String prefixWord = null;
 		String prefixEncoded = null;
 		String suffixEncoded = null;
-		Boolean newLine = null;
-		
- 
-        String[] encodings = new String[50];
-        String[] result;
-        int resultCounter = 0;
 
-        for (int x = 0; x < input.length; x++)
+		// Final Encodings & results
+		String[] encodings = new String[50];
+		String[] result;
+		int resultCounter = 0;
+
+		for (int x = 0; x < input.length; x++)
 		{
+			// Reset encoding variables
 			int counter = 0;
-			
-		    puncStartEncoded = null;
-		    puncEndEncoded1 = null;
-		    puncEndEncoded2 = null;
-		    fullMatchEncoded = null;
-		    prefixEncoded = null;
-		    suffixEncoded = null;
-		    newLine = false;
-		    
-		    word = input[x];
+			fullMatchEncoded = null;
+			prefixEncoded = null;
+			suffixEncoded = null;
+			newLine = false;
+			puncStartEncoded = null;
+			puncEndEncoded1 = null;
+			puncEndEncoded2 = null;
 
-		    if(word != null) {
 
-				if(isNewLine(word)) 
-				{
-					newLine = true;
-				}
-				else
-				{
-					newLine = false;
-				}
-		
+			word = input[x];
+
+
+			if(word != null) {
+
+				// Checks for a new line
+				newLine = isNewLine(word);
+
+				// Handle punctuation at the start of word 
 				if (startsWithPunctuation(word) && !word.startsWith("@@"))
 				{
+					// true used for isStart inside getPunctuation 
 					puncStart = getPunctuation(word, true);
 					puncStartEncoded = matchPunctuation(puncStart[0]);
-	
+
 					word = stripStartPunctuation(word);
-	
 				}
-	
-				if(endsWithPunctuation(word)) {
-	
+
+				/*
+				 * Handle punctuation at the end of word, this handles up to two punctuation 
+				 * characters at the end of a word
+				 */
+				if(endsWithPunctuation(word)) 
+				{
+					// false used for isStart inside getPunctuation 
 					puncEnd = getPunctuation(word, false);
 					word = stripPunctuation(word);
-	
+
 					puncEndEncoded1 = matchPunctuation(puncEnd[0]);
-	
+
 					if (puncEnd[1] != null) 
 					{
 						puncEndEncoded2 = matchPunctuation(puncEnd[1]);
 					}
-	
+
 				}
-	
+
+				// Check if a full match can be found first
 				fullMatchEncoded = matchFullWord(word);
-	
+
 				// If a full match is not found then we check for a prefix - suffix match
 				if(fullMatchEncoded == null)
 				{
+					// String array returning the prefix word & prefix encoding
 					String[] prefixResult = matchPrefix(word); 
-	
+
+					/*
+					 * If the prefixResults returned valid data, it is split into prefixWord & prefixEncoding
+					 * the suffixEncoded is returned by providing the original word and prefixWord to the 
+					 * matchSuffix method. If no suffix is found, prefixEncoded is set to "0".
+					 * 
+					 * Else fullMatchEncoded is given "0" which means a missing word.
+					 */
 					if (prefixResult[0] != null && prefixResult[1] != null)
 					{
 						prefixWord = prefixResult[0];
 						prefixEncoded = prefixResult[1];
-	
+
 						suffixEncoded = matchSuffix(word, prefixWord); 
-	
+
 						if(suffixEncoded == null)
 						{
 							prefixEncoded = "0";
@@ -113,102 +130,129 @@ public class EncoderDecoder {
 						fullMatchEncoded = "0"; // the code for a missing word.
 					}
 				}
-		    }
+			}
 
-		    
-			// Adding the encoded words into the encoded words/ punct array
 
-			// Check if word starts with punctuation
+			// Check if word starts with punctuation.
 			if(puncStartEncoded != null) 
 			{
+				// Add to the encodedWords array & increment the counter.
 				encodedWords[counter] = puncStartEncoded;
 				counter++;
 			}
 
-			// Full word encoding
+			// Check if word encoding was a full match.
 			if (fullMatchEncoded != null) 
 			{
+				// Add to the encodedWords array & increment the counter.
 				encodedWords[counter] = fullMatchEncoded;
 				counter++;
 
+				// Check if word ends with 1 punctuation character.
 				if (puncEndEncoded1 != null) 
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
 				}
+
+				// Check if word ends with 2 punctuation character.
 				if (puncEndEncoded2 != null)
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
 				}
 			} 
-
-
+			// Check if the newLine variable is true
 			else if (newLine) 
 			{
+				// Add the actual new line character to the array & increment the counter.
 				encodedWords[counter] = "\n";
 				counter++;
 
+				// Check if word ends with 1 punctuation character.
 				if (puncEndEncoded1 != null) 
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
 				}
+
+				// Check if word ends with 2 punctuation character.
 				if (puncEndEncoded2 != null)
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
 				}
 			}
 			else 
 			{
+				// Check if word encoding was a prefix match.
 				if (prefixEncoded != null) 
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = prefixEncoded;
 					counter++;
 				}
 
+				// Check if word encoding was a suffix match.
 				if (suffixEncoded != null) 
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = suffixEncoded;
 					counter++;
 				}
 
+				// Check if word ends with 1 punctuation character.
 				if (puncEndEncoded1 != null) 
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
 				}
 
+				// Check if word ends with 1 punctuation character.
 				if (puncEndEncoded2 != null)
 				{
+					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
 				}
 			}
-		
-				
-            for (int i = 0; i < encodedWords.length; i++) 
-            {
-                if (encodedWords[i] != null) 
-                {
-                	
-                  if (resultCounter >= encodings.length) 
-                  {
-                	  encodings = expandArray(encodings);
-                  }
-             
-		            encodings[resultCounter++] = encodedWords[i];
-		            encodedWords[i] = null;
-                }
-            }     
+
+			/*
+			 * After the word, parts of word, punctuation or newline is added to the encodedWords array it is looped over
+			 * so that non-null entries can be added to the encodings array. If the encodings array will also dynamically
+			 * increase once the number of elements added reaches the length of the array. After copying, encodedWords is 
+			 * reset (each used element set to null).
+			 * 
+			 */
+			for (int i = 0; i < encodedWords.length; i++) 
+			{
+				if (encodedWords[i] != null) 
+				{
+
+					// If the number of elements added reaches the length of the encodings array, dynamically expand.
+					if (resultCounter >= encodings.length) 
+					{
+						encodings = expandArray(encodings);
+					}
+
+					// Copy encoded word and reset element.
+					encodings[resultCounter++] = encodedWords[i];
+					encodedWords[i] = null;
+				}
+			}     
 		}
-	
-        result = trimArray(encodings);
-         
+
+		// The encodings array is given to the trimArray method which moves null characters to the end of the array.
+		result = trimArray(encodings);
+
 		return result;
 	}
-	
+
 	
 	
 	/**
@@ -600,6 +644,7 @@ public class EncoderDecoder {
 	}
 	
 	
+
 	
 	
 	/*
