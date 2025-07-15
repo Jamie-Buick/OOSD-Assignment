@@ -20,7 +20,6 @@ public class EncoderDecoder {
 	 * @param input An array of words to be encoded.
 	 * @return A trimmed array of encoded words and punctuation.
 	 */
-
 	public static String[] encode(String[] input) {
 
 		String word = null;
@@ -44,7 +43,6 @@ public class EncoderDecoder {
 
         for (int x = 0; x < input.length; x++)
 		{
-
 			int counter = 0;
 			
 		    puncStartEncoded = null;
@@ -117,7 +115,7 @@ public class EncoderDecoder {
 				}
 		    }
 
-
+		    
 			// Adding the encoded words into the encoded words/ punct array
 
 			// Check if word starts with punctuation
@@ -126,7 +124,6 @@ public class EncoderDecoder {
 				encodedWords[counter] = puncStartEncoded;
 				counter++;
 			}
-
 
 			// Full word encoding
 			if (fullMatchEncoded != null) 
@@ -163,8 +160,6 @@ public class EncoderDecoder {
 					counter++;
 				}
 			}
-
-
 			else 
 			{
 				if (prefixEncoded != null) 
@@ -178,7 +173,6 @@ public class EncoderDecoder {
 					encodedWords[counter] = suffixEncoded;
 					counter++;
 				}
-
 
 				if (puncEndEncoded1 != null) 
 				{
@@ -203,12 +197,11 @@ public class EncoderDecoder {
                   {
                 	  encodings = expandArray(encodings);
                   }
-                	
+             
 		            encodings[resultCounter++] = encodedWords[i];
 		            encodedWords[i] = null;
                 }
-            }
-                  
+            }     
 		}
 	
         result = trimArray(encodings);
@@ -233,23 +226,22 @@ public class EncoderDecoder {
 	 * @param input An array of encodings to be decoded.
 	 * @return A trimmed array of constructed words and punctuation.
 	 */
-
 	public static String[] decode(String[] input) {
-		
+
 		String[] decodedWords = new String[1];
 		String[] decodings = new String[50];
 		String[] result;
-		
+
 		String match = null;
 		String encoded = null;
 		String fullMatch = null;
-		
+
 		int resultCounter = 0;
-		
-	   for (int x = 0; x < input.length; x++)
-	   {
-		   if(input[x] != null) {
-		  	// New line
+
+		for (int x = 0; x < input.length; x++)
+		{
+			if(input[x] != null) {
+				// New line
 				if(isNewLine(input[x])) 
 				{
 					fullMatch = "\n";
@@ -257,10 +249,10 @@ public class EncoderDecoder {
 				else {
 					// Find a match for 
 					for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
-			
+
 						match = ReadEncodingsFile.getEncodings()[rows][0];
 						encoded = ReadEncodingsFile.getEncodings()[rows][1];
-			
+
 						if (ReadEncodingsFile.getEncodings()[rows][1].equals(input[x])) 
 						{
 							fullMatch = match;
@@ -268,27 +260,25 @@ public class EncoderDecoder {
 						}
 					}	
 				}
-		   }
-			
-			
-           for (int i = 0; i < decodedWords.length; i++) 
-           {
-               if (fullMatch != null) 
-               {
-               	
-                 if (resultCounter >= decodings.length) 
-                 {
-                	 decodings = expandArray(decodings);
-                 }
-               	
-                 decodings[resultCounter++] = fullMatch;
-                 fullMatch = null;
-               }
-           }
-	     
+			}
 
-		   }
-	   
+			for (int i = 0; i < decodedWords.length; i++) 
+			{
+				if (fullMatch != null) 
+				{
+
+					if (resultCounter >= decodings.length) 
+					{
+						decodings = expandArray(decodings);
+					}
+
+					decodings[resultCounter++] = fullMatch;
+					fullMatch = null;
+				}
+			}
+
+		}
+
 		// pass full encoderDecoder array to this method that will return a new array
 		// with the decoded text built into readable text
 		String buildPartialWords[] = buildPrefixSuffix(decodings);
@@ -296,8 +286,8 @@ public class EncoderDecoder {
 		String buildPunctuation[] = buildPunct(removeNullVals);
 
 		result = trimArray(buildPunctuation);
-		
-	   return result;
+
+		return result;
 	}
 	
 	
@@ -317,7 +307,6 @@ public class EncoderDecoder {
 	 * @param word The word or punctuation to be matched against the encoding map.
 	 * @return The encoded word or punctuation, defaults to '0' if no match is found.
 	 */
-	
 	private static String matchFullWord(String word) {
 		String match = "";
 		String encoded = "";
@@ -356,7 +345,6 @@ public class EncoderDecoder {
 	 * 				- Index 1 - The prefix word
 	 * 				- Index 2 - The encoding of the prefix word
 	 */
-
 	private static String[] matchPrefix(String word) { 
 		// Get best match for first part of word
 		String match = "";
@@ -398,7 +386,6 @@ public class EncoderDecoder {
 	 * @param prefixWord The prefix is used to ensure the suffix found matches the full word.
 	 * @return Encoding of the matching suffix
 	 */
-	
 	private static String matchSuffix(String word, String prefixWord) {
 		String match = "";
 		String encoded = "";
@@ -444,18 +431,16 @@ public class EncoderDecoder {
 	 * @param word The input word to check.
 	 * @return {@code true} if the word starts with punctuation; {@code false} otherwise.
 	 */
-	
 	private static boolean startsWithPunctuation(String word) {
 		
 		char firstChar = word.charAt(0);
-		
+
 		if((String.valueOf(firstChar).matches("\\p{Punct}")))
 		{
 			 return true;
 		}
 		
-		return false;
-		
+		return false;	
 	}
 
 	
@@ -469,7 +454,6 @@ public class EncoderDecoder {
 	 * @param word The input word to check.
 	 * @return {@code true} if the word ends with punctuation; {@code false} otherwise.
 	 */
-	
 	private static boolean endsWithPunctuation(String word) {
 		
 		char lastChar = word.charAt(word.length() - 1);
@@ -501,7 +485,6 @@ public class EncoderDecoder {
 	 * 				- Index 0 - punctuation at word.length-1
 	 * 				- Index 1 - punctuation at word.length-2
 	 */
-
 	private static String[] getPunctuation(String word, boolean isStart) {
 		
 		if (isStart) 
@@ -543,7 +526,6 @@ public class EncoderDecoder {
 	 * @param word The input word strip punctuation from.
 	 * @return {@code word.substring(1)}. The rest of the word except the first character.
 	 */
-	
 	private static String stripStartPunctuation(String word) {  
 
 	    return word.substring(1);	
@@ -560,7 +542,6 @@ public class EncoderDecoder {
 	 * @param word The input word strip punctuation from.
 	 * @return The word with all punctuation characters removed.
 	 */
-
 	private static String stripPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
@@ -589,7 +570,6 @@ public class EncoderDecoder {
 	 * @param punc The punctuation character to be matched.
 	 * @return The encoding of the punctuation if found; otherwise "0".
 	 */
-
 	private static String matchPunctuation(String punc) {  
 		String match = "";
 		String encoded = "";
@@ -639,7 +619,6 @@ public class EncoderDecoder {
 	 * @param inputWords The array of decoded strings (decoded words).
 	 * @return A new array with prefix and suffix parts merged into complete words.
 	 */
-
 	private static String[] buildPrefixSuffix(String inputWords[]) { 
 		
 		String[] joinedWords = new String[inputWords.length]; 
@@ -682,7 +661,6 @@ public class EncoderDecoder {
 	 * @param inputWords The array of strings containing decoded words and punctuation.
 	 * @return A new array where punctuation has been joined to their corresponding words.
 	 */
-	
 	private static String[] buildPunct(String[] inputWords) {
 	  
 	    String[] joinedPunct = new String[inputWords.length];
@@ -730,7 +708,6 @@ public class EncoderDecoder {
 	 * @param original The input array to process.
 	 * @return cleanedArr A new array with non-null elements at the front and nulls at the end.
 	 */
-
 	private static String[] removeNulls(String[] original) {
 
 		String[] cleanedArr = new String[original.length];
@@ -763,7 +740,6 @@ public class EncoderDecoder {
 	 * @param word The input word to check.
 	 * @return {@code true} if the word equals '@@newline'; {@code false} otherwise.
 	 */
-	
 	private static boolean isNewLine(String word) {
 		
 		if(word.trim().equals("@@newline"))
@@ -785,7 +761,6 @@ public class EncoderDecoder {
 	 * @param orignal The input array to trim.
 	 * @return trimmedArray a trimmed array with valid data only.
 	 */
-	
 	private static String[] trimArray(String [] original) {
 		
 		int count = 0;
@@ -804,14 +779,11 @@ public class EncoderDecoder {
 	
 		for (int i = 0; i < original.length; i++)
 		{
-			
 			if (original[i] != null && !original[i].equals("")) 
 			{
 				trimmedArray[index++] = original[i];
 			}
-			
 		}
-	
 		return trimmedArray;
 	}
 	
@@ -827,7 +799,6 @@ public class EncoderDecoder {
 	 * @param orignal The input array to expand.
 	 * @return bigger an array double the size of the original.
 	 */
-	
 	private static String[] expandArray(String[] original) {
 
 		String[] bigger = new String[original.length * 2];
@@ -839,6 +810,4 @@ public class EncoderDecoder {
 
 		return bigger;
 	}
-
-
 }

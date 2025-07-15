@@ -119,7 +119,6 @@ public class TextFileProcessor {
 		}
 		else 
 		{
-
 			encoderDecoderReturn = EncoderDecoder.decode(encoderDecoderInput);
 		}
 
@@ -251,9 +250,6 @@ public class TextFileProcessor {
 		
 		// Reset counterInputArr to start from the beginning.
 		counterInputArr = 0;
-
 	}
-	
-
 }
 
