@@ -155,7 +155,7 @@ public class Menu {
 
 	
 	/**
-	 * Checks that the encodings map file path exists
+	 * Gets and checks that the encodings map file path exists
 	 * 
 	 * This method verifies whether the specified encodings map file path points to an 
 	 * existing file. It calls {@code parseEncoding} on the {@code readEncodingsFile}
@@ -168,16 +168,42 @@ public class Menu {
 	}
 	
 	
+	
+	/**
+	 * Prompts the user to specify the input text file path.
+	 * 
+	 * This method gets the file path for the .txt file to be encoded or decoded.
+	 * This file path is validated in the {@code changeFilePath} method.
+	 */
+	
 	private void textFile() {
 		filePathInput = changeFilePath();
 	}
 	
+	
+	
+	/**
+	 * Prompts the user to specify the output text file path.
+	 * 
+	 * This method asks the user to enter the file path where the output
+	 * file should be created and saved.
+	 */
 
 	private void outputFile() {
 	    System.out.println("Enter a valid the file path>");
 	    filePathOutput = s.nextLine(); // Now it will wait for actual input
 	}
 	
+	
+	
+	/**
+	 * Coordinates the encoding process
+	 * 
+	 * This method sets the encoding mode flag to {@code true}, calls the {@code readFile} method 
+	 * of {@code textFileProcessor} to read and encode the input file. If the read/ encode was 
+	 * successful {@code writeFile} is called to write the result to the specified output file path.  
+	 * 
+	 */
 	
 	private void encode() {
 		encode = true;
@@ -191,6 +217,15 @@ public class Menu {
 	}
 	
 	
+	
+	/**
+	 * Coordinates the decoding process
+	 * 
+	 * This method sets the encoding mode flag to {@code false}, calls the {@code readFile} method 
+	 * of {@code textFileProcessor} to read and decode the input file. If the read/ decode was 
+	 * successful {@code writeFile} is called to write the result to the specified output file path.  
+	 * 
+	 */
 	
 	private void decode() {
 		encode = false;
@@ -206,6 +241,16 @@ public class Menu {
 	}
 	
 
+	/**
+	 * Prints a progress bar
+	 * 
+	 * This method prints a progress bar when the program is in operation. This allows
+	 * the user to see that the program is running.
+	 * 
+	 * Currently I do not use this.
+	 * 
+	 */
+	
 	public static void printProgress(int index, int total) {
 		if (index > total)
 			return; // Out of range
