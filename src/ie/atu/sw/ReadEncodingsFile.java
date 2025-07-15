@@ -23,6 +23,7 @@ public class ReadEncodingsFile {
 	private static String[][] encodings = new String[10000][2];
 	
 	
+	
 	/**
 	 * Getter method to return encoding mapping.
 	 * 
@@ -31,6 +32,7 @@ public class ReadEncodingsFile {
 	public static String[][] getEncodings() {
 		return encodings;
 	}
+	
 	
 	
 	/**
