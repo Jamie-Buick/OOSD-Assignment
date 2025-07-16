@@ -245,7 +245,7 @@ public class EncoderDecoder {
 			}     
 		}
 		
-		// The encodings array is given to the trimArray method which moves null characters to the end of the array.
+		// Remove any null or empty elements from the array
 		result = trimArray(encodings);
 
 		return result;
@@ -283,7 +283,7 @@ public class EncoderDecoder {
 		/*
 		 * Loop through the input array ensuring the element is not null. If a new line is 
 		 * detected - assign the newline character. Otherwise, search the encodings array for
-		 * a match.
+		 * a match. If no match is found, variable fullMatch will remain null.
 		 *
 		 */
 		for (int x = 0; x < input.length; x++)
@@ -310,9 +310,9 @@ public class EncoderDecoder {
 			}
 
 			/*
-			 * Loop through the input array ensuring the element is not null. If a new line is 
-			 * detected - assign the newline character. Otherwise, search the encodings array for
-			 * a match.
+			 * If a fullMatch has been found (not null). Add the fullMatch to the decodings array at the next element.
+			 * If the decodings array is full it will be dynamically expanded.
+			 * After adding, reset fullMatch to null to prepare for the next input.
 			 *
 			 */
 			if (fullMatch != null) 
@@ -330,12 +330,16 @@ public class EncoderDecoder {
 
 
 
-		// pass full encoderDecoder array to this method that will return a new array
-		// with the decoded text built into readable text
+		// Build prefix-suffix words.
 		String buildPartialWords[] = buildPrefixSuffix(decodings);
+		
+		// Removes any null elements created during buildPrefixSuffix function.
 		String removeNullVals[] = removeNulls(buildPartialWords);
+		
+		// Build any punctuation to the start or end of words.
 		String buildPunctuation[] = buildPunct(removeNullVals);
 
+		// Remove any null or empty elements from the array
 		result = trimArray(buildPunctuation);
 
 		return result;
