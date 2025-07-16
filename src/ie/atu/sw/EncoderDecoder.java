@@ -85,7 +85,7 @@ public class EncoderDecoder {
 				{
 					// false used for isStart inside getPunctuation 
 					puncEnd = getPunctuation(word, false);
-					word = stripPunctuation(word);
+					word = stripEndPunctuation(word);
 
 					puncEndEncoded1 = matchPunctuation(puncEnd[0]);
 
@@ -561,6 +561,7 @@ public class EncoderDecoder {
 	 */
 	private static String[] getPunctuation(String word, boolean isStart) {
 		
+		// If the punctuation of located at the start of the word, add it to first element of the punctStart array.
 		if (isStart) 
 		{
 			String[] puncStart = new String[1];
@@ -571,10 +572,17 @@ public class EncoderDecoder {
 		} 
 		else 
 		{
+	        // Check up to the last two characters for punctuation at the end of the word.
 			String[] puncEnd = new String[2];
 			int counter = 0;
 			
-			for (int i = word.length() - 2; i < word.length(); i++) { // starting at 1 because I will have already checked the first index above
+			/*
+			 * Starting at the 2nd last character of the word. It will loop until the end of the word.
+			 * Checking for punctuation and adding to the puncEnd array. I will only account for 2 
+			 * punctuation characters at the end of a word.
+			 * 
+			 */
+			for (int i = word.length() - 2; i < word.length(); i++) { 
 				
 				char c = word.charAt(i);
 			
@@ -616,7 +624,7 @@ public class EncoderDecoder {
 	 * @param word The input word strip punctuation from.
 	 * @return The word with all punctuation characters removed.
 	 */
-	private static String stripPunctuation(String word) { 
+	private static String stripEndPunctuation(String word) { 
 		StringBuilder noPunctuation = new StringBuilder();
 	
 		for (int i = 0; i < word.length(); i++) {
