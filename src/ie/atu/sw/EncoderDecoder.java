@@ -410,6 +410,13 @@ public class EncoderDecoder {
 		String nextPrefixMatch = null;
 		String matchedPrefixEncoding = null;
 		
+		/*
+		 * Loop through the encodings array from ReadEncodingsFile.getEncodings() and find the best 
+		 * prefix match for the input word. The best prefix match is the longest prefix that the input 
+		 * word starts with, excluding exact matches. The loop updates the best prefix match and its 
+		 * encoding whenever a longer prefix is found.
+		 * 
+		 */
 		for (int i = 0; i < ReadEncodingsFile.getEncodings().length; i++) 
 		{
 			if (word.startsWith(ReadEncodingsFile.getEncodings()[i][0]) && !ReadEncodingsFile.getEncodings()[i][0].equals(word))
@@ -455,9 +462,17 @@ public class EncoderDecoder {
 			match = ReadEncodingsFile.getEncodings()[j][0];
 			encoded = ReadEncodingsFile.getEncodings()[j][1];
 			
-			if (ReadEncodingsFile.getEncodings()[j][0].startsWith("@@")) 
+			// @@ is used to indicate that the element contains a legitimate suffix. 
+			if (match.startsWith("@@")) 
 			{
-				String suffixStrip = ReadEncodingsFile.getEncodings()[j][0].replace("@@", "").trim();
+				
+				/*
+				 * Firstly, remove the @@ to get the actual suffix then concatenate the given prefix with the potential suffix. 
+				 * Check if the word endsWith the suffix AND combined prefix+suffix equals the input word, then it is a valid
+				 * suffix match. 
+				 * 
+				 */
+				String suffixStrip = match.replace("@@", "").trim();
 				String concatFullWord = prefixWord.concat(suffixStrip).trim();
 		
 				if (word.endsWith(suffixStrip) && concatFullWord.equals(word.trim())) 
@@ -490,6 +505,7 @@ public class EncoderDecoder {
 	 */
 	private static boolean startsWithPunctuation(String word) {
 		
+		// Get the character at position 0 of the word.
 		char firstChar = word.charAt(0);
 
 		if((String.valueOf(firstChar).matches("\\p{Punct}")))
@@ -513,6 +529,7 @@ public class EncoderDecoder {
 	 */
 	private static boolean endsWithPunctuation(String word) {
 		
+		// Get the character at the last position of the word.
 		char lastChar = word.charAt(word.length() - 1);
 		
 		if(String.valueOf(lastChar).matches("\\p{Punct}"))
