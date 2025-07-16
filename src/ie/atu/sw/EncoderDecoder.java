@@ -281,14 +281,15 @@ public class EncoderDecoder {
 		int resultCounter = 0;
 
 		/*
-		 * Loop through the input array 
-		 * 
-		 * 
+		 * Loop through the input array ensuring the element is not null. If a new line is 
+		 * detected - assign the newline character. Otherwise, search the encodings array for
+		 * a match.
+		 *
 		 */
 		for (int x = 0; x < input.length; x++)
 		{
 			if(input[x] != null) {
-				
+
 				if(isNewLine(input[x])) 
 				{
 					fullMatch = "\n";
@@ -308,22 +309,26 @@ public class EncoderDecoder {
 				}
 			}
 
-			for (int i = 0; i < decodedWords.length; i++) 
+			/*
+			 * Loop through the input array ensuring the element is not null. If a new line is 
+			 * detected - assign the newline character. Otherwise, search the encodings array for
+			 * a match.
+			 *
+			 */
+			if (fullMatch != null) 
 			{
-				if (fullMatch != null) 
+
+				if (resultCounter >= decodings.length) 
 				{
-
-					if (resultCounter >= decodings.length) 
-					{
-						decodings = expandArray(decodings);
-					}
-
-					decodings[resultCounter++] = fullMatch;
-					fullMatch = null;
+					decodings = expandArray(decodings);
 				}
-			}
 
+				decodings[resultCounter++] = fullMatch;
+				fullMatch = null;
+			}
 		}
+
+
 
 		// pass full encoderDecoder array to this method that will return a new array
 		// with the decoded text built into readable text
