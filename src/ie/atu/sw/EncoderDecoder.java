@@ -369,17 +369,19 @@ public class EncoderDecoder {
 		String fullWordMatch = null;
 		String fullEncodingMatch = null;
 		
-		// Get full match where word is an exact match, no punctuation
+		/*
+		 * Loop through the encodings array from ReadEncodingsFile.getEncodings() and find a match
+		 * for the input word. If a match is found, the corresponding encoding is returned.
+		 */
 		for (int rows = 0; rows < ReadEncodingsFile.getEncodings().length; rows++) {
 
 			match = ReadEncodingsFile.getEncodings()[rows][0];
 			encoded = ReadEncodingsFile.getEncodings()[rows][1];
 
-			if (ReadEncodingsFile.getEncodings()[rows][0].equals(word)) 
+			if (match.equals(word)) 
 			{
 				fullWordMatch = match;
 				fullEncodingMatch = encoded;
-				
 				break;
 			}
 		}
