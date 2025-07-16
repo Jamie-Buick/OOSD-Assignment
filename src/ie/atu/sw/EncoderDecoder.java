@@ -59,9 +59,8 @@ public class EncoderDecoder {
 			puncEndEncoded1 = null;
 			puncEndEncoded2 = null;
 
-
+			
 			word = input[x];
-
 
 			if(word != null) {
 
