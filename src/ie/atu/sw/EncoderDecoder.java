@@ -73,15 +73,16 @@ public class EncoderDecoder {
 					// true used for isStart inside getPunctuation 
 					puncStart = getPunctuation(word, true);
 					puncStartEncoded = matchPunctuation(puncStart[0]);
-
+			
 					word = stripStartPunctuation(word);
+					
 				}
 
 				/*
 				 * Handle punctuation at the end of word, this handles up to two punctuation 
 				 * characters at the end of a word
 				 */
-				if(endsWithPunctuation(word)) 
+				if(!word.isEmpty() && endsWithPunctuation(word)) 
 				{
 					// false used for isStart inside getPunctuation 
 					puncEnd = getPunctuation(word, false);
