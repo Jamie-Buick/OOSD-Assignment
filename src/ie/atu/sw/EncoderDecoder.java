@@ -771,41 +771,73 @@ public class EncoderDecoder {
 	 * @return A new array where punctuation has been joined to their corresponding words.
 	 */
 	private static String[] buildPunct(String[] inputWords) {
-	  
-	    String[] joinedPunct = new String[inputWords.length];
-	    String temp;	// Temporary variable for punctuation.
-	    
-	    for (int i = 0; i < inputWords.length; i++) 
-	    {
-	        if (inputWords[i] != null) 
-	        {
-	        	// Check if next word is also punctuation
-	            if (i + 1 < inputWords.length && inputWords[i + 1] != null && inputWords[i + 1].matches("\\p{Punct}")) 
-	            {
-	                // Check if next next word is also punctuation
-	                if (i + 2 < inputWords.length && inputWords[i + 2] != null && inputWords[i + 2].matches("\\p{Punct}")) 
-	                {
-	                    // Two punctuation marks after the word
-	                    joinedPunct[i] = inputWords[i] + inputWords[i + 1].trim() + inputWords[i + 2].trim(); // Append the 2 punctuation characters to the current word.
-	                    i += 2; // Skip both punctuation marks
-	                }
-	                else 
-	                {
-	                    // Only one punctuation mark after the word
-	                    temp = inputWords[i + 1].trim();
-	                    joinedPunct[i] = inputWords[i] + temp; // Append it to the current word.
-	                    i++; // Skip the punctuation in next iteration
-	                }
-	            } 
-	            else 
-	            {
-	            	// No punctuation, just copy word.
-	                joinedPunct[i] = inputWords[i];
-	            }
-	        }
-	    }
-	    
-	    return joinedPunct;
+		String[] joinedPunct = new String[inputWords.length];
+		int j = 0;  // Output index
+
+		for (int i = 0; i < inputWords.length; i++) {
+			String current = inputWords[i];
+			String type = classifyPunctuation(current);
+
+			if (current != null) 
+			{
+				if (!type.equals("none")) 
+				{
+					if (type.equals("open")) 
+					{
+						if (i + 1 < inputWords.length && inputWords[i + 1] != null) 
+						{
+							joinedPunct[j++] = current + inputWords[i + 1];
+							i++; // skip next word because merged
+						} 
+						else 
+						{
+							joinedPunct[j++] = current;
+						}
+					} 
+					else if (type.equals("close")) 
+					{
+						if (j > 0) 
+						{
+							joinedPunct[j - 1] += current; // Append to last added word
+						} 
+						else 
+						{
+							joinedPunct[j++] = current;
+						}
+					} 
+					else 
+					{
+						joinedPunct[j++] = current;
+					}
+				} 
+				else 
+				{
+					joinedPunct[j++] = current;
+				}
+			}
+		}
+
+		return joinedPunct;
+	}
+
+	
+	
+	private static String classifyPunctuation(String word) {
+		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'"};
+		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";"};
+		  final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
+		  
+		   for (String p : OPEN_PUNCT) {
+		        if (p.equals(word)) return "open";
+		    }
+		    for (String p : CLOSE_PUNCT) {
+		        if (p.equals(word)) return "close";
+		    }
+		    for (String p : MISC_PUNCT) {
+		        if (p.equals(word)) return "misc";
+		    }
+		  
+		    return "none";
 	}
 	
 	
