@@ -75,7 +75,7 @@ public class EncoderDecoder {
 					puncStartEncoded = matchPunctuation(puncStart[0]);
 			
 					word = stripStartPunctuation(word);
-					
+				
 				}
 
 				/*
@@ -94,7 +94,6 @@ public class EncoderDecoder {
 					{
 						puncEndEncoded2 = matchPunctuation(puncEnd[1]);
 					}
-
 				}
 
 				// Check if a full match can be found first
