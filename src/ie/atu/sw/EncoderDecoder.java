@@ -61,6 +61,7 @@ public class EncoderDecoder {
 
 			
 			word = input[x];
+			//System.out.println(word);
 
 			if(word != null) {
 
@@ -70,6 +71,7 @@ public class EncoderDecoder {
 				// Handle 'lone' punctuation 
 				if (isLonePunctuation(word) && !word.startsWith("@@")){
 					puncStart = getPunctuation(word, true);
+					word = null;
 				}
 				
 				
@@ -79,8 +81,9 @@ public class EncoderDecoder {
 					// true used for isStart inside getPunctuation 
 					puncStart = getPunctuation(word, true);
 					puncStartEncoded = matchPunctuation(puncStart[0]);
-			
+
 					word = stripStartPunctuation(word);
+
 				}
 
 				
@@ -93,7 +96,7 @@ public class EncoderDecoder {
 					// false used for isStart inside getPunctuation 
 					puncEnd = getPunctuation(word, false);
 					word = stripPunctuation(word);
-
+					
 					puncEndEncoded1 = matchPunctuation(puncEnd[0]);
 
 					if (puncEnd[1] != null) 
@@ -101,42 +104,47 @@ public class EncoderDecoder {
 						puncEndEncoded2 = matchPunctuation(puncEnd[1]);
 					}
 				}
+				
+				if (word != null && word.trim().isEmpty()) {
+					word = null;
+				}
 
-				// Check if a full match can be found first
-				fullMatchEncoded = matchFullWord(word);
-
-				// If a full match is not found then we check for a prefix - suffix match
-				if(fullMatchEncoded == null)
-				{
-					// String array returning the prefix word & prefix encoding
-					String[] prefixResult = matchPrefix(word); 
-
-					/*
-					 * If the prefixResults returned valid data, it is split into prefixWord & prefixEncoding
-					 * the suffixEncoded is returned by providing the original word and prefixWord to the 
-					 * matchSuffix method. If no suffix is found, prefixEncoded is set to "0".
-					 * 
-					 * Else fullMatchEncoded is given "0" which means a missing word.
-					 */
-					if (prefixResult[0] != null && prefixResult[1] != null)
+				if (word != null) {
+					// Check if a full match can be found first
+					fullMatchEncoded = matchFullWord(word);
+	
+					// If a full match is not found then we check for a prefix - suffix match
+					if(fullMatchEncoded == null)
 					{
-						prefixWord = prefixResult[0];
-						prefixEncoded = prefixResult[1];
-
-						suffixEncoded = matchSuffix(word, prefixWord); 
-
-						if(suffixEncoded == null)
+						// String array returning the prefix word & prefix encoding
+						String[] prefixResult = matchPrefix(word); 
+	
+						/*
+						 * If the prefixResults returned valid data, it is split into prefixWord & prefixEncoding
+						 * the suffixEncoded is returned by providing the original word and prefixWord to the 
+						 * matchSuffix method. If no suffix is found, prefixEncoded is set to "0".
+						 * 
+						 * Else fullMatchEncoded is given "0" which means a missing word.
+						 */
+						if (prefixResult[0] != null && prefixResult[1] != null)
 						{
-							prefixEncoded = "0";
+							prefixWord = prefixResult[0];
+							prefixEncoded = prefixResult[1];
+	
+							suffixEncoded = matchSuffix(word, prefixWord); 
+	
+							if(suffixEncoded == null)
+							{
+								prefixEncoded = "0";
+							}
 						}
-					}
-					else
-					{
-						fullMatchEncoded = "0"; // the code for a missing word.
+						else
+						{
+							fullMatchEncoded = "0"; // the code for a missing word.
+						}
 					}
 				}
 			}
-
 
 			// Check if word starts with punctuation.
 			if(puncStartEncoded != null) 
@@ -823,7 +831,7 @@ public class EncoderDecoder {
 	
 	
 	private static String classifyPunctuation(String word) {
-		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'"};
+		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'", "`"};
 		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";"};
 		  final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
 		  
