@@ -67,22 +67,28 @@ public class EncoderDecoder {
 				// Checks for a new line
 				newLine = isNewLine(word);
 
+				// Handle 'lone' punctuation 
+				if (isLonePunctuation(word) && !word.startsWith("@@")){
+					puncStart = getPunctuation(word, true);
+				}
+				
+				
 				// Handle punctuation at the start of word 
-				if (startsWithPunctuation(word) && !word.startsWith("@@"))
+				if (!isLonePunctuation(word) && startsWithPunctuation(word) && !word.startsWith("@@"))
 				{
 					// true used for isStart inside getPunctuation 
 					puncStart = getPunctuation(word, true);
 					puncStartEncoded = matchPunctuation(puncStart[0]);
 			
 					word = stripStartPunctuation(word);
-				
 				}
 
+				
 				/*
 				 * Handle punctuation at the end of word, this handles up to two punctuation 
 				 * characters at the end of a word
 				 */
-				if(!word.isEmpty() && endsWithPunctuation(word)) 
+				if(!isLonePunctuation(word) && !word.isEmpty() && endsWithPunctuation(word)) 
 				{
 					// false used for isStart inside getPunctuation 
 					puncEnd = getPunctuation(word, false);
@@ -490,6 +496,21 @@ public class EncoderDecoder {
 		}
 	
 		return matchedSuffixEncoding;
+	}
+	
+	
+	
+	/**
+	 * Checks whether the word is a lone punctuation.
+	 *
+	 * This method returns {@code true} if the word is punctuation,
+	 * based on Unicode punctuation character matching.
+	 *
+	 * @param word The input word to check.
+	 * @return {@code true} if the word is punctuation; {@code false} otherwise.
+	 */
+	private static boolean isLonePunctuation(String word) {
+		return word != null && word.matches("\\p{Punct}");	
 	}
 	
 	
