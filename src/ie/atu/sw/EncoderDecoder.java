@@ -828,11 +828,19 @@ public class EncoderDecoder {
 		return joinedPunct;
 	}
 
-	
-	
+	/**
+	 * Classifies word as a type of punctuation 
+	 * This method takes the word and classifies it as a type of punctuation.
+	 * Opening, closing or misc punctuation. This helps when positioning the 
+	 * punctuation during rebuild.
+	 *
+	 *
+	 * @param word The word/ punctuation a string.
+	 * @return String with the classification.
+	 */
 	private static String classifyPunctuation(String word) {
 		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'", "`"};
-		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";"};
+		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";", ":"};
 		  final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
 		  
 		   for (String p : OPEN_PUNCT) {
