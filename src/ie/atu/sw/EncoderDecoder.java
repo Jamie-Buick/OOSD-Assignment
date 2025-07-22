@@ -71,7 +71,7 @@ public class EncoderDecoder {
 				// Handle 'lone' punctuation 
 				if (isLonePunctuation(word) && !word.startsWith("@@")){
 					puncStart = getPunctuation(word, true);
-					word = null;
+					word = puncStart[0];
 				}
 				
 				
