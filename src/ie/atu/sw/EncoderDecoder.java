@@ -74,7 +74,7 @@ public class EncoderDecoder {
 					word = puncStart[0];
 				}
 				
-				
+			
 				// Handle punctuation at the start of word 
 				if (!isLonePunctuation(word) && startsWithPunctuation(word) && !word.startsWith("@@"))
 				{
@@ -83,7 +83,6 @@ public class EncoderDecoder {
 					puncStartEncoded = matchPunctuation(puncStart[0]);
 
 					word = stripStartPunctuation(word);
-
 				}
 
 				
@@ -618,7 +617,7 @@ public class EncoderDecoder {
 				if(String.valueOf(c).matches("\\p{Punct}"))
 				{
 					puncEnd[counter] = String.valueOf(c);
-					 counter++;
+					counter++;
 				}
 			}
 			
@@ -789,11 +788,17 @@ public class EncoderDecoder {
 
 			if (current != null) 
 			{
-				// Need to handle quotations here as they need to be recognised as opening / closing
+				/*
+				 *  Need to handle quotations here before I deal with any other punctuation. To ensure that the punctuation is formatted 
+				 *  correctly, placed before a word or after a word, I need to track the opening and closing of quotation marks. I have
+				 *  ignored " " as they are not included in the encoding table.
+				 */
 				if (current.equals("'") || current.equals("`") ) 
 				{
+					// If the start of a quote is not detected
 			        if (!quoteStart) 
 			        {
+			        	// start a quote
 			        	quoteStart = true;
 			            // treat as opening: attach to next word
 			            if (i + 1 < inputWords.length && inputWords[i + 1] != null) 
@@ -807,6 +812,7 @@ public class EncoderDecoder {
 			        } 
 			        else 
 			        {
+			        	// end of quote
 			        	quoteStart = false;
 			            // treat as closing: append to previous word
 			            if (j > 0) 
@@ -821,6 +827,12 @@ public class EncoderDecoder {
 			    }
 				else 
 				{
+					/*
+					 * Handle the rest of the punctuation such as ( ) / ! .
+					 * I still need to monitor if it is closing or opening punctuation but these types
+					 * are easier as they are not mixed like seen in some texts with quotations.
+					 * 
+					 */
 					if (!type.equals("none")) 
 					{
 						if (type.equals("open")) 
@@ -873,22 +885,23 @@ public class EncoderDecoder {
 	 * @return Classification as "open", "close", "misc", or "none".
 	 */
 	private static String classifyPunctuation(String word) {
-		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'"};
-		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";", ":"};
-		  final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
 
-	
-		   for (String p : OPEN_PUNCT) {
-		        if (p.equals(word)) return "open";
-		    }
-		    for (String p : CLOSE_PUNCT) {
-		        if (p.equals(word)) return "close";
-		    }
-		    for (String p : MISC_PUNCT) {
-		        if (p.equals(word)) return "misc";
-		    }
-		  
-		    return "none";
+		// Classify the types of punctuation that may be found within the texts
+		final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'"};
+		final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";", ":"};
+		final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
+
+		for (String p : OPEN_PUNCT) {
+			if (p.equals(word)) return "open";
+		}
+		for (String p : CLOSE_PUNCT) {
+			if (p.equals(word)) return "close";
+		}
+		for (String p : MISC_PUNCT) {
+			if (p.equals(word)) return "misc";
+		}
+
+		return "none";
 	}
 	
 	
