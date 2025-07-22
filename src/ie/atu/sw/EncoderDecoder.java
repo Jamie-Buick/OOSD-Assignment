@@ -789,7 +789,8 @@ public class EncoderDecoder {
 
 			if (current != null) 
 			{
-				if (current.equals("'")) 
+				// Need to handle quotations here as they need to be recognised as opening / closing
+				if (current.equals("'") || current.equals("`") ) 
 				{
 			        if (!quoteStart) 
 			        {
@@ -872,7 +873,7 @@ public class EncoderDecoder {
 	 * @return Classification as "open", "close", "misc", or "none".
 	 */
 	private static String classifyPunctuation(String word) {
-		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'", "`"};
+		  final String[] OPEN_PUNCT = {"(", "[", "{", "\"", "'"};
 		  final String[] CLOSE_PUNCT = {")", "]", "}", "\"", "'", "!", "?", ".", ",", ";", ":"};
 		  final String[] MISC_PUNCT = {"-", "—", "*", "~", "#"};
 
