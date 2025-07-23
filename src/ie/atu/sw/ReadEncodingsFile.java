@@ -20,7 +20,7 @@ public class ReadEncodingsFile {
 	 * The size of the 2D array is defined here as this is known and will not change.
 	 * The 2D array contains two columns: [0] = word & [1] = encoding.
 	 */
-	private static String[][] encodings = new String[10000][2];
+	private static String[][] encodingMap = new String[10000][2];
 	
 	
 	
@@ -30,7 +30,7 @@ public class ReadEncodingsFile {
 	 * @return encodings This is the mapping array for the words and corresponding encoding.
 	 */
 	public static String[][] getEncodings() {
-		return encodings;
+		return encodingMap;
 	}
 	
 	
@@ -56,8 +56,8 @@ public class ReadEncodingsFile {
 				String[] data = line.split(",");
 				
 				// Store word & encoding in the array 
-				encodings[row][0] = data[0];
-				encodings[row][1] = data[1];
+				encodingMap[row][0] = data[0];
+				encodingMap[row][1] = data[1];
 			
 				// Increment to the next row
 				row++;

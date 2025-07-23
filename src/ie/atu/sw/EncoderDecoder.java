@@ -11,7 +11,7 @@ public class EncoderDecoder {
 	 * The encoding process involves:
 	 * 
 	 * - Detecting newlines
-	 * - Detecting and separating leading and trailing punctuation 
+	 * - Detecting and separating lone, leading and trailing punctuation 
 	 * - Attempting to a 'full match' encoding
 	 * - Attempting a prefix-suffix encoding
 	 * - Handle words/ punctuation with no match
