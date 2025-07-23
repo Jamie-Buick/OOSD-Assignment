@@ -22,7 +22,7 @@ Each item type above has it's own unique numeric value used for encoding and dec
 
 ### Input file Processing
 
-The encodings CSV file is parsed into an array called **encodingMap**, this contains the text and its numerical equivalent. The input text file is parsed line by line and split into words, line breaks a preserved by adding a special token, that are added to an array called **encoderDecoderInput**. When reading is complete, **encoderDecoderInput** is passed to either the encode **EncoderDecoder.encode** or **EncoderDecoder.decode** depending on the menu selection. 
+The encodings CSV file is parsed into an array called **encodingMap**, this contains the text and its numerical equivalent. The input text file is parsed line by line and split into words, the words are trimmed and set to lowercase. Line breaks are preserved by adding a special token. This is added to an array called **encoderDecoderInput**. When reading is complete, **encoderDecoderInput** is passed to either the encode **EncoderDecoder.encode** or **EncoderDecoder.decode** depending on the menu selection. 
 
 ### Encoding Process
 
