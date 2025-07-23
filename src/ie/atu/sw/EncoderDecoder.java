@@ -260,6 +260,9 @@ public class EncoderDecoder {
 		
 		// Remove any null or empty elements from the array
 		result = trimArray(encodings);
+		
+		// Prints some stats about the encoding
+		encodeStats(result);
 
 		return result;
 	}
@@ -355,6 +358,9 @@ public class EncoderDecoder {
 		// Remove any null or empty elements from the array
 		result = trimArray(buildPunctuation);
 
+		// Prints some stats about the decoding
+		decodeStats(result);
+		
 		return result;
 	}
 	
@@ -714,6 +720,44 @@ public class EncoderDecoder {
 	}
 	
 	
+	/**
+	 * Prints a simple diagnostics from the encoding process.
+	 *
+	 * Allows the user to see how many items were encoding successfully vs how many were processed.
+	 * An item is a word, prefix-suffix word or punctuation.
+	 *
+	 * @param input The input array to process.
+	 */
+	private static void encodeStats(String[] input) {
+		
+		int totalWordCount = 0;
+		int unknownWordCount = 0;
+		
+		for (int o = 0; o < input.length; o++) 
+		{
+			// Count elements that are not null or have whitespace
+			if (input[o] != null && !input[o].isBlank()) 
+			{
+				totalWordCount++;
+			}
+			
+			// Count unknown elements
+			if (input[o].equals("0"))
+			{
+				unknownWordCount++;
+			}
+
+		}
+		
+		System.out.println("\n--- Encoding Summary ---");
+		System.out.println("Total items processed: " + totalWordCount);
+		System.out.println("Total known items encoded: " + (totalWordCount - unknownWordCount));
+		System.out.println("Total unknown itmes encoded: " + unknownWordCount);
+	}
+	
+	
+	
+	
 
 	/*
 	 * Below are methods specifically related to Decoding the words.
@@ -938,6 +982,39 @@ public class EncoderDecoder {
 		return cleanedArr;
 	}
 	
+	/**
+	 * Prints a simple diagnostics from the decoding process.
+	 *
+	 * Allows the user to see how many words were decoded successfully vs how many were processed.
+	 *
+	 * @param input The input array to process.
+	 */
+	private static void decodeStats(String[] input) {
+		
+		int totalWordCount = 0;
+		int unknownWordCount = 0;
+		
+		for (int o = 0; o < input.length; o++) 
+		{
+			// Count elements that are not null or have whitespace
+			if (input[o] != null && !input[o].isBlank()) 
+			{
+				totalWordCount++;
+			}
+			
+			// Count unknown elements
+			if (input[o].equals("[???]"))
+			{
+				unknownWordCount++;
+			}
+
+		}
+		
+		System.out.println("\n--- Decoding Summary ---");
+		System.out.println("Total words processed: " + totalWordCount);
+		System.out.println("Total known words decoded: " + (totalWordCount - unknownWordCount));
+		System.out.println("Total unknown words decoded: " + unknownWordCount);
+	}
 	
 
 	
