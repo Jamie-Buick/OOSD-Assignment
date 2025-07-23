@@ -45,4 +45,23 @@ Decodes elements of **encoderDecoderInput** based on the **encodingMap**. The de
 
 
 
-## Features
+## Main Features
+- User can input custom files.
+- Encodes and decodes text file using a mapping CSV.
+- Dynamic arrays for memory efficiency. 
+- Handle line breaks to ensure formatting is preserved.
+- Handles punctuation and formats correctly during decoding.
+- Cleans up variables and arrays after execution to ensure the program runs consistently.
+
+
+
+
+
+
+
+
+
+
+
+
+
