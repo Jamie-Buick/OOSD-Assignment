@@ -89,7 +89,7 @@ Decodes elements of **encoderDecoderInput** based on the **encodingMap**. The de
 - The output file will be created and available in the specified location.
   
 ## Notes
-Arrays mainly used for this assignment to avoid the use of array lists. This required a lot of array indexing when encoding and decoding. This required dynamic arrays, as seen in Student Manager to be created to ensure efficient memory usage.
+This project follows the single responsibility principle, I had to refactor the TextFileProcessor and EncoderDecoder classes because the original design violated SRP. Instead of passing a full array to the encoder/decoder I was passing single words. This significantly reduced the speed of the application and violated the SRP as I had to process the encodings/ decodings in two classes. Arrays are used for this assignment to avoid the use of array lists. This required a lot of array indexing when encoding and decoding. This required dynamic arrays, as seen in Student Manager to be created to ensure efficient memory usage. 
 
 
 
