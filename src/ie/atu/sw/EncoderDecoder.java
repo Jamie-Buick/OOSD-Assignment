@@ -3,6 +3,12 @@ package ie.atu.sw;
 // Decoding and Encoding class 
 public class EncoderDecoder {
 
+	// Global variables used to track type of encodings across encoding methods 
+	private static int fullMatchCount = 0;
+	private static int prefixSuffixCount = 0;
+	private static int punctuationCount = 0;
+	
+	
 
 	/**
 	 * Encodes an array of words based on the encodings-10000.csv. Words are encoded by full matches, prefix/suffix matches 
@@ -111,6 +117,7 @@ public class EncoderDecoder {
 				if (word != null) {
 					// Check if a full match can be found first
 					fullMatchEncoded = matchFullWord(word);
+				
 	
 					// If a full match is not found then we check for a prefix - suffix match
 					if(fullMatchEncoded == null)
@@ -151,6 +158,7 @@ public class EncoderDecoder {
 				// Add to the encodedWords array & increment the counter.
 				encodedWords[counter] = puncStartEncoded;
 				counter++;
+				punctuationCount++;
 			}
 
 			// Check if word encoding was a full match.
@@ -159,13 +167,14 @@ public class EncoderDecoder {
 				// Add to the encodedWords array & increment the counter.
 				encodedWords[counter] = fullMatchEncoded;
 				counter++;
-
+				fullMatchCount++;
 				// Check if word ends with 1 punctuation character.
 				if (puncEndEncoded1 != null) 
 				{
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
+					punctuationCount++;
 				}
 
 				// Check if word ends with 2 punctuation character.
@@ -174,6 +183,7 @@ public class EncoderDecoder {
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
+					punctuationCount++;
 				}
 			} 
 			// Check if the newLine variable is true
@@ -189,6 +199,7 @@ public class EncoderDecoder {
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
+					punctuationCount++;
 				}
 
 				// Check if word ends with 2 punctuation character.
@@ -197,10 +208,17 @@ public class EncoderDecoder {
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
+					punctuationCount++;
 				}
 			}
 			else 
 			{
+				
+				// Before adding prefix/suffix encodings, increment prefixSuffixCount once if either exists
+				if (prefixEncoded != null || suffixEncoded != null) {
+				    prefixSuffixCount++;  // Increment once per prefix-suffix word
+				}
+				
 				// Check if word encoding was a prefix match.
 				if (prefixEncoded != null) 
 				{
@@ -223,6 +241,7 @@ public class EncoderDecoder {
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded1;
 					counter++;
+					punctuationCount++;
 				}
 
 				// Check if word ends with 1 punctuation character.
@@ -231,6 +250,7 @@ public class EncoderDecoder {
 					// Add to the encodedWords array & increment the counter.
 					encodedWords[counter] = puncEndEncoded2;
 					counter++;
+					punctuationCount++;
 				}
 			}
 
@@ -750,12 +770,14 @@ public class EncoderDecoder {
 		}
 		
 		System.out.println("\n--- Encoding Summary ---");
+		System.out.println("Total full words encoded: " + fullMatchCount);
+		System.out.println("Total prefix-suffix words encoded: " + prefixSuffixCount);
+		System.out.println("Total punctuation encoded: " + punctuationCount);
+		
 		System.out.println("Total items processed: " + totalWordCount);
 		System.out.println("Total known items encoded: " + (totalWordCount - unknownWordCount));
 		System.out.println("Total unknown itmes encoded: " + unknownWordCount);
 	}
-	
-	
 	
 	
 
