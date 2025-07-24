@@ -93,7 +93,7 @@ public class Menu {
 		System.out.println("*              		By Jamie Buick                	       *");
 		System.out.println("************************************************************");
 		System.out.println("(1) Specify Mapping File (.csv)");
-		System.out.println("(2) Specify Text File to Encode (.txt)");
+		System.out.println("(2) Specify Text File to Encode or Decode (.txt)");
 		System.out.println("(3) Specify Output File (.txt)");
 		System.out.println("(4) Encode Text File");
 		System.out.println("(5) Decode Text File");
