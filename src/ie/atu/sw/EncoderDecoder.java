@@ -770,13 +770,15 @@ public class EncoderDecoder {
 		}
 		
 		System.out.println("\n--- Encoding Summary ---");
+		System.out.println("Total items processed: " + totalWordCount);
+		System.out.println("Total known items encoded: " + (totalWordCount - unknownWordCount));
+		System.out.println("Total unknown items encoded: " + unknownWordCount);
+		System.out.println("");
 		System.out.println("Total full words encoded: " + fullMatchCount);
 		System.out.println("Total prefix-suffix words encoded: " + prefixSuffixCount);
 		System.out.println("Total punctuation encoded: " + punctuationCount);
 		
-		System.out.println("Total items processed: " + totalWordCount);
-		System.out.println("Total known items encoded: " + (totalWordCount - unknownWordCount));
-		System.out.println("Total unknown itmes encoded: " + unknownWordCount);
+	
 	}
 	
 	
